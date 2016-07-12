@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Room;
+use Illuminate\Support\Facades\Input;
+
+class RoomController extends Controller
+{
+    //
+    public function index()
+    {
+        return view('admin.rooms.index')->with([
+            'rooms' => Room::all(),
+            'deleted' => Room::onlyTrashed()->get()
+        ]);
+    }
+
+    public function show(Room $room)
+    {
+        if(\Auth::user()->isAdmin())
+            return view('admin.rooms.show')->with('room', $room);
+        else
+            return view('room-show')->with('room', $room);
+    }
+
+    public function update(Room $room, Request $request)
+    {
+        $room->name = $request->name;
+        $room->max_people = $request->people;
+        $room->wifi = $request->wifi;
+        $room->kitchen = $request->kitchen;
+        $room->balcony = $request->balcony;
+        $room->pets = $request->pets;
+        $room->size = $request->size;
+        $room->price = $request->price;
+        $room->text = $request->text;
+
+        if(Input::hasFile('img')){
+
+            if(Input::file('img')->isValid())
+            {
+                $path = 'images/rooms/';
+                $image = Input::file('img');
+                $imgName =  $room->name . $room->id . '.jpg';
+                $image->move($path, $imgName);
+                $room->img = $imgName;
+            }
+        }
+        $room->update();
+
+        return redirect()->action('RoomController@index');
+    }
+
+    public function store(Request $request)
+    {
+        $room = new Room();
+
+        $room->name = $request->name;
+        $room->max_people = $request->people;
+        $room->wifi = $request->wifi;
+        $room->kitchen = $request->kitchen;
+        $room->balcony = $request->balcony;
+        $room->pets = $request->pets;
+        $room->size = $request->size;
+        $room->price = $request->price;
+        $room->text = $request->text;
+        $room->save();
+
+        $path = 'images/rooms/';
+        $image = Input::file('img');
+        $imgName =  $room->name . $room->id . '.jpg';
+        $image->move($path, $imgName);
+        $room->img = $imgName;
+        $room->update();
+
+        return redirect()->action('RoomController@index');
+    }
+
+    public function destroy(Room $room)
+    {
+        $room->delete();
+        return response()->json($room);
+        //return redirect()->action('RoomController@index');
+    }
+}

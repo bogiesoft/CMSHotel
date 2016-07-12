@@ -1,0 +1,13 @@
+.side-bar{
+    min-height:100vh;
+    height: auto;
+    border-right:solid 1px #dbdbdb;
+}
+.top-bar{
+    background-color: #f0f0f0;
+    padding: 0 1em 0 1em;
+}
+
+.content-column{
+    padding:3em;
+}
