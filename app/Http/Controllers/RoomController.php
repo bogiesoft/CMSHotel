@@ -18,15 +18,7 @@ class RoomController extends Controller
             'deleted' => Room::onlyTrashed()->get()
         ]);
     }
-
-    public function show(Room $room)
-    {
-        if(\Auth::user()->isAdmin())
-            return view('admin.rooms.show')->with('room', $room);
-        else
-            return view('room-show')->with('room', $room);
-    }
-
+    
     public function update(Room $room, Request $request)
     {
         $room->name = $request->name;

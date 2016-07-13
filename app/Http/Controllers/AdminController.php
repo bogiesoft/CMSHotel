@@ -15,5 +15,22 @@ class AdminController extends Controller
     {
         return view('layouts.dashboard');
     }
-    
+
+
+    public function createStaff()
+    {
+
+    }
+
+    public function createAdmin()
+    {
+
+    }
+
+    public function createManager()
+    {
+
+    }
+
+
 }

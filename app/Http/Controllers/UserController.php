@@ -21,26 +21,6 @@ class UserController extends Controller
 
     }
 
-    public function createStaff()
-    {
-        if(\Auth::user()->role->role == 'user')
-            return back();
-        $roles  =   Role::select()->where('role', '=', 'staff')->get();
-        return view('admin.users.create')->with('roles', $roles);
-    }
-
-    public function createAdmin()
-    {
-        $roles  =   Role::select()->where('role', '=', 'admin')->get();
-        return view('admin.users.create')->with('roles', $roles);
-    }
-
-    public function createManager()
-    {
-        $roles  =   Role::select()->where('role', '=', 'manager')->get();
-        return view('admin.users.create')->with('roles', $roles);
-    }
-
     public function store(Request $request)
     {
         $user = new User;
