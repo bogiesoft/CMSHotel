@@ -16,11 +16,6 @@ class UserController extends Controller
         return view('admin.users.index')->with('users',User::all());
     }
 
-    public function create()
-    {
-
-    }
-
     public function store(Request $request)
     {
         $user = new User;
@@ -34,7 +29,6 @@ class UserController extends Controller
         else
             $user->img = 'mavatar.jpg';
         $user->save();
-        
         return redirect()->action('UserController@index');
     }
 
@@ -57,9 +51,11 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
-        //$email = $request->email    . '@cmshotel';
 
-        //$user->role_id = $request->role;
+        if(Gate::denies('update', $user)){
+            abort(403);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->lastname = $request->lastname;
