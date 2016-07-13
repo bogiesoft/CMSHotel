@@ -31,6 +31,11 @@ Route::group(['middleware' => ['admin']], function (){
     Route::resource('dashboard/meals','MealController', ['parameters' =>[
         'meals' => 'meal'
     ]]);
+    Route::post('dashboard/meal-types', 'MealController@addMealType');
+    Route::delete('dashboard/meal-types/{type}', 'MealController@destroyMealType',['parameters'=>[
+        'meal-types' => 'type'
+    ]]);
+    
     Route::resource('dashboard/tables', 'TableController', ['parameters' =>[
         'tables' => 'table'
     ]]);

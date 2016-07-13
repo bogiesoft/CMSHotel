@@ -71,4 +71,23 @@ class MealController extends Controller
 
         return redirect()->action('MealController@index');
     }
+
+    public function addMealType(Request $request)
+    {
+        $types = explode(',', trim(ucwords($request->types)));
+        $newtype= null;
+        foreach ($types as $type){
+            $newtype = new MealType();
+            $newtype->name = trim(ucfirst($type));
+            $newtype->save();
+        }
+
+        return redirect()->action('MealController@index');
+    }
+
+    public function destroyMealType(MealType $type)
+    {
+        $type = MealType::destroy($type->id);
+        return response()->json($type);
+    }
 }

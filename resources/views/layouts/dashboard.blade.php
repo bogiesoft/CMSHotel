@@ -56,17 +56,15 @@
 
                 </div>
                 <div class="col-md-10">
-                    <a href="/dashboard">
-                        <div class="row top-bar">
-                            <h4 class="text-right"><small>{{\Auth::user()->role->role}}</small>Dashboard</h4>
-                        </div>
-                    </a>
+                    <div class="row top-bar">
+                        <a href="/dashboard" class="btn-link">
+                        <h4 class="text-right"><small>{{\Auth::user()->role->role}}</small>Dashboard</h4>
+                        </a>
+                    </div>
                     <div class="row content-column">
                         @yield('content')
                     </div>
                 </div>
-
-
             </div>
 
 
