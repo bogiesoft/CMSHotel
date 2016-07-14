@@ -78,7 +78,7 @@
                     <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#editMealModal{{$meal->id}}">
                         <i class="fa fa-pencil-square-o" aria-hidden="false" aria-label="edit"></i>
                     </a>
-                    <button type="submit" class="btn btn-sm btn-danger delete-meal" data-token="{{csrf_token()}}" value="{{$meal->id}}">
+                    <button type="submit" class="btn btn-sm btn-info delete-meal" data-token="{{csrf_token()}}" value="{{$meal->id}}">
                         <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
                     </button>
                 </td>
@@ -140,7 +140,7 @@
                 <td>{{$type->name}}</td>
                 <td>{{$type->meal}}</td>
                 <td>
-                    <button type="submit" class="btn btn-sm btn-danger delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
+                    <button type="submit" class="btn btn-sm btn-info delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
                         <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
                     </button>
                 </td>

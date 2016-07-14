@@ -69,13 +69,25 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        //dd($data);
+        $img =  $this->avatar($data['sex']);
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'sex' => $data['sex'],
             'email' => $data['email'],
+            'img' =>  $img,
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function avatar($sex)
+    {
+        if($sex == '1')
+            return 'favatar.jpg';
+        else
+            return 'mavatar.jpg';
+
     }
     
     

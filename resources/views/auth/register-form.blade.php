@@ -26,7 +26,8 @@
                 Male
             </label>
             <label class="radio-inline">
-                <input type="radio" name="sex" value="1"> Female
+                <input type="radio" name="sex" value="1">
+                Female
             </label>
         </div>
 

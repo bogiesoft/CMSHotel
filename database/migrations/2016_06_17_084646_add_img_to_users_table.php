@@ -14,7 +14,7 @@ class AddImgToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('img')->default('mavatar.jpg');
+            $table->string('img');
         });
     }
 

@@ -29,7 +29,7 @@ class UserController extends Controller
         else
             $user->img = 'mavatar.jpg';
         $user->save();
-        return redirect()->action('UserController@index');
+        return redirect()->back();
     }
 
     /*
