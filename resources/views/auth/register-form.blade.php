@@ -1,10 +1,10 @@
 <div style="padding:0 5vw 5vw 5vw">
-    <form role="form" method="POST" action="{{ url('/register') }}">
+    <form role="form" method="POST" action="{{ url('/register') }}" id="registrationForm">
         {!! csrf_field() !!}
 
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label class="control-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+            <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
             @if ($errors->has('name'))
                 <span class="help-block">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -14,7 +14,7 @@
 
         <div class="form-group">
             <label class="control-label">Lastname</label>
-            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
+            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
         </div>
 
         <div class="form-group">
@@ -33,7 +33,7 @@
 
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
             <label class="control-label">E-Mail Address</label>
-            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+            <input type="email" class="form-control" name="email" value="{{ old('email') }}" >
 
             @if ($errors->has('email'))
                 <span class="help-block">
@@ -44,7 +44,7 @@
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
             <label class="control-label">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" minlength="6">
             @if ($errors->has('password'))
                 <span class="help-block">
                 <strong>{{ $errors->first('password') }}</strong>

@@ -24,6 +24,7 @@
     <script src="{{ elixir('js/app.js') }}"></script> --}}
     <script src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/validation.js') }}"></script>
     @yield('footer')
 
 </body>
