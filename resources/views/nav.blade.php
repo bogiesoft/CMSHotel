@@ -20,7 +20,15 @@
         <ul class="nav navbar-nav">
             <li><a href="{{ url('/about') }}">About</a></li>
             <li><a href="{{ url('/rooms') }}">Rooms</a></li>
-            <li><a href="{{ url('/reserve') }}">Make a reservation</a></li>
+            <li>
+                @if(Auth::check())
+                    <a href="{{url('/reserve')}}">
+                @else
+                    <a href="#" data-toggle="modal" data-target="#loginModal">
+                @endif
+                    Make a reservation
+                    </a>
+            </li>
             <li><a href="{{ url('/diner') }}">Diner</a></li>
         </ul>
 
