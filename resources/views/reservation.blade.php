@@ -25,34 +25,34 @@
 
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" value="{{ Auth::user()->email }}" name="email">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" value="{{ Auth::user()->email }}" name="email" required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name" value="{{Auth::user()->name}}" name="name">
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" value="{{Auth::user()->name}}" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" class="form-control" id="lastname" placeholder="Enter your lastname" value="{{Auth::user()->lastname}}" name="lastname">
+                        <input type="text" class="form-control" id="lastname" placeholder="Enter your lastname" value="{{Auth::user()->lastname}}" name="lastname" required>
                     </div>
 
                     <div class="form-group">
                         <label>Choose dates </label>
                         <div class="input-daterange input-group" id="datepicker">
-                            <input type="text" class="input-sm form-control" name="arrival" />
+                            <input type="text" class="input-sm form-control" name="arrival"  required />
                             <span class="input-group-addon">To</span>
-                            <input type="text" class="input-sm form-control" name="departure" />
+                            <input type="text" class="input-sm form-control" name="departure"  required />
                         </div>
                     </div>
 
                 </div>
                 <div class="col-sm-12 col-md-5">
-                    <div class="form-group">
+                    <div class="form-group" id="rooms-parent">
                         <label>Select room: </label>
-                        <select class="form-control" name="room">
+                        <select class="form-control" name="room" id="rooms">
                             @foreach($rooms as $room)
-                                <option value="{{$room->id}}"
+                                <option value="{{$room->id}}" data-people="{{$room->max_people}}"
                                 @if(isset($_GET['selected_room']))
                                     @if($_GET['selected_room'] == $room->id)
                                         {{ ' selected' }}
@@ -65,9 +65,8 @@
                     </div>
                     <div class="form-group">
                         <label>People: </label>
-                        <select class="form-control" name="people">
+                        <select class="form-control" name="people" id="people">
                             <option value="1" selected>1</option>
-                            <option value="2">2</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -101,5 +100,19 @@
             datesDisabled: ['today'],
             todayHighlight:"true"
         });
+
+        rePopulatePeopleSelect();
+        $('#rooms').on('change', function () {
+            rePopulatePeopleSelect();
+        });
+
+        function rePopulatePeopleSelect(){
+            numPeople = $('#rooms option:selected').data('people');
+            $('#people').find('option').remove();
+            for (i = 1; i <= numPeople; i++) {
+                $('#people').append($('<option>', {value:i, text:i}));
+            }
+        }
+
     </script>
 @endsection
