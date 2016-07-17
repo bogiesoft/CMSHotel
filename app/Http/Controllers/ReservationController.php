@@ -36,19 +36,25 @@ class ReservationController extends Controller
 
         $reservation = new Reservation();
 
-        $reservation->user_id = Auth::user()->id;
-        $reservation->arrival = $arrival;
-        $reservation->departure = $departure;
-        $reservation->room_id = $request->room;
-        $reservation->people = $request->people;
-        $reservation->request = $request->req;
+
 
         //$reservation->price = $request->price;
 
-        if($this->isAvailable($arrival, $departure, $reservation->room_id)){
-            Auth::user()->reservations()->save($reservation);
+        if($this->isAvailable($arrival, $departure, $request->room)){
+
+            $reservation->user_id = Auth::user()->id;
+            $reservation->arrival = $arrival;
+            $reservation->departure = $departure;
+            $reservation->room_id = $request->room;
+            $reservation->people = $request->people;
+            $reservation->request = $request->req;
+            $reservation->price = $reservation->people * $reservation->room->price;
+
+            $reservation->save();
+
             $room = Room::find($request->room);
             ++$room->counter;
+
             $room->save();
         }
         else{

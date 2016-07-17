@@ -52,7 +52,7 @@
                         <label>Select room: </label>
                         <select class="form-control" name="room" id="rooms">
                             @foreach($rooms as $room)
-                                <option value="{{$room->id}}" data-people="{{$room->max_people}}"
+                                <option value="{{$room->id}}" data-people="{{$room->max_people}}" data-price="{{$room->price}}"
                                 @if(isset($_GET['selected_room']))
                                     @if($_GET['selected_room'] == $room->id)
                                         {{ ' selected' }}
@@ -75,14 +75,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label></label>
+                        <label>Price total (in euros): </label>
+                        <p class="form-control-static">
+                            <i class="fa fa-money"></i>
+                            <span id="price">10</span>
+                            €
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-5 col-md-offset-6">
+                    <div class="form-group">
                         <button type="submit" class="form-control btn btn-info">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -102,9 +111,15 @@
         });
 
         rePopulatePeopleSelect();
+        updatePrice();
         $('#rooms').on('change', function () {
             rePopulatePeopleSelect();
+            updatePrice();
         });
+
+        $('#people').on('change', function () {
+            updatePrice();
+        })
 
         function rePopulatePeopleSelect(){
             numPeople = $('#rooms option:selected').data('people');
@@ -112,6 +127,14 @@
             for (i = 1; i <= numPeople; i++) {
                 $('#people').append($('<option>', {value:i, text:i}));
             }
+
+        }
+
+        function updatePrice(){
+            numPeople = parseInt($('#people').val());
+            price = parseInt($('#rooms option:selected').data('price'));
+            total = price * numPeople;
+            $('#price').text(total);
         }
 
     </script>
