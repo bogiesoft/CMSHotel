@@ -10,16 +10,36 @@
         .block>.container{
             padding-top:15vh;
         }
+        .fog{
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 90;
+        }
+        .loading{
+            position: absolute;
+            left:50vw;
+            top:50vh;
+            margin-left: -48px;
+            margin-top:-56px;
+            z-index: 100;
+        }
     </style>
 @endsection
 @section('content')
 
+    <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
+    <div class="fog" hidden></div>
+
     <div class="block">
         <div class="container">
-            @if(Session::has('flash_message'))
-                <div class="alert alert-danger">{{Session::get('flash_message')}}</div>
-            @endif
-            <form role="form" method="POST" action="/reservation">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="alert alert-danger alert-res" hidden>
+                        <p class="text-center"></p>
+                    </div>
+                </div>
+            <form role="form" method="POST" action="/reservation" id="form-reservation">
                 {{ csrf_field() }}
                 <div class="col-sm-12 col-md-5 col-md-offset-1">
 
@@ -48,7 +68,7 @@
 
                 </div>
                 <div class="col-sm-12 col-md-5">
-                    <div class="form-group" id="rooms-parent">
+                    <div class="form-group">
                         <label>Select room: </label>
                         <select class="form-control" name="room" id="rooms">
                             @foreach($rooms as $room)
@@ -82,23 +102,27 @@
                             €
                         </p>
                     </div>
-
                 </div>
                 <div class="col-sm-12 col-md-5 col-md-offset-6">
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-info">
+                        <button type="submit" class="form-control btn btn-info submit-res" data-token="{{csrf_token()}}">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </button>
                     </div>
                 </div>
             </form>
+
+            <div id="reservation-info" hidden>
+                @include('reservation-info')
+            </div>
         </div>
     </div>
 @endsection
 
 @section('footer')
     <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/ajax.js') }}"></script>
     <script>
         $('.input-daterange').datepicker({
             format: "dd-mm-yyyy",

@@ -95,4 +95,40 @@ $(document).ready(function(){
         });
     });
 
+
+    $('.submit-res').click(function () {
+        var url = '/reservation';
+        var token = $(this).data('token');
+        $.post({
+            url: url,
+            type: 'POST',
+            data: $('#form-reservation').serialize(),
+            beforeSend: function(){
+                $('.alert-res').hide();
+                $('.loading-div').show();
+                $('.fog').show();
+            },
+            complete: function(){
+                $('.loading-div').hide();
+                $('.fog').hide();
+            },
+            success: function (data) {
+                if(data == 'success'){
+                    $('#form-reservation').hide();
+                    $('#reservation-info').show();
+                }
+                if(data != 'success'){
+                    $('.alert-res p').text(data);
+                    $('.alert-res').show();
+                }
+                
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+
+        });
+        return false;
+    });
+
 });

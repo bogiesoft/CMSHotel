@@ -11,7 +11,6 @@ Route::get('/rooms', function(){
 });
 Route::get('/diner', 'TableReservationController@index');
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/reserve', 'ReservationController@reservationPage');
     Route::get('/profile', 'UserController@profile');
 });
 Route::resource('users','UserController');

@@ -22,7 +22,7 @@
             <li><a href="{{ url('/rooms') }}">Rooms</a></li>
             <li>
                 @if(Auth::check())
-                    <a href="{{url('/reserve')}}">
+                    <a href="{{url('/reservation')}}">
                 @else
                     <a href="#" data-toggle="modal" data-target="#loginModal">
                 @endif

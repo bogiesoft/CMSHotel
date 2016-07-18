@@ -8,18 +8,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
-use Illuminate\Support\Facades\Session;
 
 
 class ReservationController extends Controller
 {
-    //
+
     public function index()
     {
-        return view('admin.hotel.index')->with([
-            'rooms' => Room::all(),
-            'reservations' => Reservation::all()
-        ]);
+        return view('reservation')->with('rooms', Room::all());
     }
 
     public function reservationPage()
@@ -29,19 +25,12 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->req);
-
         $arrival = Carbon::createFromFormat('d-m-Y', $request->arrival);
         $departure = Carbon::createFromFormat('d-m-Y', $request->departure);
 
         $reservation = new Reservation();
-
-
-
-        //$reservation->price = $request->price;
-
+        $room = Room::find($request->room);
         if($this->isAvailable($arrival, $departure, $request->room)){
-
             $reservation->user_id = Auth::user()->id;
             $reservation->arrival = $arrival;
             $reservation->departure = $departure;
@@ -51,24 +40,18 @@ class ReservationController extends Controller
             $reservation->price = $reservation->people * $reservation->room->price;
 
             $reservation->save();
-
-            $room = Room::find($request->room);
             ++$room->counter;
 
             $room->save();
+            $message = 'success';
+            return response()->json($message);
         }
         else{
-            Session::flash('flash_message', 'The room is not available for selected dates');
-            return \Redirect::back()->withInput($request->all());
+            $message = $room->name .' is not available for selected dates';
+            return response()->json($message);
         }
-
-        return redirect()->action('UserController@profile');
     }
 
-    /*
-     * returns true if available
-     * returns false if not available
-     */
     public function isAvailable($arrival, $departure, $room) //
     {
         $reservations = Room::find($room)->reservations;
@@ -79,6 +62,8 @@ class ReservationController extends Controller
             $arrivalB = Carbon::createFromFormat('Y-m-d', $reservation->arrival);
             $departureB = Carbon::createFromFormat('Y-m-d', $reservation->departure);
 
+            if($arrivalB == $arrival || $departureB == $departure)
+                return false;
             if($departure->between($arrivalB, $departureB))
                 return false;
             elseif($arrival->between($arrivalB, $departureB))
@@ -88,33 +73,4 @@ class ReservationController extends Controller
         return true;
     }
 
-
-    public function create()
-    {
-        
-    }
-
-    public function destroy()
-    {
-
-    }
-
-    public function update(Reservation $reservation)
-    {
-
-    }
-
-
-    public function show(Reservation $reservation)
-    {
-
-    }
-    /*
-     *
-     * show form for editing
-     */
-    public function edit(Reservation $reservation)
-    {
-
-    }
 }
