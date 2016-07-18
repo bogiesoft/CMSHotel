@@ -42,3 +42,5 @@ Route::group(['middleware' => ['admin']], function (){
         'drinks' => 'drink'
     ]]);
 });
+
+Route::get('test', 'ReservationController@test');

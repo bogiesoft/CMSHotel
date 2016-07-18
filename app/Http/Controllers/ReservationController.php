@@ -13,6 +13,10 @@ use Auth;
 class ReservationController extends Controller
 {
 
+    public function test()
+    {
+        return view('reservation-info');
+    }
     public function index()
     {
         return view('reservation')->with('rooms', Room::all());
