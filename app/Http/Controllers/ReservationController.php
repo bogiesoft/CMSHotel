@@ -29,11 +29,12 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        $arrival = Carbon::createFromFormat('d-m-Y', $request->arrival);
-        $departure = Carbon::createFromFormat('d-m-Y', $request->departure);
+        $arrival = Carbon::createFromFormat('d-m-Y', $request->arrival, 'Europe/London');
+        $departure = Carbon::createFromFormat('d-m-Y', $request->departure, 'Europe/London');
 
         $reservation = new Reservation();
         $room = Room::find($request->room);
+
         if($this->isAvailable($arrival, $departure, $request->room)){
             $reservation->user_id = Auth::user()->id;
             $reservation->arrival = $arrival;
@@ -59,18 +60,16 @@ class ReservationController extends Controller
     public function isAvailable($arrival, $departure, $room) //
     {
         $reservations = Room::find($room)->reservations;
-        $arrival = new Carbon($arrival);
-        $departure = new Carbon($departure);
+        $arrival = new Carbon($arrival, 'Europe/London');
+        $departure = new Carbon($departure, 'Europe/London');
 
         foreach ($reservations as $reservation) {
             $arrivalB = Carbon::createFromFormat('Y-m-d', $reservation->arrival);
             $departureB = Carbon::createFromFormat('Y-m-d', $reservation->departure);
 
-            if($arrivalB == $arrival || $departureB == $departure)
+            if($departure->between($arrivalB, $departureB, true))
                 return false;
-            if($departure->between($arrivalB, $departureB))
-                return false;
-            elseif($arrival->between($arrivalB, $departureB))
+            elseif($arrival->between($arrivalB, $departureB, true))
                 return false;
 
         }

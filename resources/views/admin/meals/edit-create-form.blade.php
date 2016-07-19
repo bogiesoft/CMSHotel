@@ -19,7 +19,7 @@
         <span class="input-group-addon">
             <i class="fa fa-money fw" aria-hidden="true"></i>
         </span>
-        <input type="number" step="0.1" name="price" value="@if(isset($meal)){{$meal->price}}@else  {{1.00}} @endif" class="form-control">
+        <input type="number" step="0.1" name="price" value="@if(isset($meal)){{$meal->price}}@else{{1.00}}@endif" class="form-control">
     </div>
 </div>
 

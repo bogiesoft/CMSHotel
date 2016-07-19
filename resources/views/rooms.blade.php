@@ -20,7 +20,7 @@
                         <h3>{{$room->name}}</h3>
                         <p class="text-block">{{mb_strimwidth($room->text, 0, 100, "...")}}</p>
                         <p>
-                        <form action="/reserve" method="GET">
+                        <form action="/reservation" method="GET">
                             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#roomInfoModal{{$room->id}}">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </button>
@@ -46,7 +46,7 @@
                             @include('room')
                         </div>
                         <div class="modal-footer">
-                            <form action="/reserve" method="GET">
+                            <form action="/reservation" method="GET">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-info" name="selected_room" value="{{$room->id}}">
                                     <span class="glyphicon glyphicon-calendar"></span>

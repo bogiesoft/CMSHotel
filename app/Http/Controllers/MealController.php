@@ -62,11 +62,18 @@ class MealController extends Controller
         $meal->price = $request->price;
         $meal->meal_type_id = $request->meal_type;
 
-        $path = 'images/meals/';
-        $image = Input::file('img');
-        $imgName =  $meal->name . $meal->id . '.jpg';
-        $image->move($path, $imgName);
-        $meal->img = $imgName;
+        if(Input::hasFile('img')){
+
+            if(Input::file('img')->isValid())
+            {
+                $path = 'images/meals/';
+                $image = Input::file('img');
+                $imgName =  $meal->name . $meal->id . '.jpg';
+                $image->move($path, $imgName);
+                $meal->img = $imgName;
+            }
+        }
+
         $meal->update();
 
         return redirect()->action('MealController@index');
