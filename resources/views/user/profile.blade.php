@@ -22,6 +22,10 @@
         .avatar-upload-form{
             padding: 1em;
         }
+        .panel-full-hight{
+            min-height: 100%;
+            height:auto;
+        }
     </style>
 @endsection
 @section('content')
@@ -34,7 +38,6 @@
             <div class="col-md-2 avatar-div">
                 <a href="#" data-toggle="modal" data-target="#uploadAvatarModal">
                     <img src="/images/users/avatars/{{$user->img}}" class="img-responsive img-circle center-block avatar-upload">
-
                 </a>
                 <h4 class="text-center">{{ $user->name}} {{ $user->lastname }}</h4>
                 <p class="text-center">{{$user->email}}</p>
@@ -48,23 +51,23 @@
                 <ul class="nav nav-tabs tabs-div" role="tablist">
                     <li role="presentation" class="active">
                         <a href="#rooms" aria-controls="home" role="tab" data-toggle="tab">
-                            <h5><i class="fa fa-bed" aria-hidden="true"> </i> Room reservations
+                            <p><i class="fa fa-bed" aria-hidden="true"> </i> Room reservations
                                 <span class="label label-info hidden"> {{$user->reservations->count()}} </span>
-                            </h5>
+                            </p>
                         </a>
                     </li>
                     <li role="presentation">
                         <a href="#tables" aria-controls="profile" role="tab" data-toggle="tab">
-                            <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Table reservations
+                            <p><i class="fa fa-cutlery" aria-hidden="true"></i> Table reservations
                                 <span class="label label-info hidden"> {{$user->table_reservations->count()}} </span>
-                            </h5>
+                            </p>
                         </a>
                     </li>
                 </ul>
 
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="rooms">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-full-hight">
                             <div class="panel-body">
                                 @foreach($reservations as $reservation)
                                     @include('user.reservations')

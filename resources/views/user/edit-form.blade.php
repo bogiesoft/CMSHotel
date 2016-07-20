@@ -1,4 +1,4 @@
-<form method="POST" action="/user/{{Auth::user()->id}}" style="padding: 0 1em 1em 1em">
+<form method="POST" action="/users/{{Auth::user()->id}}" style="padding: 0 1em 1em 1em">
     {{csrf_field()}}
     {{method_field('PATCH')}}
     <div class="form-group">

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -47,16 +48,18 @@ class UserController extends Controller
             'roles' => Role::all()]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(User $user, Request $request)
     {
 
-        if (Gate::denies('update', $user)) {
+
+        if (!$user === \Auth::user()) {
             abort(403);
         }
 
+
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->lastname = $request->lastname;
+        $user->email = $request->email;
         $user->sex = $request->sex;
 
         $user->update();

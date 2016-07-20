@@ -48,6 +48,10 @@
                             <i class="fa fa-table" aria-hidden="true"></i>&nbsp;
                             Tables
                         </a>
+                        <a class="list-group-item" href="/dashboard/users" class="btn-link" target="_blank">
+                            <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                            Users
+                        </a>
                         <a class="list-group-item" href="/" class="btn-link" target="_blank">
                             <i class="fa fa-file-o" aria-hidden="true"></i>&nbsp;
                             Website

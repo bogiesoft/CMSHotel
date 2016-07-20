@@ -13,7 +13,9 @@ Route::get('/diner', 'TableReservationController@index');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'UserController@profile');
 });
-Route::resource('users','UserController');
+Route::resource('users','UserController', ['parameters' => [
+    'users' => 'user'
+]]);
 Route::resource('table-reservation', 'TableReservationController', ['parameters' => [
     'table-reservation' => 'reservation'
 ]]);
@@ -41,6 +43,7 @@ Route::group(['middleware' => ['admin']], function (){
     Route::resource('dashboard/drinks', 'DrinkController', ['parameters' =>[
         'drinks' => 'drink'
     ]]);
+
 });
 
 Route::get('test', 'ReservationController@test');
