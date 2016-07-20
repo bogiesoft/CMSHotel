@@ -36,12 +36,17 @@ class TableReservationController extends Controller
 
         $date  = explode('-' , $request->date);
         $time = explode(':', $request->time);
+
+
         $arrival = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
         $departure = $arrival->copy()->addHour(TableReservationType::find($request->type)->hours);
+
+
 
         //  Check reservations for each possible table
         foreach ($tables as $table){
             if($this->isAvailable($table, $arrival, $departure)){
+
                 $reservation = new TableReservation();
                 $reservation->user_id = \Auth::user()->id;
                 $reservation->name = $request->name;
@@ -51,17 +56,38 @@ class TableReservationController extends Controller
                 $reservation->arrival = $arrival;
                 $reservation->departure = $departure;
                 $reservation->save();
-                return redirect()->action('UserController@profile');
+
+                $data = [
+                    'success' => true,
+                    'message' => 'You have successfully booked a table from '
+                        . $arrival->toFormattedDateString() . ' - '
+                        . $departure->toFormattedDateString(),
+                ];
+
+                return response()->json($data);
+
+                //return redirect()->action('UserController@profile');
             }
         }
-        return redirect()->back()->withInput();
+
+
+        $data = [
+            'success' => false,
+            'message' => 'No tables available for selected date or time',
+        ];
+
+        return response()->json($data);
+        //return redirect()->back()->withInput();
     }
+
     //  Checks all reservations for table
-    //  Returns true if the table is available for giver period
+    //  Returns true if the table is available for given period
     //  Returns false if table is booked
     public function isAvailable($table, $arrival, $departure)
     {
         //return true;
+
+
         $reservations = $table->reservations;
 
         foreach ($reservations as $reservation) {

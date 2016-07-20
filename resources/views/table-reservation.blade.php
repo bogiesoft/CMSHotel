@@ -1,8 +1,8 @@
 <div class="col-md-12">
-    <h3 class="text-center text-info">BOOK A TABLE</h3>
+    <h3 class="text-center text-info">Book a table</h3>
 </div>
 <div class="col-md-10 col-md-offset-1 form-div">
-<form method="POST" action="/table-reservation">
+<form method="POST" action="/table-reservation" id="form-reservation">
     {{csrf_field()}}
     <div class="col-md-6">
         <div class="form-group">
@@ -43,11 +43,19 @@
             </select>
         </div>
         <div class="form-group">
-            <label>&nbsp</label>
-            <button type="submit" class="form-control btn btn-info">
-                <span class="glyphicon glyphicon-chevron-right"> </span>
-                <span class="glyphicon glyphicon-chevron-right"> </span>
-            </button>
+            @if(\Auth::check())
+                <label>&nbsp</label>
+                <button type="submit" class="form-control btn btn-info submit-res">
+                    <span class="glyphicon glyphicon-chevron-right"> </span>
+                    <span class="glyphicon glyphicon-chevron-right"> </span>
+                </button>
+            @else
+                <label>&nbsp</label>
+                <button type="button" data-toggle="modal" data-target="#loginModal" class="form-control btn btn-link">
+                    Login to book a table
+                </button>
+            @endif
+
         </div>
     </div>
 </form>

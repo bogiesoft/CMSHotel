@@ -38,7 +38,7 @@ function updatePrice(){
 $('.submit-res').click(function () {
     var url = '/reservation';
     var token = $(this).data('token');
-    $.post({
+    $.ajax({
         url: url,
         type: 'POST',
         data: $('#form-reservation').serialize(),

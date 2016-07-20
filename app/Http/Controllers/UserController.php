@@ -35,10 +35,7 @@ class UserController extends Controller
     /*
      * show user
      */
-    public function show(User $user)
-    {
-
-    }
+  
 
     /*
      * show edit form

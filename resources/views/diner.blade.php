@@ -20,10 +20,6 @@
             position: relative;
         }
 
-        .block>.container{
-            position: relative;
-        }
-
         .container>.inner-container{
             padding-top: 25vh;
             text-align: center;
@@ -48,23 +44,33 @@
 
         .pattern-bg>.container{
             padding-top: 15vh;
-            color: white;
             font-size:150%;
         }
         .block.pattern-bg{
-            background-color:#9e9e9e;
-            background-image:
-                    repeating-linear-gradient(45deg, transparent, transparent 15px,
-                    rgba(205, 205, 205, .6) 15px,
-                    rgba(205, 205, 205, .6) 30px);
+            background:#9e9e9e
+            repeating-linear-gradient(
+                    90deg, transparent, transparent 15px,
+                    rgba(205, 205, 205, .2) 15px,
+                    rgba(205, 205, 205, .2) 30px);
         }
-        .pattern-bg>.container>h2{
-            color:white;
-        }
-
         .form-div{
-            background-color: #bca7cf;
+            background-color: rgba(205, 205, 205, 1);
             padding: 5vh;
+        }
+        .fog{
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 90;
+        }
+        .loading{
+            position: fixed;
+            left:50%;
+            top:50%;
+            margin-left: -48px;
+            margin-top:-56px;
+            z-index: 100;
         }
 
 
@@ -96,7 +102,17 @@
         </div>
     </div>
     <div class="block pattern-bg">
+        <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
+        <div class="fog" hidden></div>
         <div class="container">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-danger alert-res" hidden>
+                    <p class="text-center"></p>
+                </div>
+                <div class="alert alert-success success-res" hidden>
+                    <p class="text-center"></p>
+                </div>
+            </div>
             @include('table-reservation')
         </div>
     </div>
@@ -105,10 +121,8 @@
 @section('footer')
 
     <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/table-reservation.js') }}"></script>
     <script>
-        $('.date').datepicker({
-            format: "yyyy-mm-dd",
-            startDate: "Today",
-        });
+
     </script>
 @endsection
