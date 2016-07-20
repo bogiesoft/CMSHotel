@@ -122,5 +122,8 @@
 @section('footer')
     <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>s
     <script src="{{ URL::asset('js/reservation.js') }}"></script>
+    <script>
 
+
+    </script>
 @endsection

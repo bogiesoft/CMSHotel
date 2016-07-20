@@ -35,6 +35,9 @@ class ReservationController extends Controller
 
         if($this->isAvailable($arrival, $departure, $room)){
             $reservation = new Reservation();
+            
+            $reservation->name = $request->name . ' ' . $request->lastname;
+            $reservation->email = $request->email;
             $reservation->user_id = Auth::user()->id;
             $reservation->arrival = $arrival;
             $reservation->departure = $departure;
