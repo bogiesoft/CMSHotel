@@ -1,13 +1,6 @@
 <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <?php
-    if(\Auth::user()->reservations() != null){
-        $reservation = \Auth::user()->reservations()->orderBy('created_at', 'descending')->first();
-        $arrival = new \Carbon\Carbon($reservation->arrival);
-        $departure = new \Carbon\Carbon($reservation->departure);
 
-    }
-    ?>
-    @if(isset($reservation))
+    @if(isset($res))
         <div class="row">
             <h2 class="text-center">Reservation successful</h2>
             <div class="col-md-4">
@@ -16,11 +9,11 @@
                         <div class="col-md-12">
                             <h6>
                                 <i class="fa fa-user" aria-hidden="true" style="vertical-align: middle;"></i>&nbsp&nbsp
-                                {{$reservation->user->name . ' ' . $reservation->user->lastname}}
+                                {{$res->user->name . ' ' . $res->user->lastname}}
                             </h6>
                             <h6>
                                 <i class="fa fa-envelope-o" aria-hidden="true" style="vertical-align: middle;"></i>&nbsp;
-                                {{$reservation->user->email}}
+                                {{$res->user->email}}
                             </h6>
                             <h6>
                                 <i class="fa fa-calendar" aria-hidden="true" style="vertical-align: middle;"></i>&nbsp;
@@ -28,12 +21,12 @@
                             </h6>
                             <h6>
                                 <i class="fa fa-users" aria-hidden="true" style="vertical-align: middle;"></i>&nbsp;
-                                {{$reservation->people}} @if($reservation->people == 1) {{' person'}}   @else {{' people'}} @endif
+                                {{$res->people}} @if($res->people == 1) {{' person'}}   @else {{' people'}} @endif
                             </h6>
 
                             <h6>
                                 <i class="fa fa-money" aria-hidden="true" style="vertical-align: middle;"></i>&nbsp;
-                                {{$reservation->price}}
+                                {{$res->price}}
                             </h6>
                         </div>
                     </div>
@@ -43,17 +36,17 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="col-md-4">
-                            <img src="/images/rooms/{{$reservation->room->img}}" class="img-responsive img-rounded">
+                            <img src="/images/rooms/{{$res->room->img}}" class="img-responsive img-rounded">
                         </div>
                         <div class="col-md-8">
-                            <h4>{{$reservation->room->name}}</h4>
-                            <p>{{$reservation->room->text}}</p>
+                            <h4>{{$res->room->name}}</h4>
+                            <p>{{$res->room->text}}</p>
                             <p class="text-capitalize">
                                 <i class="fa fa-list" aria-hidden="true"></i>&nbsp;
-                                @if($reservation->room->wifi){{'wifi'}}@endif
-                                @if($reservation->room->kithen){{', kitchen'}}  @endif
-                                @if($reservation->room->balcony){{', balcony'}}  @endif
-                                @if($reservation->room->pets){{', pets'}}  @endif
+                                @if($res->room->wifi){{'wifi'}}@endif
+                                @if($res->room->kitchen){{', kitchen'}}  @endif
+                                @if($res->room->balcony){{', balcony'}}  @endif
+                                @if($res->room->pets){{', pets'}}  @endif
                             </p>
                         </div>
                     </div>
@@ -66,5 +59,5 @@
                 <a href="{{url('/profile')}}" class="btn btn-link">My account</a>
             </div>
         </div>
-    @endif
+@endif
 </div>

@@ -114,7 +114,7 @@
             </form>
 
             <div id="reservation-info" hidden>
-                @include('reservation-info')
+
             </div>
         </div>
     </div>

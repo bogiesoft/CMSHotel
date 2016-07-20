@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('admin.users.index')->with('users',User::all());
+        return view('admin.users.index')->with('users', User::all());
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->sex = $request->sex;
         $user->role_id = $request->role;
-        if($user->sex)
+        if ($user->sex)
             $user->img = 'favatar.jpg';
         else
             $user->img = 'mavatar.jpg';
@@ -46,13 +46,14 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('admin.users.edit')->with([
-            'user'      =>  $user,
-            'roles'     =>  Role::all()]);
+            'user' => $user,
+            'roles' => Role::all()]);
     }
+
     public function update(Request $request, User $user)
     {
 
-        if(Gate::denies('update', $user)){
+        if (Gate::denies('update', $user)) {
             abort(403);
         }
 
@@ -73,7 +74,7 @@ class UserController extends Controller
         $image = Input::file('img');
         //$imgName =  $image->getClientOriginalName();
 
-        $imgName = $user->name . $user->lastname . $user->id . '.jpg' ;
+        $imgName = $user->name . $user->lastname . $user->id . '.jpg';
         $image->move($path, $imgName);
 
         $user->img = $imgName;
@@ -81,16 +82,17 @@ class UserController extends Controller
 
         return redirect()->action('UserController@profile');
     }
+
     public function profile()
     {
+        $user = \Auth::user();
+        $reservations = $user->reservations()->orderBy('created_at', 'descending')->get();
+        $table_reservations = $user->table_reservations()->orderBy('created_at', 'descending')->get();
         return view('user.profile')->with([
-            'user'=> \Auth::user(),
-            'reservations' => \Auth::user()->reservations,
-            'table_reservations' => \Auth::user()->table_reservations
+            'user'=> $user,
+            'reservations' => $reservations,
+            'table_reservations' => $table_reservations
         ]);
     }
-
-    
-
 
 }

@@ -22,10 +22,6 @@ class ReservationController extends Controller
         return view('reservation')->with('rooms', Room::all());
     }
 
-    public function reservationPage()
-    {
-        return view('reservation')->with('rooms', Room::all());
-    }
 
     public function store(Request $request)
     {

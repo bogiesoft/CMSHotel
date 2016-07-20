@@ -95,7 +95,6 @@ $(document).ready(function(){
         });
     });
 
-
     $('.submit-res').click(function () {
         var url = '/reservation';
         var token = $(this).data('token');

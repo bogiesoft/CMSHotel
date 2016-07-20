@@ -25,7 +25,9 @@
     </style>
 @endsection
 @section('content')
+    <?php
 
+    ?>
     <div class="block">
     <div class="container">
         <div class="row">
