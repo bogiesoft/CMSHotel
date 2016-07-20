@@ -25,13 +25,16 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        $arrival = Carbon::createFromFormat('d-m-Y', $request->arrival, 'Europe/London');
-        $departure = Carbon::createFromFormat('d-m-Y', $request->departure, 'Europe/London');
+        //$arrival = Carbon::createFromFormat('d-m-Y', $request->arrival, 'Europe/London');
+        //$departure = Carbon::createFromFormat('d-m-Y', $request->departure, 'Europe/London');
 
-        $reservation = new Reservation();
         $room = Room::find($request->room);
 
-        if($this->isAvailable($arrival, $departure, $request->room)){
+        $arrival = new Carbon($request->arrival, 'Europe/London');
+        $departure = new Carbon($request->departure, 'Europe/London');
+
+        if($this->isAvailable($arrival, $departure, $room)){
+            $reservation = new Reservation();
             $reservation->user_id = Auth::user()->id;
             $reservation->arrival = $arrival;
             $reservation->departure = $departure;
@@ -41,31 +44,46 @@ class ReservationController extends Controller
             $reservation->price = $reservation->people * $reservation->room->price;
 
             $reservation->save();
-            ++$room->counter;
 
+            ++$room->counter;
             $room->save();
-            $message = 'success';
-            return response()->json($message);
+
+            $data = [
+                'success' => true,
+                'message' => 'You have successfully booked '
+                    . $room->name . ' for dates: '
+                    . $arrival->toFormattedDateString() . ' - '
+                    . $departure->toFormattedDateString()
+            ];
+
+            return response()->json($data);
         }
         else{
-            $message = $room->name .' is not available for selected dates';
-            return response()->json($message);
+            $data = [
+                'success' => false,
+                'message' => $room->name .' is not available for selected dates'
+            ];
+
+            return response()->json($data);
         }
     }
 
     public function isAvailable($arrival, $departure, $room) //
     {
-        $reservations = Room::find($room)->reservations;
-        $arrival = new Carbon($arrival, 'Europe/London');
-        $departure = new Carbon($departure, 'Europe/London');
+        foreach ($room->reservations as $reservation) {
 
-        foreach ($reservations as $reservation) {
-            $arrivalB = Carbon::createFromFormat('Y-m-d', $reservation->arrival);
-            $departureB = Carbon::createFromFormat('Y-m-d', $reservation->departure);
+            $arrivalB = new Carbon($reservation->arrival, 'Europe/London');
+            $departureB =  new Carbon($reservation->departure, 'Europe/London');
+
+
+
+            //$arrivalB = Carbon::createFromFormat('Y-m-d', $reservation->arrival, 'Europe/London' );
+            //$departureB = Carbon::createFromFormat('Y-m-d', $reservation->departure, 'Europe/London');
 
             if($departure->between($arrivalB, $departureB, true))
                 return false;
-            elseif($arrival->between($arrivalB, $departureB, true))
+
+            if($arrival->between($arrivalB, $departureB, true))
                 return false;
 
         }

@@ -38,6 +38,9 @@
                     <div class="alert alert-danger alert-res" hidden>
                         <p class="text-center"></p>
                     </div>
+                    <div class="alert alert-success success-res" hidden>
+                        <p class="text-center"></p>
+                    </div>
                 </div>
             <form role="form" method="POST" action="/reservation" id="form-reservation">
                 {{ csrf_field() }}
@@ -112,54 +115,12 @@
                     </div>
                 </div>
             </form>
-
-            <div id="reservation-info" hidden>
-
-            </div>
         </div>
     </div>
 @endsection
 
 @section('footer')
-    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ URL::asset('js/ajax.js') }}"></script>
-    <script>
-        $('.input-daterange').datepicker({
-            format: "dd-mm-yyyy",
-            startDate: "Today",
-            orientation: "bottom left",
-            leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-            rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-            datesDisabled: ['today'],
-            todayHighlight:"true"
-        });
+    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>s
+    <script src="{{ URL::asset('js/reservation.js') }}"></script>
 
-        rePopulatePeopleSelect();
-        updatePrice();
-        $('#rooms').on('change', function () {
-            rePopulatePeopleSelect();
-            updatePrice();
-        });
-
-        $('#people').on('change', function () {
-            updatePrice();
-        })
-
-        function rePopulatePeopleSelect(){
-            numPeople = $('#rooms option:selected').data('people');
-            $('#people').find('option').remove();
-            for (i = 1; i <= numPeople; i++) {
-                $('#people').append($('<option>', {value:i, text:i}));
-            }
-
-        }
-
-        function updatePrice(){
-            numPeople = parseInt($('#people').val());
-            price = parseInt($('#rooms option:selected').data('price'));
-            total = price * numPeople;
-            $('#price').text(total);
-        }
-
-    </script>
 @endsection
