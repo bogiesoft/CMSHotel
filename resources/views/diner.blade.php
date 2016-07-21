@@ -73,6 +73,9 @@
             z-index: 100;
         }
 
+        .meal-div{
+            margin-bottom:1em;
+        }
 
     </style>
 @endsection
@@ -93,7 +96,6 @@
     <div class="block white-bg">
         <div class="container">
             @include('meals')
-
         </div>
     </div>
     <div class="block off-white-bg">
