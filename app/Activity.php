@@ -11,6 +11,9 @@ class Activity extends Model
 
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class, 'activity_reservation', 'activity_id', 'reservation_id');
+        return $this->belongsToMany(Reservation::class,
+            'activity_reservation',
+            'activity_id',
+            'reservation_id')->withPivot('time');
     }
 }
