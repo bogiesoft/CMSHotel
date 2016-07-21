@@ -16,17 +16,25 @@ class Reservation extends Model
         return $this->belongsTo(Room::class);
     }
 
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class, 'activity_reservation', 'reservation_id', 'activity_id');
+    }
+
     /*
-     * return true if reservation is in  the future/is active
-     * return false if reservation has ended/is not active
+     * return true if reservation is ongoing right now // user is in the hotel
+
      */
     public function active()
     {
-        $today = Carbon::now();
-        if($today->gt(new Carbon($this->departure)))
-            return false;
-        else
+        $today = Carbon::now('Europe/London');
+        $arrival = new Carbon($this->arrival, 'Europe/London');
+        $departure = new Carbon($this->departure, 'Europe/London');
+
+        if($today->between($arrival, $departure, true))
             return true;
+        else
+            return false;
 
 
     }
