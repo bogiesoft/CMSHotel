@@ -60,13 +60,20 @@ class RoomController extends Controller
         $room->size = $request->size;
         $room->price = $request->price;
         $room->text = $request->text;
+
         $room->save();
 
-        $path = 'images/rooms/';
-        $image = Input::file('img');
-        $imgName =  $room->name . $room->id . '.jpg';
-        $image->move($path, $imgName);
-        $room->img = $imgName;
+        if(Input::hasFile('img')){
+            $path = 'images/rooms/';
+            $image = Input::file('img');
+            $imgName =  $room->name . $room->id . '.jpg';
+            $image->move($path, $imgName);
+            $room->img = $imgName;
+        }
+        else{
+            $room->img = 'img0.jpg';
+        }
+
         $room->update();
 
         return redirect()->action('RoomController@index');
