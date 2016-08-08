@@ -19,12 +19,7 @@ class TableController extends Controller
             //'types' => TableReservationType::all()
         ]);
     }
-
-    public function show(Table $table)
-    {
-
-    }
-
+    
     public function store(Request $request)
     {
         $table = new Table();

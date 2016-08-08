@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -69,4 +72,15 @@ class User extends Authenticatable
         else
             return false;
     }
+
+    public function hasActiveReservation()
+    {
+        $td = Carbon::now();
+        foreach ($this->reservations()->get() as $reservation){
+            if($reservation->active())
+                return true;
+        }
+        return false;
+    }
+
 }

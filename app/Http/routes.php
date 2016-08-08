@@ -19,8 +19,15 @@ Route::resource('users','UserController', ['parameters' => [
 Route::resource('table-reservation', 'TableReservationController', ['parameters' => [
     'table-reservation' => 'reservation'
 ]]);
+Route::post('table-reservation/{reservation}/rating', 'TableReservationController@rating');
 Route::post('/avatar', 'UserController@uploadAvatar');
+
 Route::resource('reservation', 'ReservationController');
+Route::post('reservation/{reservation}/rating', 'ReservationController@rating');
+
+Route::resource('activity-orders', 'ActivityReservationController', ['parameters' => [
+    'activity-orders' => 'order'
+]]);
 
 
 //dashboard
@@ -45,5 +52,3 @@ Route::group(['middleware' => ['admin']], function (){
     ]]);
 
 });
-
-Route::get('test', 'ReservationController@test');

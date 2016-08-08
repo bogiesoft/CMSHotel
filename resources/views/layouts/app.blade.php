@@ -9,6 +9,7 @@
 
     <!-- Styles -->
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/bootstrap-datepicker.standalone.min.css') }}" rel="stylesheet">
     @yield('header')
     <script src="https://use.fontawesome.com/54cb56152d.js"></script>
 </head>

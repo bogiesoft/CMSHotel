@@ -119,18 +119,11 @@ class TableReservationController extends Controller
         return view('table-reservation')->with('types', TableReservationType::all());
     }
 
-    public function edit(Table $table)
+    public function rating(TableReservation $reservation, Request $request)
     {
-
+        $reservation->rating = $request->rating;
+        $reservation->update();
+        return redirect()->action('UserController@profile');
     }
 
-    public function update(Request $request, Table $table)
-    {
-
-    }
-
-    public function destroy(Table $table)
-    {
-
-    }
 }

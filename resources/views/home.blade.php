@@ -25,7 +25,7 @@
 </style>
 @endsection
 @section('content')
-        <div class="block bg-image">
+            <div class="block bg-image">
             <div class="container">
                     <h2 class="text-info text-center"><strong>Curabitur turpis sapien</strong></h2>
                     <p class="home-text text-center h6">Maecenas blandit felis nec massa porta, sed laoreet nunc blandit.</p>

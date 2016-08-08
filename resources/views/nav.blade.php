@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
 <div class="container">
     <div class="navbar-header">
@@ -44,14 +45,16 @@
                     <span style="margin-right: 15%"> {{ Auth::user()->name }} </span>
                     <img class="img-circle pull-right avatar-image" src="/images/users/avatars/{{Auth::user()->img}}" style="max-width:25px; max-height: 25px">
                 </a>
-
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>&nbsp; Profile</a></li>
-                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>&nbsp; Logout</a></li>
+                    <li class="@if(!Auth::user()->hasActiveReservation())  disabled" title="You have no active reservations @endif">
+                        <a href="{{ url('/activity-orders') }}"><i class="fa fa-btn fa-shopping-cart"></i>&nbsp; In room orders</a>
+                    </li>
                     @if(\Auth::user()->hasDashboard())
-                        <li><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>&nbsp; Dashboard</a></li>
+                    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>&nbsp; Dashboard</a></li>
                     @endif
-
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>&nbsp; Logout</a></li>
                 </ul>
             </li>
         @endif

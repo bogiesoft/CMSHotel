@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-
     $('.delete-meal').click(function () {
         var url = '/dashboard/meals';
         var id = $(this).val();
@@ -11,7 +9,6 @@ $(document).ready(function(){
             data: {_method: 'delete', _token: token},
             success: function (data) {
                 console.log(data);
-
                 $("#meal" + id).remove();
             },
             error: function (data) {

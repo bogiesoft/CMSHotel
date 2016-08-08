@@ -33,9 +33,26 @@ class Reservation extends Model
 
         if($today->between($arrival, $departure, true))
             return true;
-        else
-            return false;
+        return false;
 
 
+    }
+
+    public function passed()
+    {
+        $today = Carbon::now('Europe/London');
+        if($today->gt(new Carbon($this->departure, 'Europe/London')))
+            return true;
+        return false;
+    }
+
+    public function getFormattedArrivalDate()
+    {
+        return (new Carbon($this->arrival))->hour(17)->toDayDateTimeString();
+    }
+
+    public function getFormattedDepartureDate()
+    {
+        return (new Carbon($this->departure))->hour(12)->toDayDateTimeString();
     }
 }

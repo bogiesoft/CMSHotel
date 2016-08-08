@@ -1,7 +1,5 @@
 @extends('layouts.app')
 @section('header')
-    <link href="{{ URL::asset('css/bootstrap-datepicker.standalone.min.css') }}" rel="stylesheet"
-          xmlns="http://www.w3.org/1999/html">
     <style>
         .img-meals{
             max-width: 64px;

@@ -12,22 +12,13 @@ use Auth;
 
 class ReservationController extends Controller
 {
-
-    public function test()
-    {
-        return view('reservation-info');
-    }
     public function index()
     {
         return view('reservation')->with('rooms', Room::all());
     }
 
-
     public function store(Request $request)
     {
-        //$arrival = Carbon::createFromFormat('d-m-Y', $request->arrival, 'Europe/London');
-        //$departure = Carbon::createFromFormat('d-m-Y', $request->departure, 'Europe/London');
-
         $room = Room::find($request->room);
 
         $arrival = new Carbon($request->arrival, 'Europe/London');
@@ -77,12 +68,7 @@ class ReservationController extends Controller
 
             $arrivalB = new Carbon($reservation->arrival, 'Europe/London');
             $departureB =  new Carbon($reservation->departure, 'Europe/London');
-
-
-
-            //$arrivalB = Carbon::createFromFormat('Y-m-d', $reservation->arrival, 'Europe/London' );
-            //$departureB = Carbon::createFromFormat('Y-m-d', $reservation->departure, 'Europe/London');
-
+            
             if($departure->between($arrivalB, $departureB, true))
                 return false;
 
@@ -93,4 +79,10 @@ class ReservationController extends Controller
         return true;
     }
 
+    public function rating(Reservation $reservation, Request $request)
+    {
+        $reservation->rating = $request->rating;
+        $reservation->update();
+        return redirect()->action('UserController@profile');
+    }
 }

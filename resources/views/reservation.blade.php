@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('header')
-    <link href="{{ URL::asset('css/bootstrap-datepicker.standalone.min.css') }}" rel="stylesheet">
     <style>
         .block{
             min-height: 100vh;
@@ -9,6 +8,7 @@
 
         .block>.container{
             padding-top:15vh;
+            font-size: 120%;
         }
         .fog{
             position: absolute;
@@ -120,10 +120,6 @@
 @endsection
 
 @section('footer')
-    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>s
+    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('js/reservation.js') }}"></script>
-    <script>
-
-
-    </script>
 @endsection
