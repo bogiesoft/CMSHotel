@@ -1,6 +1,3 @@
-<div class="row">
-    <h3 class="text-center text-info">MEALS</h3><hr>
-</div>
 <div class="row-fluid">
     <?php  $i = 0; ?>
     @foreach($meals as $meal)

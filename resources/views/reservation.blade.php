@@ -1,39 +1,14 @@
 @extends('layouts.app')
-@section('header')
-    <style>
-        .block{
-            min-height: 100vh;
-            height: auto;
-        }
-
-        .block>.container{
-            padding-top:15vh;
-            font-size: 120%;
-        }
-        .fog{
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(255,255,255,0.6);
-            z-index: 90;
-        }
-        .loading{
-            position: absolute;
-            left:50vw;
-            top:50vh;
-            margin-left: -48px;
-            margin-top:-56px;
-            z-index: 100;
-        }
-    </style>
-@endsection
 @section('content')
 
     <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
     <div class="fog" hidden></div>
 
     <div class="block">
-        <div class="container">
+        <div class="container reservation-container">
+            <div class="col-md-10 col-md-offset-1">
+                <h4 class="text-center text-info"><strong>BOOK A ROOM</strong></h4>
+            </div>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="alert alert-danger alert-res" hidden>
                         <p class="text-center"></p>

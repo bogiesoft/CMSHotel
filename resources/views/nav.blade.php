@@ -1,6 +1,8 @@
+@include('modals.login-modal')
+@include('modals.register-modal')
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-<div class="container">
+<div class="container-fluid">
     <div class="navbar-header">
 
         <!-- Collapsed Hamburger -->
@@ -19,7 +21,6 @@
     <div class="collapse navbar-collapse" id="app-navbar-collapse">
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
-            <li><a href="{{ url('/about') }}">About</a></li>
             <li><a href="{{ url('/rooms') }}">Rooms</a></li>
             <li>
                 @if(Auth::check())
@@ -63,34 +64,4 @@
 </div>
 </nav>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="">
-                    @include('auth.login-form')
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-
-
-<div class="modal fade" tabindex="-1" role="dialog" id="registerModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="">
-                    @include('auth.register-form')
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
 

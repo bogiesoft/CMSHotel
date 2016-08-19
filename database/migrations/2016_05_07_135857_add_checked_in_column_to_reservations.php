@@ -12,7 +12,7 @@ class AddCheckedInColumnToReservations extends Migration
      */
     public function up()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->boolean('cheked_in');
         });
@@ -25,7 +25,7 @@ class AddCheckedInColumnToReservations extends Migration
      */
     public function down()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
         });
     }

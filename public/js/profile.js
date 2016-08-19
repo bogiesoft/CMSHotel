@@ -1,24 +1,12 @@
 $(document).ready(function () {
-
-    $('.rating-disabled > button').each(function () {
-        $(this).removeClass('change-rating').addClass('disabled');
-        $(this).attr('title', 'You can rate this reservation after your stay');
+    $('.receipt-button').popover({
+        container: 'body',
+        content: function() {
+            return $("#receipt-popover" + $(this).val()).html();
+        }
     });
 
-    $('.change-rating').hover(
-        //mouseover
-        function () {
-            $(this).prevAll().addBack().find('span').removeClass('fa-star-o').addClass('fa-star');
-            $(this).nextAll().find('span').removeClass('fa-star').addClass('fa-star-o');
-        },
-        //mouseout
-        function(){
-            setCurrentRating($(this).closest('.btn-group'));
-        }
-    );
-
     function setCurrentRating(group){
-
         var rating = group.attr('data-rating');
         if(rating == 0){
             group.find('button').each(function () {
@@ -33,6 +21,23 @@ $(document).ready(function () {
         }
 
     }
+
+    $('.rating-disabled > button').each(function () {
+        $(this).removeClass('change-rating').addClass('disabled');
+        $(this).attr('title', 'You can rate this reservation after your stay');
+    });
+
+    $('.change-rating').hover(
+        //mouseover
+        function () {
+            $(this).prevAll().addBack().find('span').removeClass('fa-star-o').addClass('fa-star');
+            $(this).nextAll().find('span').removeClass('fa-star').addClass('fa-star-o');
+        },
+        //mouseout
+        function(){
+            setCurrentRating($(this).parent('.btn-group'));
+        }
+    );
 
 
     $('.change-rating').click(function () {

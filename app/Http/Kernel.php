@@ -49,6 +49,10 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'admin' => \App\Http\Middleware\Admin::class
+        'dashboard' => \App\Http\Middleware\DashboardMiddleware::class,
+        'manager' => \App\Http\Middleware\ManagerMiddleware::class,
+        'dashboard-users' => \App\Http\Middleware\DashboardUsersMiddleware::class,
+        'dashboard-check-in' => \App\Http\Middleware\DashboardCheckInMiddleware::class,
+
     ];
 }

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-bottom: 2em">
             <img src="/images/activities/{{$activity->img}}" class="img-responsive img-rounded center-block">
             <h4 class="text-center">{{$activity->name}}</h4>
             <p>{{$activity->text}}</p>
@@ -13,22 +13,27 @@
                     {{$activity->price}}</span>
             </h6>
         </div>
+        @if(isset($reservation))
         <div class="col-md-12">
-            <form>
-                <div class="form-group">
-                    <select name="reservation" class="form-control">
-                        @foreach($reservations as $reservation)
-                            <option value="{{$reservation->id}}">{{$reservation->room->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <form action="/activity-orders" method="POST">
+                {{csrf_field()}}
+
+                    <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
+                    <input type="hidden" name="departure" value="{{$reservation->departure}}">
+                    <input type="hidden" name="activity_id" value="{{$activity->id}}">
+
                 <div class="form-group">
                     <label>Day: </label>
-                    <input type="date" name="date" class="form-control">
+                    <div class="input-group date">
+                        <input type="text" name="date" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Time:  </label>
-                    <input type="time" name="hour" class="form-control">
+                    <input type="time" name="time" class="form-control" step="1800" value="09:00">
                 </div>
 
                 <div class="form-group">
@@ -39,5 +44,6 @@
                 </div>
             </form>
         </div>
+        @endif
     </div>
 </div>

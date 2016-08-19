@@ -18,7 +18,12 @@ class Reservation extends Model
 
     public function activities()
     {
-        return $this->belongsToMany(Activity::class, 'activity_reservation', 'reservation_id', 'activity_id');
+        return $this->belongsToMany(Activity::class,
+            'activity_reservation',
+            'reservation_id',
+            'activity_id')
+            ->withPivot('id', 'time')
+            ->withTimestamps();
     }
 
     /*

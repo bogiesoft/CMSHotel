@@ -1,5 +1,5 @@
-<div id="receipt-popover" hidden>
-    @include('price-listing')
+<div id="receipt-popover{{$reservation->id}}" hidden>
+    @include('user.price-listing')
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -41,15 +41,17 @@
                         <i class="fa fa-user"></i>&nbsp;
                         {{$reservation->people . ' person/people'}}
                     </p>
-                    <button class="btn btn-sm btn-link pull-right" style="width: 50%;"
-                            data-toggle="popover"
-                            data-placement="right"
-                            data-html="true"
-                        <span class="">
+                    <div class="wrap">
+                        <button value="{{$reservation->id}}" class="receipt-button btn btn-sm btn-link pull-right" style="width: 50%;"
+                                data-toggle="popover"
+                                data-placement="auto right"
+                                data-html="true">
+                        <span>
                             <i class="fa fa-money"></i>&nbsp;
                             {{$reservation->price}}
                         </span>
-                    </button>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,32 +63,35 @@
                 <small> ({{$reservation->email}})</small>
                 </h6>
             </div>
-        </div><hr>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <form method="POST"
-                      action="reservation/{{$reservation->id}}/rating"
-                      data-reservation ="{{$reservation->id}}"
-                      data-type = "reservation">
-                {{csrf_field()}}
-                <input type="hidden" name="id" value="{{$reservation->id}}" class="reservation-id">
-                <div
-                        id="reservation-rating-group{{$reservation->id}}"
-                        class="btn-group @if(!$reservation->passed()) {{'rating-disabled'}}    @endif"
-                        data-rating ="{{$reservation->rating}}">
-                    @for($i=1;$i<=$reservation->rating;$i++)
-                        <button name="rating" type="submit" value="{{$i}}" class="btn btn-link change-rating rating{{$i}}">
-                            <span class="fa fa-star"></span>
-                        </button>
-                    @endfor
-                    @for($i = $reservation->rating+1;$i<=5;$i++)
-                        <button name="rating" type="submit" value="{{$i}}"  class="btn btn-link change-rating" data-url="reservations">
-                            <span class="fa fa-star-o"></span>
-                        </button>
-                    @endfor
-                </div>
-                </form>
-            </div>
         </div>
+        @if(!isset($norating))
+            <hr>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <form method="POST"
+                          action="reservation/{{$reservation->id}}/rating"
+                          data-reservation ="{{$reservation->id}}"
+                          data-type = "reservation">
+                        {{csrf_field()}}
+                        <input type="hidden" name="id" value="{{$reservation->id}}" class="reservation-id">
+                        <div
+                                id="reservation-rating-group{{$reservation->id}}"
+                                class="btn-group @if(!$reservation->passed()) {{'rating-disabled'}}    @endif"
+                                data-rating ="{{$reservation->rating}}">
+                            @for($i=1;$i<=$reservation->rating;$i++)
+                                <button name="rating" type="submit" value="{{$i}}" class="btn btn-link change-rating rating{{$i}}">
+                                    <span class="fa fa-star"></span>
+                                </button>
+                            @endfor
+                            @for($i = $reservation->rating+1;$i<=5;$i++)
+                                <button name="rating" type="submit" value="{{$i}}"  class="btn btn-link change-rating rating{{$i}}" data-url="reservations">
+                                    <span class="fa fa-star-o"></span>
+                                </button>
+                            @endfor
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

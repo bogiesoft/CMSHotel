@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('header')
     <style>
         .block{
@@ -15,11 +14,20 @@
 @section('content')
     <div class="block">
         <div class="container">
-            @foreach($activities as $activity)
-            <div class="col-md-6">
-                @include('user.activity')
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12">
+                    <ol class="breadcrumb">
+                        <li class="active">Active reservations</li>
+                    </ol>
+                </div>
+                @foreach($reservations as $reservation)
+                    <div class="col-md-6">
+                        <a href="/activity-orders/{{$reservation->id}}">
+                            @include('user.reservation')
+                        </a>
+                    </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
 @endsection

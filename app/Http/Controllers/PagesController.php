@@ -50,6 +50,6 @@ class PagesController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('profile', ['users' => $user, 'reservations' => $user->reservations]);
+        return view('profile', ['users' => $user, 'staff' => $user->reservations]);
     }
 }

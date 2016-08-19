@@ -12,7 +12,7 @@ class CreateReservationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             //
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -34,6 +34,6 @@ class CreateReservationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('reservations');
+        Schema::drop('staff');
     }
 }

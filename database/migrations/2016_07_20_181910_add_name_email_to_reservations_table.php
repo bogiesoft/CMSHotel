@@ -12,7 +12,7 @@ class AddNameEmailToReservationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->string('name');
             $table->string('email');
@@ -26,7 +26,7 @@ class AddNameEmailToReservationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->dropColumn('name');
             $table->dropColumn('email');

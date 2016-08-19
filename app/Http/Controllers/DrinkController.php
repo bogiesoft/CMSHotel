@@ -49,4 +49,17 @@ class DrinkController extends Controller
         $drink = Drink::destroy($drink->id);
         return response()->json($drink);
     }
+
+    public function addDrinkType(Request $request)
+    {
+        $types = explode(',', trim(ucwords($request->types)));
+        $newtype= null;
+        foreach ($types as $type){
+            $newtype = new DrinkType();
+            $newtype->name = trim(ucfirst($type));
+            $newtype->save();
+        }
+
+        return redirect()->action('DrinkController@index');
+    }
 }

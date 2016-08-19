@@ -1,6 +1,3 @@
-<div class="col-md-12">
-    <h3 class="text-center text-info">Book a table</h3>
-</div>
 <div class="col-md-10 col-md-offset-1 form-div">
 <form method="POST" action="/table-reservation" id="form-reservation">
     {{csrf_field()}}
@@ -9,7 +6,6 @@
             <label>Reservation on name: </label>
             <input type="text" name="name" class="form-control" value="@if(Auth::check()){{ Auth::user()->name . ' ' . Auth::user()->lastname}}@endif">
         </div>
-
         <div class="form-group">
             <label>Date: </label>
             <div class="input-group date">
@@ -19,7 +15,6 @@
             </span>
             </div>
         </div>
-
         <div class="form-group">
             <label>Time: </label>
             <input name="time" type="time" class="form-control" step="1800" value="12:00">
@@ -55,7 +50,6 @@
                     Login to book a table
                 </button>
             @endif
-
         </div>
     </div>
 </form>

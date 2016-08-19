@@ -12,7 +12,7 @@ class AddRatingToReservations extends Migration
      */
     public function up()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->tinyInteger('rating');
         });
@@ -30,7 +30,7 @@ class AddRatingToReservations extends Migration
      */
     public function down()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->dropColumn('rating');
         });

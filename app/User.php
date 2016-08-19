@@ -4,18 +4,14 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     protected $fillable = [
-        'name', 'lastname' , 'sex', 'email', 'password', 'img'
+        'name', 'lastname' , 'sex', 'email', 'password', 'img', 'role'
     ];
 
     /**
@@ -42,9 +38,16 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function isUser()
+    {
+        if($this->role->role == 'user')
+            return true;
+        else
+            return false;
+    }
     public function isAdmin()
     {
-        if(\Auth::user()->role->role == 'admin')
+        if($this->role->role == 'admin')
             return true;
         else
             return false;
@@ -52,14 +55,14 @@ class User extends Authenticatable
 
     public function isStaff()
     {
-        if(\Auth::user()->role->role == 'staff')
+        if($this->role->role == 'staff')
             return true;
         else
             return false;
     }
     public function isManager()
     {
-        if(\Auth::user()->role->role == 'manager')
+        if($this->role->role == 'manager')
             return true;
         else
             return false;
@@ -67,20 +70,26 @@ class User extends Authenticatable
 
     public function hasDashboard()
     {
-        if(\Auth::user()->role->role == 'admin')
-            return true;
-        else
+        if($this->isUser())
             return false;
+        return true;
     }
 
+    //true if reservations is currently happening and the user checked-in
     public function hasActiveReservation()
     {
         $td = Carbon::now();
         foreach ($this->reservations()->get() as $reservation){
-            if($reservation->active())
+            if($reservation->active() && $reservation->checked_in)
                 return true;
         }
         return false;
+    }
+
+    public function getFormattedLastLogin()
+    {
+        $date = new Carbon($this->last_login);
+        return $date->diffForHumans();
     }
 
 }

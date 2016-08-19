@@ -12,7 +12,7 @@ class AddPeopleRequirementsPriceToReservations extends Migration
      */
     public function up()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
             $table->mediumInteger('people');
             $table->text('request');
@@ -27,7 +27,7 @@ class AddPeopleRequirementsPriceToReservations extends Migration
      */
     public function down()
     {
-        Schema::table('reservations', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
         });
     }

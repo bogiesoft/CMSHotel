@@ -51,7 +51,7 @@
                             </button>
                         @endfor
                         @for($i = $reservation->rating+1;$i<=5;$i++)
-                            <button name="rating" type="submit" value="{{$i}}"  class="btn btn-link change-rating">
+                            <button name="rating" type="submit" value="{{$i}}"  class="btn btn-link change-rating rating{{$i}}">
                                 <span class="fa fa-star-o"></span>
                             </button>
                         @endfor

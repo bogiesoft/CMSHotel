@@ -43,7 +43,7 @@ class TableReservationController extends Controller
 
 
 
-        //  Check reservations for each possible table
+        //  Check staff for each possible table
         foreach ($tables as $table){
             if($this->isAvailable($table, $arrival, $departure)){
 
@@ -59,9 +59,8 @@ class TableReservationController extends Controller
 
                 $data = [
                     'success' => true,
-                    'message' => 'You have successfully booked a table from '
-                        . $arrival->toFormattedDateString() . ' - '
-                        . $departure->toFormattedDateString(),
+                    'message' => 'You have successfully booked a table for '
+                        . $arrival->toDayDateTimeString()
                 ];
 
                 return response()->json($data);
@@ -80,7 +79,7 @@ class TableReservationController extends Controller
         //return redirect()->back()->withInput();
     }
 
-    //  Checks all reservations for table
+    //  Checks all staff for table
     //  Returns true if the table is available for given period
     //  Returns false if table is booked
     public function isAvailable($table, $arrival, $departure)

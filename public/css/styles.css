@@ -1,0 +1,128 @@
+.block{
+    min-height: 100vh;
+    height: auto;
+}
+
+.block>.container{
+    padding-top: 20vh;
+}
+
+.block.bg-image{
+    background-image: url('/images/web/home02.jpg');
+    background-color: rgba(0,0,0, .5);
+    background-size: cover;
+    position: relative;
+}
+
+.block .bg-image>.container{
+    padding-top: 35vh;
+}
+
+.block.bg-image2{
+    background-image: url('/images/web/home01.jpg');
+    background-color: rgba(0,0,0, .5);
+    background-size: cover;
+    position: relative;
+}
+
+.block.bg-image2>.container{
+    padding-top: 35vh;
+}
+
+
+.block1{
+    background-image: url("/images/web/diner02.jpg");
+    background-color: rgba(0,0,0, .5);
+    background-size: cover;
+    position: relative;
+}
+.block1 > .container{
+    padding-top: 35vh;
+    text-align: center;
+    font-size: 200%;
+}
+.block2{
+    background-color: white;
+}
+
+.block2 .meal-div{
+    margin-bottom:1em;
+}
+
+.block3{
+    background: #fcfcfc
+    repeating-linear-gradient(
+            45deg, transparent, transparent 15px,
+            rgba(205, 205, 205, .15) 15px,
+            rgba(205, 205, 205, .15) 30px);
+}
+
+.block4{
+    background-color: white;
+}
+.block4 > .container{
+    padding-top: 25vh;
+}
+.block4 .form-div{
+    padding-top: 5vh;
+}
+
+.block-home > .container{
+    padding-top: 35vh;
+}
+
+.white-text{
+    color: white;
+}
+
+
+.img-meals{
+    max-width: 64px;
+    max-height:64px;
+}
+
+
+.reservation-container{
+    font-size: 120%;
+}
+
+.fog{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.6);
+    z-index: 90;
+}
+
+.loading{
+    position: absolute;
+    left:50vw;
+    top:50vh;
+    margin-left: -48px;
+    margin-top:-56px;
+    z-index: 100;
+}
+
+.fa-star{
+    color: goldenrod;
+}
+.block{
+    min-height: 100vh;
+    height: auto;
+}
+.block>.container{
+    padding-top: 15vh;
+}
+.tab-content {
+    padding-top: 15vh;
+}
+
+.tabs-div{
+    width: 100%;
+    border-bottom: 1px #dddddd solid;
+}
+
+.popover {
+    max-width: none;
+    width: auto;
+}

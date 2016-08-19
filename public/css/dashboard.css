@@ -1,13 +1,43 @@
-.side-bar{
-    min-height:100vh;
-    height: auto;
-    border-right:solid 1px #dbdbdb;
-}
-.top-bar{
-    background-color: #f0f0f0;
-    padding: 0 1em 0 1em;
+html,
+body{
+    height: 100%;
+    background-color: #222222;
 }
 
-.content-column{
-    padding:3em;
+.container-second-row{
+    height:100%;
+}
+.navbar-main{
+    margin: 0;
+    border: none;
+}
+
+.nav-sidebar {
+    height: 100%;
+    background-color: #222222;
+    margin-left: 0;
+    padding: 0;
+    padding-top: 50px;
+}
+
+@media (max-width: 768px) {
+    .nav-sidebar{
+        min-height:0;
+        height: auto;
+    }
+}
+
+.content-section{
+    overflow: auto;
+    padding-top: 10vh;
+}
+.nav-sidebar a{
+    color: lightgrey;
+}
+.nav-sidebar li>a:hover{
+    background-color: black;
+}
+
+.table>tbody>tr>td{
+    vertical-align: middle;
 }

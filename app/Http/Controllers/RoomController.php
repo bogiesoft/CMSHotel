@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Room;
 use Illuminate\Support\Facades\Input;
+use PhpParser\Node\Expr\Cast\Int_;
 
 class RoomController extends Controller
 {
@@ -14,8 +15,7 @@ class RoomController extends Controller
     public function index()
     {
         return view('admin.rooms.index')->with([
-            'rooms' => Room::all(),
-            'deleted' => Room::onlyTrashed()->get()
+            'rooms' => Room::withTrashed()->orderBy('deleted_at')->get()
         ]);
     }
     
@@ -84,5 +84,12 @@ class RoomController extends Controller
         $room->delete();
         return response()->json($room);
         //return redirect()->action('RoomController@index');
+    }
+
+    public function restore(Request $request)
+    {
+        $room = Room::withTrashed()->where('id', $request->id)->first();
+        $room->restore();
+        return response()->json($room);
     }
 }

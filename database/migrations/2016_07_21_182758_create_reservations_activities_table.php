@@ -17,7 +17,7 @@ class CreateReservationsActivitiesTable extends Migration
             $table->integer('reservation_id')->unsigned();
             $table->foreign('reservation_id')
                 ->references('id')
-                ->on('reservations');
+                ->on('staff');
             $table->integer('activity_id')->unsigned();
             $table->foreign('activity_id')
                 ->references('id')

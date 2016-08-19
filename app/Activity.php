@@ -4,18 +4,24 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
     //
+    use SoftDeletes;
+
     protected $table = 'activities';
+    protected $dates = ['deleted_at'];
 
     public function reservations()
     {
         return $this->belongsToMany(Reservation::class,
             'activity_reservation',
             'activity_id',
-            'reservation_id')->withPivot('time');
+            'reservation_id')
+            ->withPivot('id', 'time')
+            ->withTimestamps();
     }
 
     public function getFormattedDuration()

@@ -95,4 +95,39 @@ class UserController extends Controller
         ]);
     }
 
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return response()->json($user);
+    }
+
+    public function downgrade(User $user)
+    {
+        $role = Role::where('level', '=', $user->role->level - 1)->first();
+        if($role){
+            $user->role()->associate($role);
+            $user->update();
+        }
+
+        return redirect()->action('AdminController@users');
+    }
+
+    public function upgrade(User $user)
+    {
+        $role = Role::where('level', '=', $user->role->level + 1)->first();
+        if($role){
+            $user->role()->associate($role);
+            $user->update();
+        }
+
+        return redirect()->action('AdminController@users');
+    }
+
+    public function ban(User $user)
+    {
+        $user->banned = true;
+        $user->update();
+        return redirect()->action('AdminController@users');
+    }
+    
 }

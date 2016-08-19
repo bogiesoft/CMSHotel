@@ -16,7 +16,7 @@ class MealController extends Controller
     public function index()
     {
         return view('admin.meals.index')->with([
-            'meals'=> Meal::all(),
+            'meals'=> Meal::withTrashed()->orderBy('deleted_at')->get(),
             'types'  =>  MealType::all()
         ]);
 
@@ -46,13 +46,6 @@ class MealController extends Controller
     public function show(Meal $meal)
     {
         return view('admin.meals.show')->with('meal', $meal);
-    }
-
-
-    public function destroy(Meal $meal)
-    {
-        $meal = Meal::destroy($meal->id);
-        return response()->json($meal);
     }
 
     public function update(Meal $meal, Request $request)
@@ -96,5 +89,21 @@ class MealController extends Controller
     {
         $type = MealType::destroy($type->id);
         return response()->json($type);
+    }
+
+
+
+    public function destroy(Meal $meal)
+    {
+        $meal = Meal::destroy($meal->id);
+        return response()->json($meal);
+    }
+
+
+    public function restore(Request $request)
+    {
+        $meal = Meal::withTrashed()->where('id', $request->id)->first();
+        $meal->restore();
+        return response()->json($meal);
     }
 }
