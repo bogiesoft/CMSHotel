@@ -46,6 +46,7 @@ $(document).ready(function(){
                 row.removeClass('text-muted').removeAttr('title');
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-meal').removeClass('restore-meal').removeAttr('title');
+                $('#meal-income' + id).removeClass('text-muted').removeAttr('title');
 
                 row.parent().prepend(row);
             },
@@ -67,9 +68,10 @@ $(document).ready(function(){
             success: function (data) {
                 var row = $("#meal" + id);
                 var button = row.find('.delete-meal');
-                row.addClass('text-muted').attr('title', 'This meal is not visible on page');
+                row.addClass('text-muted').attr('title', 'This meal is not available for orders');
                 button.children('i').removeClass('fa-trash').addClass('fa-cart-plus');
-                button.addClass('restore-meal').removeClass('delete-meal').attr('title', 'Make meal visible on page');
+                button.addClass('restore-meal').removeClass('delete-meal').attr('title', 'Make meal available for orders');
+                $('#meal-income' + id).addClass('text-muted').attr('title', 'This meal is not available for order');
                 row.parent().append(row);
             },
             error: function (data) {
@@ -94,7 +96,7 @@ $(document).ready(function(){
                 row.removeClass('text-muted').removeAttr('title');
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-room').removeClass('restore-room').removeAttr('title');
-
+                $('#room-income' + id).removeClass('text-muted').removeAttr('title');
                 row.parent().prepend(row);
             },
             error: function (data) {
@@ -117,10 +119,12 @@ $(document).ready(function(){
                 //$("#room" + id).remove();
                 var row = $("#room" + id);
                 var button = row.find('.delete-room');
-                row.addClass('text-muted').attr('title', 'This room is not available for staff');
+                row.addClass('text-muted').attr('title', 'This room is not available for reservations');
                 button.children('i').removeClass('fa-trash').addClass('fa-cart-plus');
                 button.addClass('restore-room').removeClass('delete-room').attr('title', 'Make room available for reservation');
                 row.parent().append(row);
+
+                $('#room-income' + id).addClass('text-muted').attr('title', 'This room is not available for reservations');
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -181,7 +185,7 @@ $(document).ready(function(){
                 row.removeClass('text-muted').removeAttr('title');
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-activity').removeClass('restore-activity').removeAttr('title');
-
+                $('#activity-income' + id).removeClass('text-muted').removeAttr('title');
                 row.parent().prepend(row);
             },
             error: function (data) {
@@ -205,6 +209,7 @@ $(document).ready(function(){
                 row.addClass('text-muted').attr('title', 'This activity is not available for reservation');
                 button.children('i').removeClass('fa-trash').addClass('fa-cart-plus');
                 button.addClass('restore-activity').removeClass('delete-activity').attr('title', 'Make activity available for reservation');
+                $('#activity-income' + id).addClass('text-muted').attr('title', 'This activity is not available for reservations');
                 row.parent().append(row);
             },
             error: function (data) {

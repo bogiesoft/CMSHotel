@@ -29,6 +29,5 @@
             @endif
         </form>
     </td>
-
 </tr>
 @include('modals.users.show-user-modal')

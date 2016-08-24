@@ -64,19 +64,15 @@ class ReservationController extends Controller
 
     public function isAvailable($arrival, $departure, $room) //
     {
-        foreach ($room->reservations as $reservation) {
 
-            $arrivalB = new Carbon($reservation->arrival, 'Europe/London');
-            $departureB =  new Carbon($reservation->departure, 'Europe/London');
-            
-            if($departure->between($arrivalB, $departureB, true))
-                return false;
+        $reservations = $room->reservations()->where([
+            ['departure', '>=' , $arrival],
+            ['arrival', '<=' , $departure]
+        ])->get();
 
-            if($arrival->between($arrivalB, $departureB, true))
-                return false;
-
-        }
-        return true;
+        if($reservations->isEmpty())
+            return true;
+        return false;
     }
 
     public function rating(Reservation $reservation, Request $request)

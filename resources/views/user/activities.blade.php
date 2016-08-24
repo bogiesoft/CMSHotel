@@ -1,16 +1,4 @@
 @extends('layouts.app')
-@section('header')
-    <style>
-        .block{
-            min-height: 100vh;
-            height:100%;
-        }
-
-        .block>.container{
-            padding-top: 15vh;
-        }
-    </style>
-@endsection
 @section('content')
     <div class="block">
         <div class="container">
@@ -18,20 +6,31 @@
                 <div class="col-md-12">
                     <ol class="breadcrumb">
                         <li><a href="/activity-orders">Active reservations</a></li>
-                        <li class="active">Activities</li>
+                        <li class="active">Options</li>
                         <!--  <li><a href="#">Finished</a></li> -->
                     </ol>
                 </div>
-                @foreach($activities as $activity)
-                    <div class="col-md-6">
-                        @include('user.activity')
+                <div class="col-md-12">
+                    <div class="list-group">
+                        <a href="/{{$reservation->id}}/meal-order" class="list-group-item" style="padding: 2em">
+                           <div class="row">
+                               <div class="col-md-2">
+                                   <img src="/images/meals/img0.jpg" class="img-responsive img-circle">
+                               </div>
+                               <div class="col-md-10">
+                                   <h4 class="list-group-item-heading">Food order</h4>
+                                   <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                               </div>
+                           </div>
+                        </a>
+                        @foreach($activities as $activity)
+                            <a href="/activity-orders/{{$reservation->id}}/{{$activity->id}}" class="list-group-item" style="padding: 2em;">
+                                @include('user.activity')
+                            </a>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </div>
-@endsection
-@section('footer')
-    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ URL::asset('js/activity-orders.js') }}"></script>
 @endsection

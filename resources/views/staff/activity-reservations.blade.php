@@ -2,7 +2,7 @@
 @section('content')
     <?php $active = 'activity-reservations';  ?>
     <div class="col-sm-12 col-md-12">
-        <div class="panel panel-info">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h5 class="panel-title">
                     <i class="fa fa-shopping-cart"></i>&nbsp;
@@ -29,6 +29,7 @@
                     @endforeach
                 </table>
             </div>
+
         </div>
     </div>
 

@@ -3,11 +3,11 @@
 <?php $active = 'table-reservations';  ?>
 
     <div class="col-md-12">
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h5 class="panel-title">
                     <i class="fa fa-calendar" style="vertical-align: middle"></i>&nbsp;
-                    Today's check-ins
+                    Today's diner check-ins
                 </h5>
             </div>
             <div class="panel-body">
@@ -43,6 +43,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tfoot>
+                        <td colspan="6" class="text-center">{{$todays->links()}}</td>
+                    </tfoot>
                 </table>
             </div>
         </div>

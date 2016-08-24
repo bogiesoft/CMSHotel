@@ -15,8 +15,7 @@ class TableController extends Controller
     {
         return view('admin.tables.index')->with([
             'tables' => Table::all(),
-            //'staff' => TableReservation::all(),
-            //'types' => TableReservationType::all()
+            'reservations' => TableReservation::all()
         ]);
     }
     

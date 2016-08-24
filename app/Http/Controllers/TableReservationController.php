@@ -24,11 +24,6 @@ class TableReservationController extends Controller
         ]);
     }
 
-    public function show(Table $table)
-    {
-
-    }
-
     public function store(Request $request)
     {
 
@@ -87,20 +82,14 @@ class TableReservationController extends Controller
         //return true;
 
 
-        $reservations = $table->reservations;
+        $reservations = $table->reservations()->where([
+            ['departure', '>=' , $arrival],
+            ['arrival', '<=' , $departure]
+        ])->get();
 
-        foreach ($reservations as $reservation) {
-
-            $arrivalB = Carbon::parse($reservation->arrival);
-            $departureB = Carbon::parse($reservation->departure);
-
-            if($departure->between($arrivalB, $departureB))
-                return false;
-            elseif($arrival->between($arrivalB, $departureB))
-                return false;
-        }
-
-        return true;
+        if($reservations->isEmpty())
+            return true;
+        return false;
 
     }
 

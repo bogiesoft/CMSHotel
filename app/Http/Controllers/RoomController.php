@@ -15,7 +15,8 @@ class RoomController extends Controller
     public function index()
     {
         return view('admin.rooms.index')->with([
-            'rooms' => Room::withTrashed()->orderBy('deleted_at')->get()
+            'rooms' => Room::withTrashed()->orderBy('deleted_at')->get(),
+            'most_popular_room' => $this->mostPopular()
         ]);
     }
     
@@ -92,4 +93,10 @@ class RoomController extends Controller
         $room->restore();
         return response()->json($room);
     }
+
+    public function mostPopular()
+    {
+        return Room::orderBy('counter', 'desc')->first();
+    }
+    
 }

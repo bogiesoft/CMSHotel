@@ -18,38 +18,40 @@
             </h5>
         </div>
         <div class="panel-body">
-            <table class="table table-hover">
-                <thead>
-                <th>Name</th>
-                <th>Type</th>
-                <th>price</th>
-                <th>Image</th>
-                <th>Options</th>
-                </thead>
-                @foreach($drinks as $drink)
-                    <tr id="drink{{$drink->id}}">
-                        <td>{{$drink->name}}</td>
-                        <td>{{$drink->drink_type->name}}</td>
-                        <td>{{$drink->price}}</td>
-                        <td>@if($drink->img) {{$drink->img}}@else {{'No image'}} @endif</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#showDrinkModal{{$drink->id}}">
-                                <i class="fa fa-eye" aria-hidden="false" aria-label="show"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#editDrinkModal{{$drink->id}}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="false" aria-label="edit"></i>
-                            </a>
-                            <button type="submit" class="btn btn-sm btn-info delete-drink" data-token="{{csrf_token()}}" value="{{$drink->id}}">
-                                <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
-                            </button>
-                        </td>
-                    </tr>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>price</th>
+                    <th>Image</th>
+                    <th>Options</th>
+                    </thead>
+                    @foreach($drinks as $drink)
+                        <tr id="drink{{$drink->id}}">
+                            <td>{{$drink->name}}</td>
+                            <td>{{$drink->drink_type->name}}</td>
+                            <td>{{$drink->price}}</td>
+                            <td>@if($drink->img) {{$drink->img}}@else {{'No image'}} @endif</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#showDrinkModal{{$drink->id}}">
+                                    <i class="fa fa-eye" aria-hidden="false" aria-label="show"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#editDrinkModal{{$drink->id}}">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="false" aria-label="edit"></i>
+                                </a>
+                                <button type="submit" class="btn btn-sm btn-info delete-drink" data-token="{{csrf_token()}}" value="{{$drink->id}}">
+                                    <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!--modal -->
+                        @include('modals.drinks.edit-drink-modal')
                     <!--modal -->
-                    @include('modals.drinks.edit-drink-modal')
-                <!--modal -->
-                    @include('modals.drinks.show-drink-modal')
-                @endforeach
-            </table>
+                        @include('modals.drinks.show-drink-modal')
+                    @endforeach
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -67,24 +69,26 @@
             </h5>
         </div>
         <div class="panel-body">
-            <table class="table table-hover table-responsive">
-                <thead>
-                <th>Type</th>
-                <th>Drinks:</th>
-                <th>Options</th>
-                </thead>
-                @foreach($types as $type)
-                    <tr id="meal-type{{$type->id}}">
-                        <td>{{$type->name}}</td>
-                        <td>{{$type->drinks()->count()}}</td>
-                        <td>
-                            <button type="submit" class="btn btn-sm btn-primary delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
-                                <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                    <th>Type</th>
+                    <th>Drinks:</th>
+                    <th>Options</th>
+                    </thead>
+                    @foreach($types as $type)
+                        <tr id="meal-type{{$type->id}}">
+                            <td>{{$type->name}}</td>
+                            <td>{{$type->drinks()->count()}}</td>
+                            <td>
+                                <button type="submit" class="btn btn-sm btn-primary delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
+                                    <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -26,6 +26,16 @@ class Reservation extends Model
             ->withTimestamps();
     }
 
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class,
+            'meal_reservation',
+            'reservation_id',
+            'meal_id')
+            ->withPivot('id', 'count')
+            ->withTimestamps();
+    }
+
     /*
      * return true if reservation is ongoing right now // user is in the hotel
 

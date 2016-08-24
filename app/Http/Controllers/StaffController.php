@@ -22,7 +22,7 @@ class StaffController extends Controller
             'todays' => Reservation::where([
                 ['arrival', '>=' , $now],
                 ['arrival', '<=' , $tomorrow]
-            ])->orderBy('name')->get()
+            ])->orderBy('name')->paginate(10)
         ]);
     }
 
@@ -34,15 +34,15 @@ class StaffController extends Controller
             'todays' => TableReservation::where([
                 ['arrival', '>' , $now],
                 ['arrival', '<' , $tomorrow]
-            ])->orderBy('name')->get()
+            ])->orderBy('name')->paginate(10)
         ]);
     }
 
     public function activityReservations()
     {
-        return view('staff.activity-reservations')->with(
-            ['activities' => Activity::all()]
-        );
+        return view('staff.activity-reservations')->with([
+            'activities' => Activity::all()
+        ]);
     }
 
     public function reservationCheckIn(Reservation $reservation)

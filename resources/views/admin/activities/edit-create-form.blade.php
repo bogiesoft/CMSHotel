@@ -12,7 +12,7 @@
         <div class="input-group-addon">
             <i class="fa fa-money"></i>
         </div>
-        <input name="price" type="number" step="0.1" class="form-control" value="@if(isset($activity))    {{$activity->price}}    @endif" required>
+        <input name="price" type="number" step="0.1" class="form-control" value="@if(isset($activity)){{$activity->price}}@endif" required>
     </div>
 </div>
 <div class="form-group">
@@ -21,5 +21,5 @@
 </div>
 <div class="form-group">
     <label>Duration: </label>
-    <input name="duration" type="time" class="form-control" step="900"  value="@if(isset($activity)){{$activity->duration}}@else  {{'00:15'}}  @endif" required>
+    <input name="duration" type="time" class="form-control" step="900"  value="@if(isset($activity)){{$activity->duration}}@else{{'00:15'}}@endif" required>
 </div>

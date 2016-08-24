@@ -24,6 +24,16 @@ class Activity extends Model
             ->withTimestamps();
     }
 
+    public function getTotalActivityIncome()
+    {
+        $income = 0;
+        foreach ($this->reservations()->get() as $reservation){
+            $income += $this->price;
+        }
+
+        return $income;
+    }
+
     public function getFormattedDuration()
     {
         $time = explode(':', $this->duration);

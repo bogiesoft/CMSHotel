@@ -12,6 +12,7 @@
         </div>
     </div>
     <div class="block block2">
+        <a name="meals"></a>
         <div class="container">
             <div class="row">
                 <h4 class="text-center text-info"><strong>MEALS</strong></h4><hr>

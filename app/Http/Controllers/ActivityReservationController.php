@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Meal;
 use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,7 +31,16 @@ class ActivityReservationController extends Controller
     {
         return view('user.activities')->with([
             'reservation' => $reservation,
-            'activities' => Activity::all()
+            'activities' => Activity::all(),
+            'meals' =>Meal::all()
+        ]);
+    }
+
+    public function activityForm(Reservation $reservation, Activity $activity)
+    {
+        return view('user.activity-reservation-form')->with([
+            'activity' => $activity,
+            'reservation' => $reservation
         ]);
     }
     
@@ -54,7 +64,11 @@ class ActivityReservationController extends Controller
 
         $reservation->activities()->attach($activity->id,['time' => $date]);
         $reservation->price += $activity->price;
+        $activity->counter += 1;
+
         $reservation->update();
+        $activity->update();
+
         return view('user.order-finish')->with([
             'reservation' =>  $reservation,
             'activity' => Activity::find($request->activity_id),

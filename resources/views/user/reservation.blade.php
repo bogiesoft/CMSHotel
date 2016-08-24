@@ -1,3 +1,4 @@
+
 <div id="receipt-popover{{$reservation->id}}" hidden>
     @include('user.price-listing')
 </div>

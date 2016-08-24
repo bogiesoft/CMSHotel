@@ -3,7 +3,9 @@ body{
     height: 100%;
     background-color: #222222;
 }
-
+.collapse-icon{
+    color: white;
+}
 .container-second-row{
     height:100%;
 }

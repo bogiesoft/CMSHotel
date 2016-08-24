@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
@@ -14,8 +15,14 @@ class ActivityController extends Controller
     {
         return view('admin.activities.index')->with([
             'activities' => Activity::withTrashed()->orderBy('deleted_at')->get(),
-            
+            'most_popular_activity' =>$this->mostPopular(),
+            'reservations' => Reservation::all()
         ]);
+    }
+
+    public function mostPopular()
+    {
+        return Activity::orderBy('counter', 'desc')->first();
     }
 
     public function store(Request $request)

@@ -18,8 +18,8 @@
                 <div class="col-md-12">
                     <ol class="breadcrumb">
                         <li><a href="/activity-orders">Active reservations</a></li>
-                        <li><a href="/activity-orders/{{$reservation->id}}">Activities</a></li>
-                        <li class="active">Order details</li>
+                        <li><a href="/activity-orders/{{$reservation->id}}">Options</a></li>
+                        <li class="active"> Order details</li>
                     </ol>
                 </div>
                 <div class="col-md-12 text-center">

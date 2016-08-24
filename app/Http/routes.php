@@ -2,7 +2,11 @@
 
 Route::auth();
 Route::get('/', function () {
-    return view('home');
+    return view('home')->with([
+        'room' => \App\Room::orderBy('price', 'asc')->first(),
+        'meal' => \App\Meal::orderBy('counter', 'desc')->first(),
+        'activity' => \App\Activity::orderBy('counter', 'desc')->first(),
+    ]);
 });
 Route::get('/about', 'PagesController@about');
 Route::get('/rooms', function(){
@@ -15,6 +19,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users','UserController', ['parameters' => [
         'users' => 'user'
     ]]);
+
+    Route::get('/{reservation}/meal-order', 'MealReservationController@index');
+    Route::resource('/meal-order', 'MealReservationController');
 });
 Route::resource('table-reservation', 'TableReservationController', ['parameters' => [
     'table-reservation' => 'reservation'
@@ -27,6 +34,9 @@ Route::post('reservation/{reservation}/rating', 'ReservationController@rating');
 
 
 Route::get('activity-orders/{reservation}', 'ActivityReservationController@activities',['parameters' => [
+    'activity-orders' => 'reservation'
+]]);
+Route::get('activity-orders/{reservation}/{activity}', 'ActivityReservationController@activityForm',['parameters' => [
     'activity-orders' => 'reservation'
 ]]);
 Route::resource('activity-orders', 'ActivityReservationController', ['parameters' => [

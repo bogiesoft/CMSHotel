@@ -15,4 +15,24 @@ class Meal extends Model
     {
         return $this->belongsTo(MealType::class);
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class,
+            'meal_reservation',
+            'meal_id',
+            'reservation_id')
+            ->withPivot('id', 'count')
+            ->withTimestamps();
+    }
+
+    public function getTotalMealIncome()
+    {
+        $income = 0;
+        foreach ($this->reservations()->get() as $reservation){
+            $income += $reservation->pivot->count * $this->price;
+        }
+
+        return $income;
+    }
 }

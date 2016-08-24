@@ -9,15 +9,17 @@ use App\Meal;
 use App\MealType;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
-
+use App\Reservation;
 class MealController extends Controller
 {
     //
     public function index()
     {
         return view('admin.meals.index')->with([
-            'meals'=> Meal::withTrashed()->orderBy('deleted_at')->get(),
-            'types'  =>  MealType::all()
+            'meals'=> Meal::withTrashed()->orderBy('deleted_at')->paginate(10),
+            'types'  =>  MealType::all(),
+            'most_popular_meal' => $this->mostPopular(),
+            'reservations' => Reservation::all()
         ]);
 
         //'trashed' => Meal::onlyTrashed()->get()
@@ -33,10 +35,19 @@ class MealController extends Controller
 
         $meal->save();
 
-        $path = 'images/meals/';
-        $image = Input::file('img');
-        $imgName =  $meal->name . $meal->id . '.jpg';
-        $image->move($path, $imgName);
+        if(Input::hasFile('img')){
+
+            if(Input::file('img')->isValid())
+            {
+                $path = 'images/meals/';
+                $image = Input::file('img');
+                $imgName =  $meal->name . $meal->id . '.jpg';
+                $image->move($path, $imgName);
+            }
+        }
+        else
+            $imgName = 'img0.jpg';
+
         $meal->img = $imgName;
         $meal->update();
 
@@ -91,14 +102,11 @@ class MealController extends Controller
         return response()->json($type);
     }
 
-
-
     public function destroy(Meal $meal)
     {
         $meal = Meal::destroy($meal->id);
         return response()->json($meal);
     }
-
 
     public function restore(Request $request)
     {
@@ -106,4 +114,10 @@ class MealController extends Controller
         $meal->restore();
         return response()->json($meal);
     }
+
+    public function mostPopular()
+    {
+        return Meal::orderBy('counter', 'desc')->first();
+    }
+
 }

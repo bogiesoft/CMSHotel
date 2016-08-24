@@ -17,16 +17,19 @@
     @yield('header')
 </head>
 <body>
+@include('modals.users.account-modal')
     <nav class="navbar navbar-default navbar-fixed-top navbar-main">
     <div class="container-fluid">
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-sm-2 col-md-2">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/dashboard">{{'CMSHOTEL'}}</a>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dashboard-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="glyphicon glyphicon-align-justify collapse-icon"></span>
+                </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dashboard-sidebar-collapse">
+                    <span class="sr-only">Toggle sidebar navigation</span>
+                    <span class="glyphicon glyphicon-align-left collapse-icon"></span>
                 </button>
             </div>
         </div>
@@ -38,7 +41,7 @@
                             <img class="img-circle pull-right avatar-image" src="/images/users/avatars/{{Auth::user()->img}}" style="max-width:25px; max-height: 25px">
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="fa fa-btn fa-user"></i>&nbsp; Profile</a></li>
+                            <li><a href="#" data-target="#accountModal" data-toggle="modal"><i class="fa fa-btn fa-user"></i>&nbsp; Profile</a></li>
                             <li><a href="/logout"><i class="fa fa-btn fa-sign-out"></i>&nbsp; Logout</a></li>
                         </ul>
                 </li>
@@ -48,7 +51,8 @@
     </nav>
     <div class="container-fluid container-second-row">
         <div class="row" style="height: 100%">
-            <div class="col-xs-12 col-md-2 nav-sidebar">
+            <div class="col-xs-12 col-sm-2 col-md-2 nav-sidebar">
+                <div class="collapse navbar-collapse" id="dashboard-sidebar-collapse">
                 <ul class="nav nav-pills nav-stacked">
                     @if(\Auth::user()->isAdmin() || \Auth::user()->isManager())
                         <li @if(!isset($active)) class="active" @endif>
@@ -118,13 +122,18 @@
                                 </a>
                             </li>
                         @endif
+                        <li>
+                            <a href="/" target="_blank">
+                                <i class="fa fa-globe fa-fw"></i>&nbsp;
+                                Website
+                            </a>
+                        </li>
                 </ul>
+                </div>
             </div>
-
-            <div class="col-xs-12 col-md-10 content-section" style="background-color: lightgrey; height: 100%">
+            <div class="col-xs-12 col-sm-10 col-md-10 content-section" style="background-color: lightgrey; height: 100%">
                 @yield('content')
             </div>
-
         </div>
     </div>
 

@@ -49,7 +49,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>&nbsp; Profile</a></li>
                     <li class="@if(!Auth::user()->hasActiveReservation())  disabled" title="You have no active reservations @endif">
-                        <a href="{{ url('/activity-orders') }}"><i class="fa fa-btn fa-shopping-cart"></i>&nbsp; In room orders</a>
+                        <a href="{{ url('/activity-orders') }}"><i class="fa fa-btn fa-shopping-cart"></i>&nbsp; Room service</a>
                     </li>
                     @if(\Auth::user()->hasDashboard())
                     <li><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>&nbsp; Dashboard</a></li>
