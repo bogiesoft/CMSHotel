@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 class DrinkType extends Model
 {
     //
@@ -11,6 +10,6 @@ class DrinkType extends Model
 
     public function drinks()
     {
-        return $this->hasMany(Drink::class);
+        return $this->hasMany(Drink::class)->withTrashed();
     }
 }

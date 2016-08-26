@@ -14,7 +14,7 @@ class DrinkController extends Controller
     public function index()
     {
         return view('admin.drinks.index')->with([
-            'drinks' => Drink::all(),
+            'drinks' => Drink::withTrashed()->orderBy('deleted_at')->get(),
             'types' => DrinkType::all()
         ]);
     }
@@ -46,8 +46,40 @@ class DrinkController extends Controller
 
     public function destroy(Drink $drink)
     {
+
         $drink = Drink::destroy($drink->id);
         return response()->json($drink);
+    }
+
+    public function restore(Request $request)
+    {
+        $drink = Drink::withTrashed()->where('id', $request->id)->first();
+        $drink->restore();
+        return response()->json($drink);
+    }
+
+    public function destroyDrinkType(DrinkType $type, Request $request)
+    {
+
+        if(isset($request->clear_drinks)){
+            $this->changeAllOfType($type->id,$request->new_type);
+            DrinkType::destroy($type->id);
+            return redirect()->action('DrinkController@index');
+        }
+        if($type->drinks()->get()->isEmpty()){
+            $type = DrinkType::destroy($type->id);
+        }
+        else{
+            $type['error']= 'Some drinks are of this type';
+            return response()->json($type);
+        }
+        return response()->json($type);
+
+    }
+
+    public function changeAllOfType($oldType,$newType)
+    {
+        Drink::where('drink_type_id', '=', $oldType)->update(['drink_type_id' => $newType]);
     }
 
     public function addDrinkType(Request $request)

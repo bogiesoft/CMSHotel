@@ -22,7 +22,6 @@ class MealController extends Controller
             'reservations' => Reservation::all()
         ]);
 
-        //'trashed' => Meal::onlyTrashed()->get()
     }
 
     public function store(Request $request)
@@ -96,10 +95,28 @@ class MealController extends Controller
         return redirect()->action('MealController@index');
     }
 
-    public function destroyMealType(MealType $type)
+    public function destroyMealType(MealType $type, Request $request)
     {
-        $type = MealType::destroy($type->id);
+
+        if(isset($request->clear_meals)){
+            $this->changeAllOfType($type->id,$request->new_type);
+            MealType::destroy($type->id);
+            return redirect()->action('MealController@index');
+        }
+        if($type->meals()->get()->isEmpty()){
+            $type = MealType::destroy($type->id);
+        }
+        else{
+            $type['error']= 'Some meals are of this type';
+            return response()->json($type);
+        }
         return response()->json($type);
+
+    }
+
+    public function changeAllOfType($oldType,$newType)
+    {
+        Meal::withTrashed()->where('meal_type_id', '=', $oldType)->update(['meal_type_id' => $newType]);
     }
 
     public function destroy(Meal $meal)

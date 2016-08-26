@@ -35,6 +35,15 @@ class Reservation extends Model
             ->withPivot('id', 'count')
             ->withTimestamps();
     }
+    public function drinks()
+    {
+        return $this->belongsToMany(Drink::class,
+            'drink_reservation',
+            'reservation_id',
+            'drink_id')
+            ->withPivot('id', 'count')
+            ->withTimestamps();
+    }
 
     /*
      * return true if reservation is ongoing right now // user is in the hotel

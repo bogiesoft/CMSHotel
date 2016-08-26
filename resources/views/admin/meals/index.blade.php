@@ -5,6 +5,11 @@
 @include('modals.meals.add-meal-modal')
 @include('modals.meals.add-meal-type-modal')
 <?php $active = 'meals';  ?>
+
+
+
+
+
 <div class="col-sm-12 col-md-8">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -49,7 +54,6 @@
                                     <button type="submit" class="btn btn-sm btn-info delete-meal" data-token="{{csrf_token()}}" value="{{$meal->id}}">
                                         <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>&nbsp;
                                     </button>
-
                                 @endif
                             </td>
                         </tr>
@@ -145,15 +149,20 @@
                     <th>Options</th>
                     </thead>
                     @foreach($types as $type)
-                        <tr id="meal-type{{$type->id}}">
-                            <td>{{$type->name}}</td>
-                            <td>{{$type->meals()->count()}}</td>
-                            <td>
-                                <button type="submit" class="btn btn-sm btn-primary delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
-                                    <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <form action="/dashboard/meal-types/{{$type->id}}" method="post">
+                            {{csrf_field()}}
+                            {{method_field('delete')}}
+                            <tr id="meal-type{{$type->id}}">
+                                <td>{{$type->name}}</td>
+                                <td>{{$type->meals()->count()}}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-info delete-meal-type" data-token="{{csrf_token()}}" value="{{$type->id}}">
+                                        <i class="fa fa-trash" aria-hidden="false" aria-label="delete"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+                        @include('modals.meals.type-delete-error')
                     @endforeach
                 </table>
             </div>

@@ -36,8 +36,8 @@ body{
 .nav-sidebar a{
     color: lightgrey;
 }
-.nav-sidebar li>a:hover{
-    background-color: black;
+.nav-sidebar li>a:hover, .nav-sidebar li>a:active{
+    background-color: #222222;
 }
 
 .table>tbody>tr>td{

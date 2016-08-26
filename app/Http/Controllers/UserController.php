@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Gate;
 
@@ -56,20 +57,25 @@ class UserController extends Controller
             abort(403);
         }
 
-
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->sex = $request->sex;
-
+        if(isset($password)){
+            if(Hash::check($request->old, $user->password)){
+                $user->password = bcrypt($request->new);
+            }
+        }
+        else{
+            $user->name = $request->name;
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
+            $user->sex = $request->sex;
+        }
         $user->update();
 
         return redirect()->action('UserController@profile');
     }
 
-    public function uploadAvatar()
+    public function uploadAvatar(Request $request, User $user)
     {
-        $user = \Auth::user();
+        //$user = \Auth::user();
         $path = 'images/users/avatars';
         $image = Input::file('img');
         //$imgName =  $image->getClientOriginalName();

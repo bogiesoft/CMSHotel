@@ -16,6 +16,7 @@ Route::get('/rooms', function(){
 Route::get('/diner', 'TableReservationController@index');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'UserController@profile');
+    Route::post('users/{user}/avatar', 'UserController@uploadAvatar');
     Route::resource('users','UserController', ['parameters' => [
         'users' => 'user'
     ]]);
@@ -27,7 +28,6 @@ Route::resource('table-reservation', 'TableReservationController', ['parameters'
     'table-reservation' => 'reservation'
 ]]);
 Route::post('table-reservation/{reservation}/rating', 'TableReservationController@rating');
-Route::post('/avatar', 'UserController@uploadAvatar');
 
 Route::resource('reservation', 'ReservationController');
 Route::post('reservation/{reservation}/rating', 'ReservationController@rating');
@@ -86,7 +86,9 @@ Route::group(['middleware' => ['dashboard']], function (){
         ]]);
         Route::post('dashboard/drinks/restore', 'DrinkController@restore');
         Route::post('dashboard/drink-types', 'DrinkController@addDrinkType');
-
+        Route::delete('dashboard/drink-types/{type}', 'DrinkController@destroyDrinkType',['parameters'=>[
+            'drink-types' => 'type'
+        ]]);
         //activities
         Route::post('dashboard/activities/restore', 'ActivityController@restore');
         Route::resource('dashboard/activities', 'ActivityController', ['parameters' =>[

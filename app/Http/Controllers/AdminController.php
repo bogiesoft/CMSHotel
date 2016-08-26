@@ -17,13 +17,22 @@ class AdminController extends Controller
     
     public function update(Request $request, User $user)
     {
-        if(Hash::check($request->old_password, $user->password)){
+
+        if(isset($password)){
+            if(Hash::check($request->old, $user->password)){
+                if($request->new == $request->new2)
+                    $user->password = bcrypt($request->new);
+            }
+        }
+        else{
             $user->name = $request->name;
             $user->lastname = $request->lastname;
             $user->email = $request->email . '@cmshote.com';
             $user->sex = $request->sex;
-            $user->update();
         }
+        $user->update();
+
+
         return route('/dashboard');
     }
     public function users()
@@ -47,10 +56,6 @@ class AdminController extends Controller
         return view('layouts.dashboard');
     }
 
-    public function getBestRoom()
-    {
-
-    }
 
     public function store(Request $request)
     {

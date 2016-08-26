@@ -27,6 +27,14 @@
             <td class="text-center">{{floatval($meal->price * $meal->pivot->count)}}</td>
         </tr>
     @endforeach
+    @foreach($reservation->drinks()->get() as $drink)
+        <tr>
+            <td class="text-center">{{$drink->name}}</td>
+            <td class="text-center">{{$drink->pivot->count}}</td>
+            <td class="text-center">{{$drink->price}}</td>
+            <td class="text-center">{{floatval($drink->price * $drink->pivot->count)}}</td>
+        </tr>
+    @endforeach
     <tr>
         <td></td>
         <td></td>

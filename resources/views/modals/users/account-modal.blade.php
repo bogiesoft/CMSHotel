@@ -2,14 +2,14 @@
 <div class="modal fade" tabindex="-1" id="accountModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="title text-capitalize text-center"></h4>
-            </div>
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <form action="/dashboard/users/{{$user->id}}" method="POST" style="padding: 1em">
                     {{csrf_field()}}
                     {{method_field('patch')}}
+                    <legend>
+                        Change account information:
+                    </legend>
                     <div class="form-group">
                         <label>Name: </label>
                         <input name="name" class="form-control" value="{{$user->name}}">
@@ -41,17 +41,30 @@
                             <span class="input-group-addon">{{'@'}}cmshotel.com</span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-pencil" title="Edit"></i> </button>
+                    </div>
+                </form>
+                <form action="/dashboard/users/{{$user->id}}" method="POST" style="padding: 1em">
+                    <legend>
+                        Change password:
+                    </legend>
                     <div class="form-group">
                         <label>New password: </label>
-                        <input name="new_password" type="password" class="form-control">
+                        <input name="new" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Repeat new password: </label>
+                        <input name="new2" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Old password: </label>
+                        <input name="old" type="password" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label>Old password: </label>
-                        <input name="old_password" type="password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-pencil" title="Edit"></i> </button>
+                        <button type="submit" class="btn btn-default"><i class="fa fa-key" title="Change password"></i> </button>
                     </div>
                 </form>
             </div>

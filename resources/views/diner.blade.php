@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="block block1">
-        <div class="container">
+        <div class="container" style="padding-top: 40vh">
             <h2 class="text-info text-uppercase"><strong>Diner</strong></h2>
             <h5 class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Integer facilisis nisl augue, vel dapibus dui mollis non.

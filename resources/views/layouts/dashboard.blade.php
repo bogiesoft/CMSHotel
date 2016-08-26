@@ -18,6 +18,8 @@
 </head>
 <body>
 @include('modals.users.account-modal')
+@include('modals.upload-avatar-modal')
+
     <nav class="navbar navbar-default navbar-fixed-top navbar-main">
     <div class="container-fluid">
         <div class="col-xs-12 col-sm-2 col-md-2">
@@ -41,8 +43,17 @@
                             <img class="img-circle pull-right avatar-image" src="/images/users/avatars/{{Auth::user()->img}}" style="max-width:25px; max-height: 25px">
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" data-target="#accountModal" data-toggle="modal"><i class="fa fa-btn fa-user"></i>&nbsp; Profile</a></li>
-                            <li><a href="/logout"><i class="fa fa-btn fa-sign-out"></i>&nbsp; Logout</a></li>
+                            <li>
+                                <a href="#" data-target="#accountModal" data-toggle="modal">
+                                    <i class="fa fa-btn fa-cog fa-fw"></i>&nbsp; Settings</a>
+                            </li>
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#uploadAvatarModal">
+                                    <i class="fa fa-btn fa-picture-o fa-fw"></i>&nbsp;
+                                    Change avatar
+                                </a>
+                            </li>
+                            <li><a href="/logout"><i class="fa fa-btn fa-sign-out fa-fw"></i>&nbsp; Logout</a></li>
                         </ul>
                 </li>
             </ul>

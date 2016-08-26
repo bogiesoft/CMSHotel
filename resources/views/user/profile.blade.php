@@ -15,7 +15,7 @@
                 <a href="#account" data-toggle="tab">Account</a>
             </li>
         </ul>
-        <div id="profileTabContent" class="tab-content">
+        <div id="profileTabContent" class="tab-content row">
             <div class="tab-pane fade active in" id="reservations">
                 @foreach($reservations as $reservation)
                     <div class="col-md-6">

@@ -15,4 +15,14 @@ class Drink extends Model
     {
         return $this->belongsTo(DrinkType::class);
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class,
+            'drink_reservation',
+            'drink_id',
+            'reservation_id')
+            ->withPivot('id', 'count')
+            ->withTimestamps();
+    }
 }

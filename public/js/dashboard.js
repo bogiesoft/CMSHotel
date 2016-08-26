@@ -19,9 +19,12 @@ $(document).ready(function(){
             type: 'delete',
             data: {_method: 'delete', _token: token},
             success: function (data) {
-                console.log(data);
-
-                $("#meal-type" + id).remove();
+                if(data['error']){
+                    $('#typeErrorModal' + id).modal('show');
+                    console.log(data);
+                }
+                else
+                    $("#meal-type" + id).remove();
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -132,6 +135,7 @@ $(document).ready(function(){
         });
     });
 
+
     $('.panel').on('click', '.delete-drink', function () {
         var url = '/dashboard/drinks';
         var id = $(this).val();
@@ -142,7 +146,12 @@ $(document).ready(function(){
             data: {_method: 'delete', _token: token},
             success: function (data) {
                 console.log(data);
-                $("#drink" + id).remove();
+                var row = $("#drink" + id);
+                var button = row.find('.delete-drink');
+                row.addClass('text-muted').attr('title', 'This drink is not available for orders');
+                button.children('i').removeClass('fa-trash').addClass('fa-cart-plus');
+                button.addClass('restore-drink').removeClass('delete-drink').attr('title', 'Make drink available for orders');
+                row.parent().append(row);
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -150,6 +159,54 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    $('.panel').on('click', '.restore-drink', function () {
+        var id = $(this).val();
+        var url = '/dashboard/drinks/restore';
+        var token = $(this).data('token');
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: {_token: token, id : id},
+            success: function (data) {
+                //console.log(data);
+                var row = $("#drink" + id);
+                var button = row.find('.restore-drink');
+                row.removeClass('text-muted').removeAttr('title');
+                button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
+                button.addClass('delete-drink').removeClass('restore-drink').removeAttr('title');
+                row.parent().prepend(row);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+        return false;
+    });
+
+    $('.panel').on('click', '.delete-drink-type', function () {
+        var url = '/dashboard/drink-types';
+        var id = $(this).val();
+        var token = $(this).data('token');
+        $.ajax({
+            url: url + '/' + id,
+            type: 'delete',
+            data: {_method: 'delete', _token: token},
+            success: function (data) {
+                if(data['error']){
+                    $('#typeErrorModal' + id).modal('show');
+                    console.log(data);
+                }
+                else
+                    $("#drink-type" + id).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+        return false;
+    });
+
 
     $('.panel').on('click', '.delete-table', function () {
         var url = '/dashboard/tables';
