@@ -10,6 +10,7 @@ Route::get('/', function () {
         'room' => \App\Room::orderBy('price', 'asc')->first(),
         'meal' => \App\Meal::orderBy('counter', 'desc')->first(),
         'activity' => \App\Activity::orderBy('counter', 'desc')->first(),
+        'title' =>  \App\Config::where('config', '=', 'hotel_name')->first()->value
     ]);
 });
 Route::get('/about', 'PagesController@about');
@@ -76,7 +77,10 @@ Route::group(['middleware' => ['dashboard']], function (){
     ]]);
 
     Route::group(['middleware' => ['manager']], function (){
-
+        //configs
+        Route::resource('dashboard/configs', 'ConfigController', ['parameters' =>[
+            'configs' => 'config'
+        ]]);
 
         //meals
         Route::get('dashboard/meals/reservations/{sort?}/{order?}', 'MealReservationController@reservations');
@@ -84,6 +88,7 @@ Route::group(['middleware' => ['dashboard']], function (){
             'meals' => 'meal'
         ]]);
         Route::post('dashboard/meals/restore', 'MealController@restore');
+        Route::get('dashboard/meals/{sort?}/{order?}', 'MealController@index');
         Route::post('dashboard/meal-types', 'MealController@addMealType');
         Route::delete('dashboard/meal-types/{type}', 'MealController@destroyMealType',['parameters'=>[
             'meal-types' => 'type'
@@ -91,6 +96,9 @@ Route::group(['middleware' => ['dashboard']], function (){
 
         //tables
         Route::get('dashboard/tables/reservations/{sort?}/{order?}', 'TableReservationController@reservations');
+        Route::resource('dashboard/tables/reservations/type', 'TableReservationTypeController');
+
+
         Route::post('dashboard/tables/restore', 'TableController@restore');
 
         Route::get('dashboard/tables/{sort?}/{order?}', 'TableController@index');

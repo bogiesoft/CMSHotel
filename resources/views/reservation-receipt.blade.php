@@ -114,7 +114,7 @@
                     <tr>
                         <td>{{substr($date->toDayDateTimeString(), 0, -9)}}</td>
                         <td>{{$reservation->people}}</td>
-                        <td>€{{$dayPrice = $reservation->room->priceForThisDay($date)}}</td>
+                        <td>€{{$dayPrice = $reservation->room->priceForThisDay($date, $reservation->price_boost)}}</td>
                         <td>€{{$dayPrice * $reservation->people}}</td>
                     </tr>
                     <?php $total += $dayPrice * $reservation->people;  ?>

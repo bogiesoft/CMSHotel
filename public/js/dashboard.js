@@ -228,6 +228,40 @@ $(document).ready(function(){
         });
         return false;
     });
+    $('.panel').on('click', '.update-type', function () {
+        var form = $('#type-update-form' + $(this).val());
+        var url = form.attr('action');
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: form.serializeArray(),
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+        return false;
+    });
+    $('.panel').on('click', '.delete-type', function () {
+        var id = $(this).val();
+        var form = $('#type-delete-form' + id);
+        var url = form.attr('action');
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: form.serializeArray(),
+            success: function (data) {
+                console.log(data);
+                $('#type-row' + id).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+        return false;
+    });
 
     $('.panel').on('click', '.restore-activity', function () {
         var id = $(this).val();

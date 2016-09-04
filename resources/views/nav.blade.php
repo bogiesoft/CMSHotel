@@ -11,13 +11,13 @@
 
         <!-- Branding Image -->
         <a class="navbar-brand text-center" href="{{ url('/') }}">
-            <span>
+            <span class="text-uppercase">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             <br>
-            CMSHotel</span>
+            {{$title}}</span>
         </a>
     </div>
 

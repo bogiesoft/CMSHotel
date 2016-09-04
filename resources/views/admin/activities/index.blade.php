@@ -15,11 +15,39 @@
             <h5 class="panel-title">
                 <i class="fa fa-shopping-cart"></i>&nbsp;
                 Activities
-                <a class="btn btn-xs btn-info pull-right"
-                   data-toggle="modal"
-                   data-target="#addActivityModal">
-                    <i class="fa fa-plus"></i>&nbsp; add
-                </a>
+                <div class="dropdown pull-right">
+                    <a class="btn btn-xs btn-info"
+                       data-toggle="modal"
+                       data-target="#addActivityModal">
+                        <i class="fa fa-plus"></i>&nbsp; add
+                    </a>
+
+                    <button class="btn btn-xs btn-info pull-right dropdown-toggle" id="dropdownSort" data-toggle="dropdown"aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-caret-filter"></i>&nbsp; sort
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownSort">
+                        <li>
+                            <a href="{{url('/dashboard/activities/name/' . $order)}}"> &nbsp;
+                                <i class="fa fa-sort-alpha-{{$order}} fa-fw"></i> &nbsp;
+                                Activity
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/dashboard/activities/duration/' . $order)}}"> &nbsp;
+                                <i class="fa fa-sort-amount-{{$order}} fa-fw"></i> &nbsp;
+                                Duration
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/dashboard/activities/price/' . $order)}}"> &nbsp;
+                                <i class="fa fa-sort-numeric-{{$order}} fa-fw"></i> &nbsp;
+                                Price
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </h5>
         </div>
         <div class="panel-body">

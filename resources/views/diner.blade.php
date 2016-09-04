@@ -3,8 +3,8 @@
     <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
     <div class="fog" hidden></div>
 
-        <div class="animateOnce block block1">
-            <div class="hide-opacity bounceInLeftHover container">
+        <div class="block block1">
+            <div class="hide-opacity bounceInLeft container">
                 <h2 class="text-info"><i>Sistema di gestione dei contenuti</i></h2>
                 <h2 class="text-info text-uppercase"><strong>Restaurant</strong>
                     <small class="white-text">

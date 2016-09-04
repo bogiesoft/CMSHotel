@@ -11,7 +11,7 @@ use App\Table;
 use App\TableReservation;
 use App\TableReservationType;
 use Carbon\Carbon;
-
+use App\Config;
 class TableReservationController extends Controller
 {
     //
@@ -32,16 +32,16 @@ class TableReservationController extends Controller
         $time = explode(':', $request->time);
 
         $arrival = (new Carbon($request->date, 'Europe/Zagreb'))->addHours($time[0])->addMinutes($time[1]);
-        $departure = $arrival->copy()->addHour(TableReservationType::find($request->type)->hours);
+        $departure = $arrival->copy()->addHour(TableReservationType::find($request->type)->duration);
         $now = Carbon::now('Europe/Zagreb');
 
-        if($now->addMinutes(30)->gte($arrival)){
+        if ($now->addMinutes(30)->gte($arrival)) {
             $data = [
                 'success' => false,
                 'message' => 'Please select time at least 30 minutes from now'
             ];
 
-            if($request->ajax()){
+            if ($request->ajax()) {
                 return response()->json($data);
             }
             return redirect()->back()->withInput();
@@ -49,15 +49,15 @@ class TableReservationController extends Controller
         }
 
         //  Check staff for each possible table
-        foreach ($tables as $table){
-            if($this->isAvailable($table, $arrival, $departure)){
+        foreach ($tables as $table) {
+            if ($this->isAvailable($table, $arrival, $departure)) {
 
                 $reservation = new TableReservation();
                 $reservation->user_id = \Auth::user()->id;
                 $reservation->name = $request->name;
                 $reservation->table_id = $table->id;
                 $reservation->people = $request->people;
-                $reservation->reservation_type_id= $request->type;
+                $reservation->reservation_type_id = $request->type;
                 $reservation->arrival = $arrival;
                 $reservation->departure = $departure;
                 $reservation->save();
@@ -68,7 +68,7 @@ class TableReservationController extends Controller
                         . $arrival->toDayDateTimeString()
                 ];
 
-                if($request->ajax()){
+                if ($request->ajax()) {
                     return response()->json($data);
                 }
                 return redirect()->back()->withInput();
@@ -81,7 +81,7 @@ class TableReservationController extends Controller
             'success' => false,
             'message' => 'No tables available for selected date or time',
         ];
-        if($request->ajax()){
+        if ($request->ajax()) {
             return response()->json($data);
         }
         return redirect()->back()->withInput();
@@ -97,11 +97,11 @@ class TableReservationController extends Controller
 
 
         $reservations = $table->reservations()->where([
-            ['departure', '>=' , $arrival],
-            ['arrival', '<=' , $departure]
+            ['departure', '>=', $arrival],
+            ['arrival', '<=', $departure]
         ])->get();
 
-        if($reservations->isEmpty())
+        if ($reservations->isEmpty())
             return true;
         return false;
 
@@ -111,7 +111,8 @@ class TableReservationController extends Controller
     //Returns tables number of people < > people + 3 (max 3 unused seats per table)
     public function getPossibleTables($people)
     {
-        return Table::whereBetween('people', [$people, $people+3])
+        $max_empty_seats = floatval(Config::where('config', '=', 'max_empty_seats')->first()->value);
+        return Table::whereBetween('people', [$people, $people + $max_empty_seats])
             ->orderBy('people', 'asc')->get();
 
     }
@@ -130,7 +131,7 @@ class TableReservationController extends Controller
 
     public function reservations($sort = 'departure', $order = 'desc')
     {
-        if($order == 'desc')
+        if ($order == 'desc')
             $toggle = 'asc';
         else
             $toggle = 'desc';
@@ -141,3 +142,4 @@ class TableReservationController extends Controller
         ]);
     }
 }
+

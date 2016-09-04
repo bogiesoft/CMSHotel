@@ -95,6 +95,7 @@ class Reservation extends Model
 
     public function generatePriceForRoom()
     {
+        $priceBoost = floatval(Config::where('config', '=', 'weekend_room_price')->first()->value);
         $price = 0;
         $arrival = new Carbon($this->arrival);
         $departure = new Carbon($this->departure);
@@ -102,7 +103,7 @@ class Reservation extends Model
         $daterange = new \DatePeriod($arrival, new \DateInterval('P1D'), $departure);
         foreach ($daterange as $day){
             if($day->isWeekend())
-                $price += $this->room->price + ($this->room->price * 0.1);
+                $price += $this->room->price + ($this->room->price * $priceBoost);
             else
                 $price += $this->room->price;
         }

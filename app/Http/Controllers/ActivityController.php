@@ -21,7 +21,8 @@ class ActivityController extends Controller
         return view('admin.activities.index')->with([
             'activities' => Activity::withTrashed()->orderBy($sort, $order)->get(),
             'most_popular_activity' =>$this->mostPopular(),
-            'reservations' => Reservation::all()
+            'reservations' => Reservation::all(),
+            'order' => $toggle
         ]);
     }
 

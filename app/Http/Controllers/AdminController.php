@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\Config;
 use App\Meal;
 use App\Reservation;
 use App\Role;
@@ -69,7 +70,7 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-        return view('layouts.dashboard');
+        return view('layouts.dashboard')->with('title', Config::where('config', '=', 'hotel_name')->first()->value);
     }
 
 

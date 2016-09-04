@@ -11,7 +11,7 @@
     </a>
 </div>
 
-<div class="col-sm-12 col-md-8">
+<div class="col-sm-12 col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h5 class="panel-title">
@@ -64,7 +64,7 @@
                     </thead>
                     @foreach($meals as $meal)
                         <tr id="meal{{$meal->id}}" @if($meal->trashed())    class="text-muted" title="This meal is not available for orders"    @endif>
-                            <td class="hidden-xs hidden-sm" style="width: 10%;"><img src="/images/meals/{{$meal->img}}" class="img-circle" style="width: 100%"> </td>
+                            <td class="hidden-xs hidden-sm" style="width: 5%;"><img src="/images/meals/{{$meal->img}}" class="img-circle" style="width: 100%"> </td>
                             <td>{{$meal->name}}</td>
                             <td>{{$meal->meal_type->name}}</td>
                             <td>€{{$meal->price}}</td>
@@ -89,12 +89,10 @@
                         @include('modals.meals.edit-meal-modal')
                         @include('modals.meals.show-meal-modal')
                     @endforeach
-                    <tfoot>
-                        <tr>
-                            <td colspan="5" class="text-center">{{$meals->links()}}</td>
-                        </tr>
-                    </tfoot>
                 </table>
+                <div class="col-md-12 center-block text-center">
+                    {{$meals->links()}}
+                </div>
             </div>
         </div>
     </div>
@@ -129,38 +127,9 @@
         </div>
     </div>
 </div>
-<!-- income by meal -->
-<div class="col-sm-12 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h5 class="panel-title">
-                <i class="fa fa-money" aria-hidden="true"></i> &nbsp;
-                Income
-            </h5>
-        </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <th>Name</th>
-                    <th>Income from meal orders</th>
-                    <th>Number of orders</th>
-                    </thead>
-                    @foreach($meals as $meal)
-                        <tr id="meal-income{{$meal->id}}" @if($meal->trashed())    class="text-muted" title="This meal is not available for orders"    @endif>
-                            <td>{{$meal->name}}</td>
-                            <td>€{{$meal->price * $meal->counter}}</td>
-                            <td>{{$meal->counter}}</td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- meal types -->
-<div class="col-sm-12 col-md-6">
+<div class="col-sm-12 col-md-8">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h5 class="panel-title">
@@ -204,5 +173,34 @@
 </div>
 
 <div class="clearfix"></div>
+<!-- income by meal -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <i class="fa fa-money" aria-hidden="true"></i> &nbsp;
+                Income
+            </h5>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <th>Name</th>
+                    <th>Income from meal orders</th>
+                    <th>Number of orders</th>
+                    </thead>
+                    @foreach($meals as $meal)
+                        <tr id="meal-income{{$meal->id}}" @if($meal->trashed())    class="text-muted" title="This meal is not available for orders"    @endif>
+                            <td>{{$meal->name}}</td>
+                            <td>€{{$meal->price * $meal->counter}}</td>
+                            <td>{{$meal->counter}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

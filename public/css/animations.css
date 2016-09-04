@@ -1,33 +1,7 @@
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
-    animation-duration: 1.5s;
-}
-
 @-webkit-keyframes bounceIn {
     from, 20%, 40%, 60%, 80%, to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
     }
 
     0% {
@@ -66,8 +40,8 @@
 
 @keyframes bounceIn {
     from, 20%, 40%, 60%, 80%, to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
     }
 
     0% {
@@ -190,24 +164,6 @@
     -moz-animation-delay: 0s;
     -o-animation-delay: 0s;
     animation-delay: 0s;
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-}
-
-.bounceInLeftHover {
-    -webkit-animation-name: bounceInLeft;
-    animation-name: bounceInLeft;
-    animation-duration: 0.5s;
-    -webkit-animation-delay: 0s;
-    -moz-animation-delay: 0s;
-    -o-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-iteration-count: 1;
-    -moz-animation-iteration-count: 1;
-    -o-animation-iteration-count: 1;
-    animation-iteration-count: 1;
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;
     -o-animation-fill-mode: forwards;

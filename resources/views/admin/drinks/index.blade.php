@@ -10,7 +10,7 @@
     </a>
 </div>
 
-<div class="col-sm-12 col-md-8">
+<div class="col-sm-12 col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h5 class="panel-title">
@@ -123,39 +123,9 @@
     </div>
 </div>
 
-<!-- income by drink -->
-<div class="col-sm-12 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h5 class="panel-title">
-                <i class="fa fa-money" aria-hidden="true"></i> &nbsp;
-                Income
-            </h5>
-        </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <th>Name</th>
-                    <th>Income from drink orders</th>
-                    <th>Number of orders</th>
-                    </thead>
-                    @foreach($drinks as $drink)
-                        <tr id="drink-income{{$drink->id}}" @if($drink->trashed())    class="text-muted" title="This drink is not available for orders"    @endif>
-                            <td>{{$drink->name}}</td>
-                            <td>€{{$drink->price * $drink->counter}}</td>
-                            <td>{{$drink->counter}}</td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--    types    -->
-<div class="col-sm-12 col-md-6">
-    <div class="panel panel-info" style="margin-bottom:0">
+<div class="col-sm-12 col-md-8">
+    <div class="panel panel-info">
         <div class="panel-heading">
             <h5 class="panel-title">
                 <i class="fa fa-list-alt" style="vertical-align: middle"></i>&nbsp;
@@ -190,6 +160,36 @@
                             </tr>
                         </form>
                     @include('modals.drinks.type-delete-error')
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- income by drink -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <i class="fa fa-money" aria-hidden="true"></i> &nbsp;
+                Income
+            </h5>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <th>Name</th>
+                    <th>Income from drink orders</th>
+                    <th>Number of orders</th>
+                    </thead>
+                    @foreach($drinks as $drink)
+                        <tr id="drink-income{{$drink->id}}" @if($drink->trashed())    class="text-muted" title="This drink is not available for orders"    @endif>
+                            <td>{{$drink->name}}</td>
+                            <td>€{{$drink->price * $drink->counter}}</td>
+                            <td>{{$drink->counter}}</td>
+                        </tr>
                     @endforeach
                 </table>
             </div>

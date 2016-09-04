@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Config;
 use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,6 @@ class Room extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
@@ -63,16 +63,19 @@ class Room extends Model
 
     public function priceForToday()
     {
+        $priceBoost = floatval(Config::where('config', '=', 'weekend_room_price')->first()->value);
+
         if(Carbon::now('Europe/Zagreb')->addDays(2)->isWeekend())
-            return $this->price += $this->price * 0.1;
+            return $this->price += $this->price * $priceBoost;
         else
             return $this->price;
     }
 
-    public function priceForThisDay(Carbon $day)
+    public function priceForThisDay(Carbon $day, $priceBoost)
     {
+
         if($day->isWeekend())
-            return $this->price + $this->price*0.1;
+            return $this->price + $this->price * $priceBoost;
         return $this->price;
     }
 

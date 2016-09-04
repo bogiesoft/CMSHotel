@@ -1,13 +1,14 @@
 @extends('layouts.dashboard')
 @section('content')
     @include('modals.tables.add-table-modal')
+    @include('modals.tables.add-reservation-type-modal')
     <?php $active = 'tables';  ?>
-    <div class="col-sm-12 col-md-6 pull-right">
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <a href="/dashboard/tables/reservations" class="btn btn-default pull-right" style="margin-bottom: 1em">
             <i class="fa fa-btn fa-angle-right fa-fw"></i>&nbsp; Table reservations
         </a>
     </div>
-    <div class="col-sm-12 col-md-6">
+    <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h5 class="panel-title">
@@ -72,4 +73,53 @@
         </div>
     </div>
 
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    Table reservation types
+                    <a class="btn btn-xs btn-info pull-right"
+                       data-toggle="modal"
+                       data-target="#addReservationTypeModal">
+                        <i class="fa fa-plus"></i>&nbsp; add
+                    </a>
+                </h5>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                        <th>Type</th>
+                        <th title="Duration of each reservation">Time reserved</th>
+                        <th colspan="2">Options</th>
+                        </thead>
+                        @foreach($types as $type)
+                        <tr id="type-row{{$type->id}}">
+                            <form id="type-update-form{{$type->id}}" action="/dashboard/tables/reservations/type/{{$type->id}}" method="post">
+                                {{method_field('patch')}}
+                                {{csrf_field()}}
+                                <td><input name="name" value="{{$type->name}}" class="form-control input-sm"> </td>
+                                <td><input name="duration" type="time" step="900" value="{{$type->duration}}" class="form-control input-sm"> </td>
+                                <td>
+                                       <button value="{{$type->id}}" type="button" class="update-type btn btn-xs btn-info">
+                                           update
+                                       </button>
+                                </td>
+                            </form>
+                            <form id="type-delete-form{{$type->id}}" action="/dashboard/tables/reservations/type/{{$type->id}}" method="post">
+                                {{csrf_field()}}
+                                {{method_field('delete')}}
+                                <td>
+                                    <button value="{{$type->id}}" type="button" class="delete-type btn btn-xs btn-default">
+                                        delete
+                                    </button>
+                                </td>
+                            </form>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

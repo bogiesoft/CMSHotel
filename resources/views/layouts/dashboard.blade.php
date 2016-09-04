@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php   $title=  \App\Config::where('config', '=', 'hotel_name')->first()->value;   ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{'CMSHotel - DASHBOARD'}}</title>
+    <title>{{'Dashboard - '.  $title}}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -23,7 +24,7 @@
         <div class="col-xs-12 col-sm-2 col-md-2" id="collapse-parent">
             <div class="navbar-header">
 
-                <a class="navbar-brand" href="/dashboard">{{'CMSHOTEL'}}</a>
+                <a class="navbar-brand text-uppercase" href="/dashboard">{{$title}}</a>
                 <button type="button" class="navbar-toggle collapsed accordion-btn toggle-btn-sidebar" data-toggle="collapse" data-parent="#collapse-parent" data-target="#dashboard-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="glyphicon glyphicon-align-justify collapse-icon"></span>
@@ -63,15 +64,13 @@
 <div class="container-second-row">
    <div class="col-xs-12 col-sm-3 col-md-2 nav-sidebar">
        <ul class="nav nav-pills nav-stacked collapse navbar-collapse" id="dashboard-sidebar-collapse">
-           @if(\Auth::user()->isAdmin() || \Auth::user()->isManager())
-               <li @if(isset($active) && $active == 'users') class="active" @endif>
-                   <a href="/dashboard/users">
-                       <i class="fa fa-users fa-fw"></i>&nbsp;
-                       Users
+           @if(\Auth::user()->isManager())
+               <li @if(isset($active) && $active == 'configs') class="active" @endif>
+                   <a href="/dashboard/configs">
+                       <i class="fa fa-wrench fa-fw"></i>&nbsp;
+                       Configuration
                    </a>
                </li>
-           @endif
-           @if(\Auth::user()->isManager())
                <li @if(isset($active) && $active == 'rooms') class="active" @endif>
                    <a href="/dashboard/rooms">
                        <i class="fa fa-bed fa-fw"></i>&nbsp;
@@ -101,6 +100,14 @@
                    <a href="/dashboard/activities">
                        <i class="fa fa-shopping-cart fa-fw"></i>&nbsp;
                        Activities
+                   </a>
+               </li>
+           @endif
+           @if(\Auth::user()->isAdmin() || \Auth::user()->isManager())
+               <li @if(isset($active) && $active == 'users') class="active" @endif>
+                   <a href="/dashboard/users">
+                       <i class="fa fa-users fa-fw"></i>&nbsp;
+                       Users
                    </a>
                </li>
            @endif

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use Barryvdh\DomPDF\Facade as PDF;
-
+use App\Config;
 class ReservationController extends Controller
 {
     public function index()
@@ -49,7 +49,8 @@ class ReservationController extends Controller
 
         if($this->isAvailable($arrival, $departure, $room)){
 
-            $price = $this->generatePrice($arrival, $departure, $request->people,$room->price);
+            $priceBoost = $this->getPriceBoost();
+            $price = $this->generatePrice($arrival, $departure, $request->people,$room->price, $priceBoost);
 
             $reservation = new Reservation();
             $reservation->name = $request->name . ' ' . $request->lastname;
@@ -60,6 +61,7 @@ class ReservationController extends Controller
             $reservation->room_id = $request->room;
             $reservation->people = $request->people;
             $reservation->request = $request->req;
+            $reservation->price_boost = $priceBoost;
 
             if($arrival)
             $reservation->price = $price;
@@ -88,14 +90,15 @@ class ReservationController extends Controller
         }
     }
 
-    public function generatePrice($arrival, $departure, $people, $roomBasePrice)
+    public function generatePrice($arrival, $departure, $people, $roomBasePrice, $priceBoost)
     {
         //$days = $arrival->diffInDays($departure);
         $price = 0;
+
         $daterange = new \DatePeriod($arrival, new \DateInterval('P1D'), $departure);
         foreach ($daterange as $day){
             if($day->isWeekend())
-                $price += $roomBasePrice + ($roomBasePrice * 0.1);
+                $price += $roomBasePrice + ($roomBasePrice * $priceBoost);
             else
                 $price += $roomBasePrice;
         }
@@ -104,13 +107,18 @@ class ReservationController extends Controller
         return $price;
     }
 
+    public function getPriceBoost()
+    {
+        return floatval(Config::where('config', '=', 'weekend_room_price')->first()->value);
+    }
+
     public function generatePriceForAjax(Request $request)
     {
 
         $arrival = new Carbon($request->arrival, 'Europe/Zagreb');
         $departure = new Carbon($request->departure, 'Europe/Zagreb');
 
-        $price = $this->generatePrice($arrival, $departure, $request->people, $request->price);
+        $price = $this->generatePrice($arrival, $departure, $request->people, $request->price,$this->getPriceBoost());
         return response()->json($price);
     }
 

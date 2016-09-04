@@ -20,6 +20,7 @@ class TableController extends Controller
 
         return view('admin.tables.index')->with([
             'tables' => Table::orderBy($sort,$order)->get(),
+            'types' => TableReservationType::all(),
             'order' => $toggle
         ]);
     }
