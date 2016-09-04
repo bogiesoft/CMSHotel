@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{'CMShotel'}}</title>
 
     <!-- Styles -->
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/bootstrap-datepicker.standalone.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet">
-    @yield('header')
+    <link href="{{ URL::asset('css/animations.css') }}" rel="stylesheet">
     <script src="https://use.fontawesome.com/54cb56152d.js"></script>
+    @yield('header')
 </head>
 <body id="app-layout">
     @include('nav')

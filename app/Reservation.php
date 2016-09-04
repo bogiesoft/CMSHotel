@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    //
+    
+    public function room(){
+        return $this->belongsTo(Room::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    public function room(){
-        return $this->belongsTo(Room::class);
     }
 
     public function activities()
@@ -64,8 +64,8 @@ class Reservation extends Model
 
     public function passed()
     {
-        $today = Carbon::now('Europe/London');
-        if($today->gt(new Carbon($this->departure, 'Europe/London')))
+        $today = Carbon::now('Europe/Zagreb');
+        if($today->gt(new Carbon($this->departure, 'Europe/Zagreb')))
             return true;
         return false;
     }
@@ -74,9 +74,73 @@ class Reservation extends Model
     {
         return (new Carbon($this->arrival))->hour(17)->toDayDateTimeString();
     }
-
     public function getFormattedDepartureDate()
     {
         return (new Carbon($this->departure))->hour(12)->toDayDateTimeString();
     }
+    public function getFormattedCreatedDate()
+    {
+        return (new Carbon($this->created_at))->toDayDateTimeString();
+    }
+
+    public function generatePriceForRoom()
+    {
+        $price = 0;
+        $arrival = new Carbon($this->arrival);
+        $departure = new Carbon($this->departure);
+
+        $daterange = new \DatePeriod($arrival, new \DateInterval('P1D'), $departure);
+        foreach ($daterange as $day){
+            if($day->isWeekend())
+                $price += $this->room->price + ($this->room->price * 0.1);
+            else
+                $price += $this->room->price;
+        }
+        $price *= $this->people;
+
+        return $price;
+    }
+
+    public function generatePriceForActivities()
+    {
+        $total = 0;
+        foreach ($this->activities()->get() as $activity){
+            $total += $activity->price;
+        }
+        return $total;
+    }
+
+
+    public function generatePriceForFoodOrders()
+    {
+        $total = 0;
+        foreach ($this->meals()->get() as $meal){
+            $total += $meal->price * $meal->pivot->count;
+        }
+        return $total;
+    }
+
+    public function generatePriceForDrinkOrders()
+    {
+        $total = 0;
+        foreach ($this->meals()->get() as $drink){
+            $total += $drink->price * $drink->pivot->count;
+        }
+        return $total;
+    }
+    
+    public function days()
+    {
+        $arrival = new Carbon($this->arrival);
+        $departure = new Carbon($this->departure);
+
+        return $arrival->diffInDays($departure);
+    }
+
+    public function price()
+    {
+        $price =  $this->generatePriceForRoom() + $this->generatePriceForActivities() + $this->generatePriceForDrinkOrders() + $this->generatePriceForFoodOrders();
+        return $price;
+    }
+
 }

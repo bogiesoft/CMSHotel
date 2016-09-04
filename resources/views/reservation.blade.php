@@ -5,7 +5,7 @@
     <div class="fog" hidden></div>
 
     <div class="block">
-        <div class="container reservation-container">
+        <div class="container reservation-container bounceInLeft">
             <div class="col-md-10 col-md-offset-1">
                 <h4 class="text-center text-info"><strong>BOOK A ROOM</strong></h4>
             </div>
@@ -20,30 +20,28 @@
             <form role="form" method="POST" action="/reservation" id="form-reservation">
                 {{ csrf_field() }}
                 <div class="col-sm-12 col-md-5 col-md-offset-1">
-
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" value="{{ Auth::user()->email }}" name="email" required>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" value="@if(Auth::check()){{ Auth::user()->email }}@endif" name="email" required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name" value="{{Auth::user()->name}}" name="name" required>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" value="@if(Auth::check()){{ Auth::user()->name }}@endif" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" class="form-control" id="lastname" placeholder="Enter your lastname" value="{{Auth::user()->lastname}}" name="lastname" required>
+                        <input type="text" class="form-control" id="lastname" placeholder="Enter your lastname" value="@if(Auth::check()){{ Auth::user()->lastname }}@endif" name="lastname" required>
                     </div>
 
                     <div class="form-group">
                         <label>Choose dates </label>
-                        <div class="input-daterange input-group" id="datepicker">
-                            <input type="text" class="input-sm form-control" name="arrival"  required />
+                        <div class="input-group" id="dates">
+                            <input type="text" class="span2 form-control" value="" id="arrival"name="arrival"  required >
                             <span class="input-group-addon">To</span>
-                            <input type="text" class="input-sm form-control" name="departure"  required />
+                            <input type="text" class="span2 form-control" value="" id="departure" name="departure"  required >
                         </div>
                     </div>
-
                 </div>
                 <div class="col-sm-12 col-md-5">
                     <div class="form-group">
@@ -71,30 +69,37 @@
                         <label>Special requirements: </label>
                         <textarea class="form-control" name="req"></textarea>
                     </div>
-
                     <div class="form-group">
-                        <label>Price total (in euros): </label>
+                        <label>Price total: </label>
                         <p class="form-control-static">
                             <i class="fa fa-money"></i>
-                            <span id="price">10</span>
-                            €
+                            €<span id="price">10</span>
                         </p>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-5 col-md-offset-6">
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-info submit-res" data-token="{{csrf_token()}}">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </button>
+                        @if(Auth::check())
+                            <button type="submit" class="form-control btn btn-info submit-res" data-token="{{csrf_token()}}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        @else
+                            <a href="{{url('/login')}}" class="btn btn-link btn-block">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Login to book a room
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
 @endsection
 
 @section('footer')
-    <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/new-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/reservation.js') }}"></script>
 @endsection

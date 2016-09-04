@@ -1,63 +1,52 @@
 @extends('layouts.app')
 @section('content')
-<div class="block bg-image2">
-    <div class="container">
-            <h2 class="text-center"><strong>Curabitur turpis sapien</strong></h2>
-            <h5 class="white-text text-center">Maecenas blandit felis nec massa porta, sed laoreet nunc blandit.</h5>
-            <form action="/rooms" method="get">
-                <button class="btn btn-link center-block" type="submit" title="Browse rooms">
-                    <i class="fa fa-angle-double-right fa-3x"></i>
-                </button>
-            </form>
+<div class="block bg-image2 fadeIn">
+    <div class="container text-center">
+            <h1 class="text-center text-uppercase"><strong>Cms Hotel</strong></h1>
+            <h5 class="white-text text-center">The art of meeting your highest expectations.</h5>
+            <a href="{{url('/rooms')}}" class="btn btn-link" type="submit" title="Browse rooms">
+                <i class="fa fa-angle-double-right fa-3x"></i>
+            </a>
     </div>
 </div>
 <div class="block">
     <div class="container">
-        <h2 class="text-center" style="color: black;"><strong>Class aptent taciti sociosqu</strong></h2>
-        <h5 class="text-center" style="color: black;">
-            Proin a mi nisl. Quisque in sagittis est, nec bibendum tortor. Nulla facilisi. Nam varius condimentum erat id dapibus. Aenean in turpis libero. Donec consequat metus a ultrices mollis. Donec sit amet sagittis tellus, in vestibulum augue. Nunc porta pretium tristique. Mauris efficitur nisi vel ipsum sollicitudin, quis dictum ligula tempor. In sodales, elit ut posuere maximus,
-            mi ligula varius neque, ac rutrum justo nisi quis enim.
-            Vivamus eget tincidunt sem, quis tincidunt massa.
+        <h2 class="text-center" style="color: black;"><strong>Stay with us, and feel like home</strong></h2>
+        <h5 class="text-center" style="color: black; margin-bottom: 10vh">
+            When it comes to luxury in the most romantic and stylish city in the world,
+            look no further than the legendary Hotel CMS. Situated in the heart of Content City,
+            on the renowned avenue Management, this 4 star hotel is in the ideal location for the finest
+            content managing that Content has to offer
         </h5>
-        <div class="row-fluid" style="padding-top:5vh">
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="/images/rooms/{{$room->img}}" class="img-responsive img-rounded">
-                    <div class="caption text-center">
-                        <a href="/rooms">
-                            <span class="label label-warning pull-right">from €{{$room->price}}</span>
-                        </a>
-                        <h3 class="text-center">{{$room->name}}
-                        </h3>
-                        <p class="equal-height">{{$room->text}}</p>
+        <div class="row" style="padding-top: 5vh">
+            <a href="{{url('/rooms')}}">
+                <div class="col-xs-6 col-sm-4 col-md-4 text-center">
+                    <div class="popular">
+                        <img src="/images/rooms/{{$room->img}}" class="img-responsive img-circle center-block">
+                        <h6><strong>Check out our rooms</strong></h6>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="/images/meals/{{$meal->img}}" class="img-responsive img-rounded">
-                    <div class="caption text-center">
-                        <a href="/diner#meals">
-                            <span class="label label-warning pull-right">from €{{$meal->price}}</span>
-                        </a>
-                        <h3 class="text-center">{{$meal->name}}</h3>
-                        <p class="equal-height">{{$meal->text}}</p>
+            </a>
+            <a href="{{url('/activities')}}">
+                <div class="col-xs-6 col-sm-4 col-md-4 text-center">
+                    <div class="popular">
+                        <img src="/images/activities/{{$activity->img}}" class="img-responsive img-circle center-block">
+                        <h6><strong>Check out our hotel activities</strong></h6>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="/images/activities/{{$activity->img}}" class="img-responsive img-rounded">
-                    <div class="caption text-center">
-                        <span class="label label-warning pull-right">from €{{$activity->price}}</span>
-                        <h3>{{$activity->name}}</h3>
-                        <p class="equal-height">{{$activity->text}}</p>
+            </a>
+            <a href="{{url('/restaurant')}}">
+                <div class="col-xs-offset-3 col-xs-6 col-sm-offset-0 col-sm-4 col-md-4 text-center">
+                    <div class="popular">
+                        <img src="/images/meals/{{$meal->img}}" class="img-responsive img-circle center-block">
+                        <h6><strong>Check out our restaurant</strong></h6>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>
+
 @endsection
 @section('footer')
 @endsection

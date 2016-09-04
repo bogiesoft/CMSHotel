@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default hide-opacity bounceInLeft">
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
@@ -26,6 +26,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h5 class="text-info text-center">
+                    <span title="{{$reservation->people}} people"><strong>{{$reservation->people}}</strong></span>
                     @if($reservation->reservation_type->name == 'Food')
                         <i class="fa fa-cutlery" title="Came for food"></i>
                     @else

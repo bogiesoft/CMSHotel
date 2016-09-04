@@ -1,26 +1,29 @@
 @extends('layouts.app')
 @section('content')
-    <div class="block block1">
-        <div class="container" style="padding-top: 40vh">
-            <h2 class="text-info text-uppercase"><strong>Diner</strong></h2>
-            <h5 class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer facilisis nisl augue, vel dapibus dui mollis non.
-                Suspendisse id cursus tortor, euismod elementum tellus.
-                Fusce aliquam viverra odio, eu pretium sem sollicitudin quis.
-                Pellentesque in imperdiet felis, gravida efficitur mauris.
-            </h5>
+    <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
+    <div class="fog" hidden></div>
+
+        <div class="animateOnce block block1">
+            <div class="hide-opacity bounceInLeftHover container">
+                <h2 class="text-info"><i>Sistema di gestione dei contenuti</i></h2>
+                <h2 class="text-info text-uppercase"><strong>Restaurant</strong>
+                    <small class="white-text">
+                        Great food, greater service
+                    </small>
+                </h2>
+            </div>
         </div>
-    </div>
-    <div class="block block2">
-        <a name="meals"></a>
+
+    <div class="animateOnce block block2">
         <div class="container">
+            <a name="meals"></a>
             <div class="row">
                 <h4 class="text-center text-info"><strong>MEALS</strong></h4><hr>
             </div>
             @include('meals')
         </div>
     </div>
-    <div class="block block3">
+    <div class="animateOnce block block3">
         <div class="container">
             <div class="row">
                 <h4 class="text-center text-info"><strong>DRINKS</strong></h4><hr>
@@ -28,20 +31,9 @@
             @include('drinks')
         </div>
     </div>
-    <div class="block block4">
-        <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
-        <div class="fog" hidden></div>
+    <div class="animateOnce block block4">
         <div class="container">
-            <div class="col-md-10 col-md-offset-1 ">
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-res" hidden>
-                        <p class="text-center"></p>
-                    </div>
-                    <div class="alert alert-success success-res" hidden>
-                        <p class="text-center"></p>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-md-10 col-md-offset-1">
                 <h4 class="text-center text-info"><strong>BOOK A TABLE</strong></h4>
             </div>
@@ -54,6 +46,5 @@
 
     <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('js/table-reservation.js') }}"></script>
-    <script>
-    </script>
+
 @endsection

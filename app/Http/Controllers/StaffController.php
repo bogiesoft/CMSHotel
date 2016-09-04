@@ -15,33 +15,55 @@ class StaffController extends Controller
     //
     public function reservations()
     {
-        $now = Carbon::now()->setTime(0,0,0);
+        $now = Carbon::now('Europe/Zagreb')->setTime(0,0,0);
         $tomorrow = $now->copy()->addDay();
+
 
         return view('staff.reservations')->with([
             'todays' => Reservation::where([
                 ['arrival', '>=' , $now],
-                ['arrival', '<=' , $tomorrow]
-            ])->orderBy('name')->paginate(10)
+                ['arrival', '<' , $tomorrow]
+            ])->orderBy('name')->paginate(10),
+            'yesterday' => Reservation::where([
+                ['arrival', '<' , $now],
+                ['arrival', '>=' , $now->copy()->subDay()]
+            ])->orderBy('name')->get(),
+            'tomorrow' => Reservation::where([
+                ['arrival', '>=' , $tomorrow],
+                ['arrival', '<' , $tomorrow->copy()->addDay()]
+            ])->orderBy('name')->get()
         ]);
     }
 
     public function tableReservations()
     {
-        $now = Carbon::now();
+        $now = Carbon::now()->setTime(0,0,0);
         $tomorrow = $now->copy()->addDay();
         return view('staff.table-reservations')->with([
             'todays' => TableReservation::where([
                 ['arrival', '>' , $now],
                 ['arrival', '<' , $tomorrow]
-            ])->orderBy('name')->paginate(10)
+            ])->orderBy('name')->paginate(10),
+            'yesterday' => TableReservation::where([
+                ['arrival', '<' , $now],
+                ['arrival', '>=' , $now->copy()->subDay()]
+            ])->orderBy('name')->get(),
+            'tomorrow' => TableReservation::where([
+                ['arrival', '>=' , $tomorrow],
+                ['arrival', '<' , $tomorrow->copy()->addDay()]
+            ])->orderBy('name')->get()
         ]);
     }
 
     public function activityReservations()
     {
+        $now = Carbon::now()->setTime(0,0,0);
+        $activities = Activity::all();
+
+
         return view('staff.activity-reservations')->with([
-            'activities' => Activity::all()
+            'activities' => $activities,
+            'now' => $now
         ]);
     }
 

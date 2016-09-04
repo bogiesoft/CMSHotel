@@ -7,19 +7,24 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Room;
 use Illuminate\Support\Facades\Input;
-use PhpParser\Node\Expr\Cast\Int_;
 
 class RoomController extends Controller
 {
     //
-    public function index()
+    public function index($sort = 'name', $order = 'asc')
     {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
+
         return view('admin.rooms.index')->with([
-            'rooms' => Room::withTrashed()->orderBy('deleted_at')->get(),
-            'most_popular_room' => $this->mostPopular()
+            'rooms' => Room::orderBy($sort, $order)->get(),
+            'most_popular_room' => $this->mostPopular(),
+            'order' => $toggle
         ]);
     }
-    
     public function update(Room $room, Request $request)
     {
         $room->name = $request->name;

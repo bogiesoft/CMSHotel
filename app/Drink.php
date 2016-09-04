@@ -25,4 +25,14 @@ class Drink extends Model
             ->withPivot('id', 'count')
             ->withTimestamps();
     }
+
+    public function getTotalDrinkIncome()
+    {
+        $income = 0;
+        foreach ($this->reservations()->get() as $reservation){
+            $income += $reservation->pivot->count * $this->price;
+        }
+
+        return $income;
+    }
 }

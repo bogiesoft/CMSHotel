@@ -11,10 +11,15 @@ use App\Http\Requests;
 class ActivityController extends Controller
 {
     //
-    public function index()
+    public function index($sort = 'name', $order = 'asc')
     {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+        
         return view('admin.activities.index')->with([
-            'activities' => Activity::withTrashed()->orderBy('deleted_at')->get(),
+            'activities' => Activity::withTrashed()->orderBy($sort, $order)->get(),
             'most_popular_activity' =>$this->mostPopular(),
             'reservations' => Reservation::all()
         ]);

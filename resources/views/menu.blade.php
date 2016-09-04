@@ -1,18 +1,12 @@
 @extends('layouts.app')
 @section('content')
 
+
+    <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
     <div class="fog" hidden></div>
-<div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
 
 <div class="block">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-success success-res" hidden>
-                    <p class="text-center"></p>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <h4 class="text-info text-center text-uppercase">Meals</h4><hr>
@@ -31,9 +25,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" style="padding-bottom: 2em">
                             <div class="form-group col-xs-10 col-sm-8 col-md-8">
-                                <div class="form-group col-xs-10 col-sm-8 col-md-8">
-                                    <input type="number" name="meals_count[{{$meal->id}}]" value="1"  step="1"class="form-control">
-                                </div>
+                                <input type="number" name="meals_count[{{$meal->id}}]" value="1"  step="1"class="form-control">
                             </div>
                             <div class="form-group col-xs-2 col-sm-4 col-md-4">
                                 <div class="checkbox">
@@ -80,7 +72,13 @@
                     @endif
                 @endforeach <hr>
             </div>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success success-res" hidden>
+                        <p class="text-center"></p>
+                    </div>
+                </div>
+            </div>
             <div class="row" style="padding-top: 10vh">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="form-group">

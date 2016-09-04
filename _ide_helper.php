@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.30 on 2016-04-28.
+ * Generated for Laravel 5.2.45 on 2016-09-04.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1280,7 +1280,7 @@ namespace {
         }
         
         /**
-         * Get the users resolver callback.
+         * Get the user resolver callback.
          *
          * @return \Closure 
          * @static 
@@ -1325,7 +1325,7 @@ namespace {
         }
         
         /**
-         * Create the users provider implementation for the driver.
+         * Create the user provider implementation for the driver.
          *
          * @param string $provider
          * @return \Illuminate\Contracts\Auth\UserProvider 
@@ -1337,7 +1337,7 @@ namespace {
         }
         
         /**
-         * Get the currently authenticated users.
+         * Get the currently authenticated user.
          *
          * @return \App\User|null 
          * @static 
@@ -1347,7 +1347,7 @@ namespace {
         }
         
         /**
-         * Get the ID for the currently authenticated users.
+         * Get the ID for the currently authenticated user.
          *
          * @return int|null 
          * @static 
@@ -1357,7 +1357,7 @@ namespace {
         }
         
         /**
-         * Log a users into the application without sessions or cookies.
+         * Log a user into the application without sessions or cookies.
          *
          * @param array $credentials
          * @return bool 
@@ -1368,7 +1368,7 @@ namespace {
         }
         
         /**
-         * Validate a users's credentials.
+         * Validate a user's credentials.
          *
          * @param array $credentials
          * @return bool 
@@ -1403,7 +1403,7 @@ namespace {
         }
         
         /**
-         * Attempt to authenticate a users using the given credentials.
+         * Attempt to authenticate a user using the given credentials.
          *
          * @param array $credentials
          * @param bool $remember
@@ -1427,7 +1427,7 @@ namespace {
         }
         
         /**
-         * Log a users into the application.
+         * Log a user into the application.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable $user
          * @param bool $remember
@@ -1439,7 +1439,7 @@ namespace {
         }
         
         /**
-         * Log the given users ID into the application.
+         * Log the given user ID into the application.
          *
          * @param mixed $id
          * @param bool $remember
@@ -1451,7 +1451,7 @@ namespace {
         }
         
         /**
-         * Log the given users ID into the application without sessions or cookies.
+         * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
          * @return bool 
@@ -1462,7 +1462,7 @@ namespace {
         }
         
         /**
-         * Log the users out of the application.
+         * Log the user out of the application.
          *
          * @return void 
          * @static 
@@ -1525,7 +1525,7 @@ namespace {
         }
         
         /**
-         * Get the users provider used by the guard.
+         * Get the user provider used by the guard.
          *
          * @return \Illuminate\Contracts\Auth\UserProvider 
          * @static 
@@ -1535,7 +1535,7 @@ namespace {
         }
         
         /**
-         * Set the users provider used by the guard.
+         * Set the user provider used by the guard.
          *
          * @param \Illuminate\Contracts\Auth\UserProvider $provider
          * @return void 
@@ -1546,7 +1546,7 @@ namespace {
         }
         
         /**
-         * Return the currently cached users.
+         * Return the currently cached user.
          *
          * @return \App\User|null 
          * @static 
@@ -1556,14 +1556,14 @@ namespace {
         }
         
         /**
-         * Set the current users.
+         * Set the current user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable $user
-         * @return void 
+         * @return $this 
          * @static 
          */
         public static function setUser($user){
-            \Illuminate\Auth\SessionGuard::setUser($user);
+            return \Illuminate\Auth\SessionGuard::setUser($user);
         }
         
         /**
@@ -1588,7 +1588,7 @@ namespace {
         }
         
         /**
-         * Get the last users we attempted to authenticate.
+         * Get the last user we attempted to authenticate.
          *
          * @return \App\User 
          * @static 
@@ -1618,7 +1618,7 @@ namespace {
         }
         
         /**
-         * Determine if the users was authenticated via "remember me" cookie.
+         * Determine if the user was authenticated via "remember me" cookie.
          *
          * @return bool 
          * @static 
@@ -1628,7 +1628,7 @@ namespace {
         }
         
         /**
-         * Determine if the current users is authenticated.
+         * Determine if the current user is authenticated.
          *
          * @return bool 
          * @static 
@@ -1638,13 +1638,24 @@ namespace {
         }
         
         /**
-         * Determine if the current users is a guest.
+         * Determine if the current user is a guest.
          *
          * @return bool 
          * @static 
          */
         public static function guest(){
             return \Illuminate\Auth\SessionGuard::guest();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return \App\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */
+        public static function authenticate(){
+            return \Illuminate\Auth\SessionGuard::authenticate();
         }
         
     }
@@ -2777,6 +2788,20 @@ namespace {
         }
         
         /**
+         * Run a select statement against the database and returns a generator.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param bool $useReadPdo
+         * @return \Generator 
+         * @static 
+         */
+        public static function cursor($query, $bindings = array(), $useReadPdo = true){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::cursor($query, $bindings, $useReadPdo);
+        }
+        
+        /**
          * Run an insert statement against the database.
          *
          * @param string $query
@@ -2882,6 +2907,7 @@ namespace {
          * Start a new database transaction.
          *
          * @return void 
+         * @throws Exception
          * @static 
          */
         public static function beginTransaction(){
@@ -3402,6 +3428,16 @@ namespace {
         }
         
         /**
+         * Get an array of global scopes that were removed from the query.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function removedScopes(){
+            return \Illuminate\Database\Eloquent\Builder::removedScopes();
+        }
+        
+        /**
          * Find a model by its primary key.
          *
          * @param mixed $id
@@ -3530,6 +3566,16 @@ namespace {
         }
         
         /**
+         * Get a generator for the given query.
+         *
+         * @return \Generator 
+         * @static 
+         */
+        public static function cursor(){
+            return \Illuminate\Database\Eloquent\Builder::cursor();
+        }
+        
+        /**
          * Chunk the results of the query.
          *
          * @param int $count
@@ -3612,11 +3658,12 @@ namespace {
          * @param int $perPage
          * @param array $columns
          * @param string $pageName
+         * @param int|null $page
          * @return \Illuminate\Contracts\Pagination\Paginator 
          * @static 
          */
-        public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page'){
-            return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName);
+        public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page', $page = null){
+            return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName, $page);
         }
         
         /**
@@ -3650,6 +3697,18 @@ namespace {
          */
         public static function eagerLoadRelations($models){
             return \Illuminate\Database\Eloquent\Builder::eagerLoadRelations($models);
+        }
+        
+        /**
+         * Apply the callback's query changes if the given "value" is true.
+         *
+         * @param bool $value
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function when($value, $callback){
+            return \Illuminate\Database\Eloquent\Builder::when($value, $callback);
         }
         
         /**
@@ -3761,6 +3820,50 @@ namespace {
         }
         
         /**
+         * Merge the constraints from a relation query to the current query.
+         *
+         * @param \Illuminate\Database\Eloquent\Builder $relation
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function mergeModelDefinedRelationConstraints($relation){
+            return \Illuminate\Database\Eloquent\Builder::mergeModelDefinedRelationConstraints($relation);
+        }
+        
+        /**
+         * Prevent the specified relations from being eager loaded.
+         *
+         * @param mixed $relations
+         * @return $this 
+         * @static 
+         */
+        public static function without($relations){
+            return \Illuminate\Database\Eloquent\Builder::without($relations);
+        }
+        
+        /**
+         * Add subselect queries to count the relations.
+         *
+         * @param mixed $relations
+         * @return $this 
+         * @static 
+         */
+        public static function withCount($relations){
+            return \Illuminate\Database\Eloquent\Builder::withCount($relations);
+        }
+        
+        /**
+         * Add the given scopes to the current builder instance.
+         *
+         * @param array $scopes
+         * @return mixed 
+         * @static 
+         */
+        public static function scopes($scopes){
+            return \Illuminate\Database\Eloquent\Builder::scopes($scopes);
+        }
+        
+        /**
          * Apply the scopes to the Eloquent builder instance and return it.
          *
          * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -3773,7 +3876,7 @@ namespace {
         /**
          * Get the underlying query builder instance.
          *
-         * @return \Illuminate\Database\Query\Builder|static 
+         * @return \Illuminate\Database\Query\Builder 
          * @static 
          */
         public static function getQuery(){
@@ -4036,15 +4139,30 @@ namespace {
         }
         
         /**
-         * Apply the callback's query changes if the given "value" is true.
+         * Add a "where" clause comparing two columns to the query.
          *
-         * @param bool $value
-         * @param \Closure $callback
-         * @return \Illuminate\Database\Query\Builder 
+         * @param string|array $first
+         * @param string|null $operator
+         * @param string|null $second
+         * @param string|null $boolean
+         * @return \Illuminate\Database\Query\Builder|static 
          * @static 
          */
-        public static function when($value, $callback){
-            return \Illuminate\Database\Query\Builder::when($value, $callback);
+        public static function whereColumn($first, $operator = null, $second = null, $boolean = 'and'){
+            return \Illuminate\Database\Query\Builder::whereColumn($first, $operator, $second, $boolean);
+        }
+        
+        /**
+         * Add an "or where" clause comparing two columns to the query.
+         *
+         * @param string|array $first
+         * @param string|null $operator
+         * @param string|null $second
+         * @return \Illuminate\Database\Query\Builder|static 
+         * @static 
+         */
+        public static function orWhereColumn($first, $operator = null, $second = null){
+            return \Illuminate\Database\Query\Builder::orWhereColumn($first, $operator, $second);
         }
         
         /**
@@ -4344,6 +4462,33 @@ namespace {
         }
         
         /**
+         * Add a "where time" statement to the query.
+         *
+         * @param string $column
+         * @param string $operator
+         * @param int $value
+         * @param string $boolean
+         * @return \Illuminate\Database\Query\Builder|static 
+         * @static 
+         */
+        public static function whereTime($column, $operator, $value, $boolean = 'and'){
+            return \Illuminate\Database\Query\Builder::whereTime($column, $operator, $value, $boolean);
+        }
+        
+        /**
+         * Add an "or where time" statement to the query.
+         *
+         * @param string $column
+         * @param string $operator
+         * @param int $value
+         * @return \Illuminate\Database\Query\Builder|static 
+         * @static 
+         */
+        public static function orWhereTime($column, $operator, $value){
+            return \Illuminate\Database\Query\Builder::orWhereTime($column, $operator, $value);
+        }
+        
+        /**
          * Add a "where day" statement to the query.
          *
          * @param string $column
@@ -4492,6 +4637,17 @@ namespace {
          */
         public static function oldest($column = 'created_at'){
             return \Illuminate\Database\Query\Builder::oldest($column);
+        }
+        
+        /**
+         * Put the query's results in random order.
+         *
+         * @param string $seed
+         * @return $this 
+         * @static 
+         */
+        public static function inRandomOrder($seed = ''){
+            return \Illuminate\Database\Query\Builder::inRandomOrder($seed);
         }
         
         /**
@@ -4687,7 +4843,7 @@ namespace {
          * Retrieve the minimum value of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function min($column){
@@ -4698,7 +4854,7 @@ namespace {
          * Retrieve the maximum value of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function max($column){
@@ -4709,7 +4865,7 @@ namespace {
          * Retrieve the sum of the values of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function sum($column){
@@ -4720,7 +4876,7 @@ namespace {
          * Retrieve the average of the values of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function avg($column){
@@ -4731,7 +4887,7 @@ namespace {
          * Alias for the "avg" method.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function average($column){
@@ -4743,11 +4899,23 @@ namespace {
          *
          * @param string $function
          * @param array $columns
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function aggregate($function, $columns = array()){
             return \Illuminate\Database\Query\Builder::aggregate($function, $columns);
+        }
+        
+        /**
+         * Execute a numeric aggregate function on the database.
+         *
+         * @param string $function
+         * @param array $columns
+         * @return float|int 
+         * @static 
+         */
+        public static function numericAggregate($function, $columns = array()){
+            return \Illuminate\Database\Query\Builder::numericAggregate($function, $columns);
         }
         
         /**
@@ -5375,11 +5543,12 @@ namespace {
          * Get all of the files from the given directory (recursive).
          *
          * @param string $directory
+         * @param bool $hidden
          * @return array 
          * @static 
          */
-        public static function allFiles($directory){
-            return \Illuminate\Filesystem\Filesystem::allFiles($directory);
+        public static function allFiles($directory, $hidden = false){
+            return \Illuminate\Filesystem\Filesystem::allFiles($directory, $hidden);
         }
         
         /**
@@ -5405,6 +5574,19 @@ namespace {
          */
         public static function makeDirectory($path, $mode = 493, $recursive = false, $force = false){
             return \Illuminate\Filesystem\Filesystem::makeDirectory($path, $mode, $recursive, $force);
+        }
+        
+        /**
+         * Move a directory.
+         *
+         * @param string $from
+         * @param string $to
+         * @param bool $overwrite
+         * @return bool 
+         * @static 
+         */
+        public static function moveDirectory($from, $to, $overwrite = false){
+            return \Illuminate\Filesystem\Filesystem::moveDirectory($from, $to, $overwrite);
         }
         
         /**
@@ -5532,7 +5714,7 @@ namespace {
         }
         
         /**
-         * Determine if the given ability should be granted for the current users.
+         * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
          * @param array|mixed $arguments
@@ -5544,7 +5726,7 @@ namespace {
         }
         
         /**
-         * Determine if the given ability should be denied for the current users.
+         * Determine if the given ability should be denied for the current user.
          *
          * @param string $ability
          * @param array|mixed $arguments
@@ -5556,7 +5738,7 @@ namespace {
         }
         
         /**
-         * Determine if the given ability should be granted for the current users.
+         * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
          * @param array|mixed $arguments
@@ -5568,7 +5750,7 @@ namespace {
         }
         
         /**
-         * Determine if the given ability should be granted for the current users.
+         * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
          * @param array|mixed $arguments
@@ -5604,7 +5786,7 @@ namespace {
         }
         
         /**
-         * Get a guard instance for the given users.
+         * Get a gate instance for the given user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
          * @return static 
@@ -6626,15 +6808,15 @@ namespace {
         }
         
         /**
-         * Set the encrypter instance.
+         * Set the encrypter implementation.
          *
-         * @param \Illuminate\Contracts\Encryption\Encrypter $crypt
+         * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
          * @return void 
          * @static 
          */
-        public static function setEncrypter($crypt){
+        public static function setEncrypter($encrypter){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
+            \Illuminate\Queue\SyncQueue::setEncrypter($encrypter);
         }
         
     }
@@ -7029,7 +7211,7 @@ namespace {
         }
         
         /**
-         * Get a subset of the items from the input data.
+         * Get a subset containing the provided keys with values from the input data.
          *
          * @param array|mixed $keys
          * @return array 
@@ -7111,7 +7293,7 @@ namespace {
          *
          * @param string $key
          * @param mixed $default
-         * @return \Symfony\Component\HttpFoundation\File\UploadedFile|array|null 
+         * @return \Illuminate\Http\UploadedFile|array|null 
          * @static 
          */
         public static function file($key = null, $default = null){
@@ -7127,6 +7309,17 @@ namespace {
          */
         public static function hasFile($key){
             return \Illuminate\Http\Request::hasFile($key);
+        }
+        
+        /**
+         * Determine if a header is set on the request.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasHeader($key){
+            return \Illuminate\Http\Request::hasHeader($key);
         }
         
         /**
@@ -7358,7 +7551,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @return \Symfony\Component\HttpFoundation\Request The duplicated request
+         * @return \Request The duplicated request
          * @static 
          */
         public static function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null){
@@ -7377,7 +7570,7 @@ namespace {
         }
         
         /**
-         * Get the users making the request.
+         * Get the user making the request.
          *
          * @param string|null $guard
          * @return mixed 
@@ -7410,7 +7603,7 @@ namespace {
         }
         
         /**
-         * Get the users resolver callback.
+         * Get the user resolver callback.
          *
          * @return \Closure 
          * @static 
@@ -7420,7 +7613,7 @@ namespace {
         }
         
         /**
-         * Set the users resolver callback.
+         * Set the user resolver callback.
          *
          * @param \Closure $callback
          * @return $this 
@@ -7528,7 +7721,7 @@ namespace {
         /**
          * Creates a new request with values from PHP's super globals.
          *
-         * @return \Symfony\Component\HttpFoundation\Request A new request
+         * @return \Request A new request
          * @static 
          */
         public static function createFromGlobals(){
@@ -7549,7 +7742,7 @@ namespace {
          * @param array $files The request files ($_FILES)
          * @param array $server The server parameters ($_SERVER)
          * @param string $content The raw body data
-         * @return \Symfony\Component\HttpFoundation\Request A Request instance
+         * @return \Request A Request instance
          * @static 
          */
         public static function create($uri, $method = 'GET', $parameters = array(), $cookies = array(), $files = array(), $server = array(), $content = null){
@@ -7601,7 +7794,7 @@ namespace {
         /**
          * Gets the list of trusted proxies.
          *
-         * @return array An array of trusted proxies.
+         * @return array An array of trusted proxies
          * @static 
          */
         public static function getTrustedProxies(){
@@ -7625,7 +7818,7 @@ namespace {
         /**
          * Gets the list of trusted host patterns.
          *
-         * @return array An array of trusted host patterns.
+         * @return array An array of trusted host patterns
          * @static 
          */
         public static function getTrustedHosts(){
@@ -7722,7 +7915,7 @@ namespace {
          * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
          *
          * @param string $key the key
-         * @param mixed $default the default value
+         * @param mixed $default the default value if the parameter key does not exist
          * @return mixed 
          * @static 
          */
@@ -7917,7 +8110,7 @@ namespace {
         }
         
         /**
-         * Returns the users.
+         * Returns the user.
          *
          * @return string|null 
          * @static 
@@ -7939,9 +8132,9 @@ namespace {
         }
         
         /**
-         * Gets the users info.
+         * Gets the user info.
          *
-         * @return string A users name and, optionally, scheme-specific information about how to gain authorization to access the server
+         * @return string A user name and, optionally, scheme-specific information about how to gain authorization to access the server
          * @static 
          */
         public static function getUserInfo(){
@@ -7976,7 +8169,7 @@ namespace {
         /**
          * Gets the scheme and HTTP host.
          * 
-         * If the URL was called with basic authentication, the users
+         * If the URL was called with basic authentication, the user
          * and the password are not added to the generated string.
          *
          * @return string The scheme and HTTP host
@@ -8173,8 +8366,8 @@ namespace {
          * 
          * Here is the process to determine the format:
          * 
-         *  * format defined by the users (with setRequestFormat())
-         *  * _format request parameter
+         *  * format defined by the user (with setRequestFormat())
+         *  * _format request attribute
          *  * $default
          *
          * @param string $default The default format
@@ -8189,7 +8382,7 @@ namespace {
         /**
          * Sets the request format.
          *
-         * @param string $format The request format.
+         * @param string $format The request format
          * @static 
          */
         public static function setRequestFormat($format){
@@ -8255,7 +8448,7 @@ namespace {
         /**
          * Checks if the request method is of specified type.
          *
-         * @param string $method Uppercase request method (GET, POST etc).
+         * @param string $method Uppercase request method (GET, POST etc)
          * @return bool 
          * @static 
          */
@@ -8279,7 +8472,7 @@ namespace {
          * Returns the request body content.
          *
          * @param bool $asResource If true, a resource will be returned
-         * @return string|resource The request body content or a resource to read the body stream.
+         * @return string|resource The request body content or a resource to read the body stream
          * @throws \LogicException
          * @static 
          */
@@ -8325,7 +8518,7 @@ namespace {
         /**
          * Gets a list of languages acceptable by the client browser.
          *
-         * @return array Languages ordered in the users browser preferences
+         * @return array Languages ordered in the user browser preferences
          * @static 
          */
         public static function getLanguages(){
@@ -9335,6 +9528,28 @@ namespace {
         }
         
         /**
+         * Enable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function enableForeignKeyConstraints(){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::enableForeignKeyConstraints();
+        }
+        
+        /**
+         * Disable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function disableForeignKeyConstraints(){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::disableForeignKeyConstraints();
+        }
+        
+        /**
          * Get the database connection instance.
          *
          * @return \Illuminate\Database\Connection 
@@ -9444,7 +9659,7 @@ namespace {
         /**
          * Starts the session storage.
          *
-         * @return bool True if session started.
+         * @return bool True if session started
          * @throws \RuntimeException If session fails to start.
          * @static 
          */
@@ -9455,7 +9670,7 @@ namespace {
         /**
          * Returns the session ID.
          *
-         * @return string The session ID.
+         * @return string The session ID
          * @static 
          */
         public static function getId(){
@@ -9486,7 +9701,7 @@ namespace {
         /**
          * Returns the session name.
          *
-         * @return mixed The session name.
+         * @return mixed The session name
          * @static 
          */
         public static function getName(){
@@ -9513,7 +9728,7 @@ namespace {
          *                      will leave the system settings unchanged, 0 sets the cookie
          *                      to expire with browser session. Time is in seconds, and is
          *                      not a Unix timestamp.
-         * @return bool True if session invalidated, false if error.
+         * @return bool True if session invalidated, false if error
          * @static 
          */
         public static function invalidate($lifetime = null){
@@ -9524,12 +9739,12 @@ namespace {
          * Migrates the current session to a new session id while maintaining all
          * session attributes.
          *
-         * @param bool $destroy Whether to delete the old session or leave it to garbage collection.
+         * @param bool $destroy Whether to delete the old session or leave it to garbage collection
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
          *                       will leave the system settings unchanged, 0 sets the cookie
          *                       to expire with browser session. Time is in seconds, and is
          *                       not a Unix timestamp.
-         * @return bool True if session migrated, false if error.
+         * @return bool True if session migrated, false if error
          * @static 
          */
         public static function migrate($destroy = false, $lifetime = null){
@@ -9585,7 +9800,7 @@ namespace {
          * Returns an attribute.
          *
          * @param string $name The attribute name
-         * @param mixed $default The default value if not found.
+         * @param mixed $default The default value if not found
          * @return mixed 
          * @static 
          */
@@ -9661,6 +9876,30 @@ namespace {
          */
         public static function push($key, $value){
             \Illuminate\Session\Store::push($key, $value);
+        }
+        
+        /**
+         * Increment the value of an item in the session.
+         *
+         * @param string $key
+         * @param int $amount
+         * @return mixed 
+         * @static 
+         */
+        public static function increment($key, $amount = 1){
+            return \Illuminate\Session\Store::increment($key, $amount);
+        }
+        
+        /**
+         * Decrement the value of an item in the session.
+         *
+         * @param string $key
+         * @param int $amount
+         * @return int 
+         * @static 
+         */
+        public static function decrement($key, $amount = 1){
+            return \Illuminate\Session\Store::decrement($key, $amount);
         }
         
         /**
@@ -9935,7 +10174,7 @@ namespace {
          * Get a filesystem instance.
          *
          * @param string $name
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function drive($name = null){
@@ -9946,7 +10185,7 @@ namespace {
          * Get a filesystem instance.
          *
          * @param string $name
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function disk($name = null){
@@ -9956,7 +10195,7 @@ namespace {
         /**
          * Get a default cloud filesystem instance.
          *
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function cloud(){
@@ -9967,7 +10206,7 @@ namespace {
          * Create an instance of the local driver.
          *
          * @param array $config
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function createLocalDriver($config){
@@ -9978,7 +10217,7 @@ namespace {
          * Create an instance of the ftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function createFtpDriver($config){
@@ -10039,6 +10278,246 @@ namespace {
             return \Illuminate\Filesystem\FilesystemManager::extend($driver, $callback);
         }
         
+        /**
+         * Determine if a file exists.
+         *
+         * @param string $path
+         * @return bool 
+         * @static 
+         */
+        public static function exists($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::exists($path);
+        }
+        
+        /**
+         * Get the contents of a file.
+         *
+         * @param string $path
+         * @return string 
+         * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+         * @static 
+         */
+        public static function get($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::get($path);
+        }
+        
+        /**
+         * Write the contents of a file.
+         *
+         * @param string $path
+         * @param string|resource $contents
+         * @param string $visibility
+         * @return bool 
+         * @static 
+         */
+        public static function put($path, $contents, $visibility = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::put($path, $contents, $visibility);
+        }
+        
+        /**
+         * Get the visibility for the given path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function getVisibility($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::getVisibility($path);
+        }
+        
+        /**
+         * Set the visibility for the given path.
+         *
+         * @param string $path
+         * @param string $visibility
+         * @return void 
+         * @static 
+         */
+        public static function setVisibility($path, $visibility){
+            \Illuminate\Filesystem\FilesystemAdapter::setVisibility($path, $visibility);
+        }
+        
+        /**
+         * Prepend to a file.
+         *
+         * @param string $path
+         * @param string $data
+         * @return int 
+         * @static 
+         */
+        public static function prepend($path, $data, $separator = ''){
+            return \Illuminate\Filesystem\FilesystemAdapter::prepend($path, $data, $separator);
+        }
+        
+        /**
+         * Append to a file.
+         *
+         * @param string $path
+         * @param string $data
+         * @return int 
+         * @static 
+         */
+        public static function append($path, $data, $separator = ''){
+            return \Illuminate\Filesystem\FilesystemAdapter::append($path, $data, $separator);
+        }
+        
+        /**
+         * Delete the file at a given path.
+         *
+         * @param string|array $paths
+         * @return bool 
+         * @static 
+         */
+        public static function delete($paths){
+            return \Illuminate\Filesystem\FilesystemAdapter::delete($paths);
+        }
+        
+        /**
+         * Copy a file to a new location.
+         *
+         * @param string $from
+         * @param string $to
+         * @return bool 
+         * @static 
+         */
+        public static function copy($from, $to){
+            return \Illuminate\Filesystem\FilesystemAdapter::copy($from, $to);
+        }
+        
+        /**
+         * Move a file to a new location.
+         *
+         * @param string $from
+         * @param string $to
+         * @return bool 
+         * @static 
+         */
+        public static function move($from, $to){
+            return \Illuminate\Filesystem\FilesystemAdapter::move($from, $to);
+        }
+        
+        /**
+         * Get the file size of a given file.
+         *
+         * @param string $path
+         * @return int 
+         * @static 
+         */
+        public static function size($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::size($path);
+        }
+        
+        /**
+         * Get the mime-type of a given file.
+         *
+         * @param string $path
+         * @return string|false 
+         * @static 
+         */
+        public static function mimeType($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::mimeType($path);
+        }
+        
+        /**
+         * Get the file's last modification time.
+         *
+         * @param string $path
+         * @return int 
+         * @static 
+         */
+        public static function lastModified($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::lastModified($path);
+        }
+        
+        /**
+         * Get the URL for the file at the given path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function url($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::url($path);
+        }
+        
+        /**
+         * Get an array of all files in a directory.
+         *
+         * @param string|null $directory
+         * @param bool $recursive
+         * @return array 
+         * @static 
+         */
+        public static function files($directory = null, $recursive = false){
+            return \Illuminate\Filesystem\FilesystemAdapter::files($directory, $recursive);
+        }
+        
+        /**
+         * Get all of the files from the given directory (recursive).
+         *
+         * @param string|null $directory
+         * @return array 
+         * @static 
+         */
+        public static function allFiles($directory = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::allFiles($directory);
+        }
+        
+        /**
+         * Get all of the directories within a given directory.
+         *
+         * @param string|null $directory
+         * @param bool $recursive
+         * @return array 
+         * @static 
+         */
+        public static function directories($directory = null, $recursive = false){
+            return \Illuminate\Filesystem\FilesystemAdapter::directories($directory, $recursive);
+        }
+        
+        /**
+         * Get all (recursive) of the directories within a given directory.
+         *
+         * @param string|null $directory
+         * @return array 
+         * @static 
+         */
+        public static function allDirectories($directory = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::allDirectories($directory);
+        }
+        
+        /**
+         * Create a directory.
+         *
+         * @param string $path
+         * @return bool 
+         * @static 
+         */
+        public static function makeDirectory($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::makeDirectory($path);
+        }
+        
+        /**
+         * Recursively delete a directory.
+         *
+         * @param string $directory
+         * @return bool 
+         * @static 
+         */
+        public static function deleteDirectory($directory){
+            return \Illuminate\Filesystem\FilesystemAdapter::deleteDirectory($directory);
+        }
+        
+        /**
+         * Get the Flysystem driver.
+         *
+         * @return \League\Flysystem\FilesystemInterface 
+         * @static 
+         */
+        public static function getDriver(){
+            return \Illuminate\Filesystem\FilesystemAdapter::getDriver();
+        }
+        
     }
 
 
@@ -10067,11 +10546,12 @@ namespace {
         /**
          * Get the URL for the previous request.
          *
+         * @param mixed $fallback
          * @return string 
          * @static 
          */
-        public static function previous(){
-            return \Illuminate\Routing\UrlGenerator::previous();
+        public static function previous($fallback = false){
+            return \Illuminate\Routing\UrlGenerator::previous($fallback);
         }
         
         /**
@@ -10882,6 +11362,124 @@ namespace {
          */
         public static function getNames(){
             return \Illuminate\View\Factory::getNames();
+        }
+        
+    }
+
+
+    class PDF extends \Barryvdh\DomPDF\Facade{
+        
+        /**
+         * Get the DomPDF instance
+         *
+         * @return \Barryvdh\DomPDF\Dompdf 
+         * @static 
+         */
+        public static function getDomPDF(){
+            return \Barryvdh\DomPDF\PDF::getDomPDF();
+        }
+        
+        /**
+         * Set the paper size (default A4)
+         *
+         * @param string $paper
+         * @param string $orientation
+         * @return $this 
+         * @static 
+         */
+        public static function setPaper($paper, $orientation = 'portrait'){
+            return \Barryvdh\DomPDF\PDF::setPaper($paper, $orientation);
+        }
+        
+        /**
+         * Show or hide warnings
+         *
+         * @param bool $warnings
+         * @return $this 
+         * @static 
+         */
+        public static function setWarnings($warnings){
+            return \Barryvdh\DomPDF\PDF::setWarnings($warnings);
+        }
+        
+        /**
+         * Load a HTML string
+         *
+         * @param string $string
+         * @param string $encoding Not used yet
+         * @return static 
+         * @static 
+         */
+        public static function loadHTML($string, $encoding = null){
+            return \Barryvdh\DomPDF\PDF::loadHTML($string, $encoding);
+        }
+        
+        /**
+         * Load a HTML file
+         *
+         * @param string $file
+         * @return static 
+         * @static 
+         */
+        public static function loadFile($file){
+            return \Barryvdh\DomPDF\PDF::loadFile($file);
+        }
+        
+        /**
+         * Load a View and convert to HTML
+         *
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @param string $encoding Not used yet
+         * @return static 
+         * @static 
+         */
+        public static function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
+            return \Barryvdh\DomPDF\PDF::loadView($view, $data, $mergeData, $encoding);
+        }
+        
+        /**
+         * Output the PDF as a string.
+         *
+         * @return string The rendered PDF as string
+         * @static 
+         */
+        public static function output(){
+            return \Barryvdh\DomPDF\PDF::output();
+        }
+        
+        /**
+         * Save the PDF to a file
+         *
+         * @param $filename
+         * @return static 
+         * @static 
+         */
+        public static function save($filename){
+            return \Barryvdh\DomPDF\PDF::save($filename);
+        }
+        
+        /**
+         * Make the PDF downloadable by the user
+         *
+         * @param string $filename
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */
+        public static function download($filename = 'document.pdf'){
+            return \Barryvdh\DomPDF\PDF::download($filename);
+        }
+        
+        /**
+         * Return a response with the PDF to show in the browser
+         *
+         * @param string $filename
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */
+        public static function stream($filename = 'document.pdf'){
+            return \Barryvdh\DomPDF\PDF::stream($filename);
         }
         
     }

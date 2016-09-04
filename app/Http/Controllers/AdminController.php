@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use App\Meal;
 use App\Reservation;
 use App\Role;
 use App\Room;
+use App\Table;
+use App\TableReservation;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -38,11 +41,24 @@ class AdminController extends Controller
     public function users()
     {
         return view('admin.users.index')->with([
-            'users' => User::where('role_id', '=', '2')->orderBy('lastname')->paginate(10),
-            'staff' => User::where('role_id', '=', '3')->orderBy('lastname')->paginate(10),
-            'managers' => User::where('role_id', '=', '4')->orderBy('lastname')->paginate(10),
-            'admins' => User::where('role_id', '=', '1')->orderBy('lastname')->paginate(10),
+            'staff' => User::where('role_id', '=', '3')->get(),
+            'managers' => User::where('role_id', '=', '4')->get(),
+            'admins' => User::where('role_id', '=', '1')->get(),
             'roles' => Role::where('id', '!=', '2')->get()
+        ]);
+    }
+
+    public function onlyUsers($sort = 'lastname', $order = 'asc')
+    {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
+
+        return view('admin.users.users')->with([
+            'users' => User::where('role_id', '=', '2')->orderBy($sort, $order)->paginate(10),
+            'order' => $toggle
         ]);
     }
 
@@ -78,7 +94,6 @@ class AdminController extends Controller
 
         return redirect()->action('AdminController@index');
     }
-
-
-
+    
+    
 }

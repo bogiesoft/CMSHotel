@@ -19,7 +19,7 @@
         <span class="input-group-addon">
             <i class="fa fa-money fw" aria-hidden="true"></i>
         </span>
-        <input type="number" step="0.1" name="price" value="@if(isset($drink)){{$drink->price}}@else  {{1.00}} @endif" class="form-control">
+        <input type="number" step="0.1" name="price" value="@if(isset($drink)){{$drink->price}}@else{{1.00}}@endif" class="form-control">
     </div>
 </div>
 
@@ -28,11 +28,3 @@
     <textarea name="text" class="form-control">@if(isset($drink)){{$drink->text}}@endif</textarea>
 </div>
 
-<!--
-
-<div class="form-group">
-    <label>Choose a photo: </label>
-    <input type="file" name="img" id="img-input" class="form-control">
-</div>
-
--->

@@ -1,6 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
 <?php $active = 'table-reservations';  ?>
+@include('modals.past-t-reservations')
+@include('modals.future-t-reservations')
 
     <div class="col-md-12">
         <div class="panel panel-success">
@@ -8,6 +10,14 @@
                 <h5 class="panel-title">
                     <i class="fa fa-calendar" style="vertical-align: middle"></i>&nbsp;
                     Today's diner check-ins
+                    <button class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#future-reservations" title="Tomorrow's reservations">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                    <button class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#past-reservations" title="Yesterday's reservations">
+                        <i class="glyphicon glyphicon-minus"></i>
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
                 </h5>
             </div>
             <div class="panel-body">
@@ -51,7 +61,4 @@
         </div>
     </div>
 
-@endsection
-@section('footer')
-    <script src="{{ URL::asset('js/dashboard.js') }}"></script>
 @endsection

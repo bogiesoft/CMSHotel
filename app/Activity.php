@@ -34,6 +34,7 @@ class Activity extends Model
         return $income;
     }
 
+
     public function getFormattedDuration()
     {
         $time = explode(':', $this->duration);
@@ -41,10 +42,14 @@ class Activity extends Model
         $a = Carbon::createFromTime($time[0], $time[1], $time[2]);
         //return $a->toTimeString();
         $str = '';
-        if($time[0] != 0)
-            $str .= $time[0] . ' hour/s ';
-        elseif($time[1] != 0)
-            $str .= $time[1] . ' minute/s';
+        if($time[0] != 0){
+            $plural =  ($time[0] > 1) ? 'hours' : 'hour';
+            $str .= $time[0]  . ' ' . $plural . ' ';
+        }
+        elseif($time[1] != 0){
+            $plural =  ($time[1] > 1) ? 'minutes' : 'minute';
+            $str .= $time[1] . ' ' . $plural;
+        }
         return $str;
     }
 }

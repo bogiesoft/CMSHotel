@@ -31,7 +31,7 @@ class ActivityReservationController extends Controller
     {
         return view('user.activities')->with([
             'reservation' => $reservation,
-            'activities' => Activity::all(),
+            'activities' => Activity::paginate(10),
             'meals' =>Meal::all()
         ]);
     }
@@ -60,15 +60,42 @@ class ActivityReservationController extends Controller
         $activity = Activity::find($request->activity_id);
 
         $time = explode(':', $request->time);
-        $date = (new Carbon($request->date, 'Europe/London'))->addHours($time[0])->addMinutes($time[1]);
+        $date = (new Carbon($request->date, 'Europe/Zagreb'))->addHours($time[0])->addMinutes($time[1]);
+        $now = Carbon::now('Europe/Zagreb');
+        if($now->addMinutes(30)->gte($date)){
+            $data = [
+                'error' => 'Please select time at least 30 minutes from now',
+            ];
 
-        $reservation->activities()->attach($activity->id,['time' => $date]);
-        $reservation->price += $activity->price;
-        $activity->counter += 1;
+            if($request->ajax()){
+                return response()->json($data);
+            }
+        }
+        else if($date->gte((new Carbon($reservation->departure, 'Europe/Zagreb'))->setTime(0,0,0)->addHours(11)->addMinutes(31))){
+            $data = [
+                'error' => 'Please select time at least 30 minutes before your check-out'
+            ];
 
-        $reservation->update();
-        $activity->update();
+            if($request->ajax()){
+                return response()->json($data);
+            }
+        }
+        else{
+            $reservation->activities()->attach($activity->id,['time' => $date]);
+            $reservation->price += $activity->price;
+            $activity->counter += 1;
 
+            $reservation->update();
+            $activity->update();
+
+            $data = [
+                'success' => 'You have successfully booked ' . $activity->name . ' for ' . $date->toDayDateTimeString()
+            ];
+        }
+
+        if($request->ajax()){
+            return response()->json($data);
+        }
         return view('user.order-finish')->with([
             'reservation' =>  $reservation,
             'activity' => Activity::find($request->activity_id),
@@ -88,4 +115,22 @@ class ActivityReservationController extends Controller
         }
     }
 
+    public function reservations($sort = 'name', $order='asc')
+    {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
+        return view('admin.reservations.activity-orders')->with([
+            'activities' => Activity::has('reservations')->orderBy($sort, $order)->get(),
+            'order' => $toggle
+        ]);
+
+        //$activities = Activity::all();
+        return view('admin.reservations.activity-orders')->with([
+            'activities' => $activities,
+            'order' => $toggle
+        ]);
+    }
 }

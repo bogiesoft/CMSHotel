@@ -1,45 +1,66 @@
 html,
 body{
     height: 100%;
-    background-color: #222222;
+    background-color: lightgrey;
 }
 .collapse-icon{
     color: white;
 }
+
 .container-second-row{
-    height:100%;
+    height:100vh;
+    overflow: hidden;
 }
 .navbar-main{
     margin: 0;
     border: none;
+    border-bottom: black;
 }
 
 .nav-sidebar {
     height: 100%;
     background-color: #222222;
     margin-left: 0;
-    padding: 0;
-    padding-top: 50px;
+    padding: 2vh;
+    margin-top: 50px;
+    border-color: #121212;
+
+}
+.nav-sidebar > ul{
+    padding:1vh 0 1vh 0 ;
 }
 
 @media (max-width: 768px) {
     .nav-sidebar{
         min-height:0;
         height: auto;
+        margin-top: 57px;
+        padding: 0;
     }
 }
 
 .content-section{
     overflow: auto;
     padding-top: 10vh;
+    background-color: lightgrey;
+    height: 100%
 }
 .nav-sidebar a{
     color: lightgrey;
 }
-.nav-sidebar li>a:hover, .nav-sidebar li>a:active{
-    background-color: #222222;
+.nav-sidebar li>a:hover, .nav-sidebar li>a:active,.nav-sidebar li>a:visited{
+    background-color: black;
 }
 
 .table>tbody>tr>td{
     vertical-align: middle;
+}
+
+.content-parent{
+    overflow: auto;
+    background-color: lightgrey;
+}
+
+.fa-star{
+    color: goldenrod;
 }

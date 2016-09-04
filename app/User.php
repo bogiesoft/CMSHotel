@@ -88,8 +88,12 @@ class User extends Authenticatable
 
     public function getFormattedLastLogin()
     {
-        $date = new Carbon($this->last_login);
-        return $date->diffForHumans();
+        if($this->last_login){
+            $date = new Carbon($this->last_login, 'Europe/Zagreb');
+            return $date->diffForHumans();
+        }else
+            return 'Never';
+
     }
 
 }

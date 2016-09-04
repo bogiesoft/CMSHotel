@@ -31,8 +31,8 @@ class TableReservation extends Model
 
     public function passed()
     {
-        $today = Carbon::now('Europe/London');
-        if($today->gt(Carbon::createFromFormat('Y-m-d H:i:s', $this->departure,'Europe/London')))
+        $today = Carbon::now('Europe/Zagreb');
+        if($today->gt(Carbon::createFromFormat('Y-m-d H:i:s', $this->departure,'Europe/Zagreb')))
             return true;
         return false;
     }

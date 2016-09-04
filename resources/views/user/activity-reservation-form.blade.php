@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+
+    <div class="loading-div" hidden><i class="fa fa-cog fa-3x fa-spin fa-fw loading"></i></div>
+    <div class="fog" hidden></div>
+
     <div class="block">
         <div class="container">
             <div class="col-md-10 col-md-offset-1">
@@ -10,8 +14,14 @@
                         <li class="active">Date and time</li>
                     </ol>
                 </div>
+                <div class="col-md-12" style="font-size: 120%">
+                    <div class="alert alert-danger" hidden>
+                        <p class="text-center"></p>
+                    </div>
+                </div>
+
                 <div class="">
-                    <form action="/activity-orders" method="POST">
+                    <form action="/activity-orders" method="POST" id="form-reservation">
                         {{csrf_field()}}
 
                         <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
@@ -32,7 +42,7 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-info btn-block">
+                            <button type="submit" class="btn btn-info btn-block btn-place-order">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </button>

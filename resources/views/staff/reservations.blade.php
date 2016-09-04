@@ -1,6 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
 <?php $active = 'reservations';  ?>
+@include('modals.past-reservations')
+@include('modals.future-reservations')
 
 <div class="col-md-12">
 <div class="panel panel-success">
@@ -8,6 +10,14 @@
     <h5 class="panel-title">
         <i class="fa fa-calendar" style="vertical-align: middle"></i>&nbsp;
         Today's hotel check-ins
+        <button class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#future-reservations" title="Tomorrow's reservations">
+            <i class="glyphicon glyphicon-plus"></i>
+            <i class="glyphicon glyphicon-calendar"></i>
+        </button>
+        <button class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#past-reservations" title="Yesterday's reservations">
+            <i class="glyphicon glyphicon-minus"></i>
+            <i class="glyphicon glyphicon-calendar"></i>
+        </button>
     </h5>
 </div>
 <div class="panel-body">
@@ -22,7 +32,6 @@
     </thead>
     @foreach($todays as $reservation)
         <tr id="reservation{{$reservation->id}}">
-
             <td>{{$reservation->id}}</td>
             <td>{{$reservation->name}}</td>
             <td>{{$reservation->getFormattedArrivalDate()}}</td>
@@ -51,7 +60,4 @@
 </div>
 </div>
 
-@endsection
-@section('footer')
-    <script src="{{ URL::asset('js/dashboard.js') }}"></script>
 @endsection

@@ -9,7 +9,7 @@
         <span class="input-group-addon">
             <i class="fa fa-users fw" aria-hidden="true"></i>
         </span>
-        <input type="number" step="1" name="people" value="@if(isset($table)){{$table->people}}@else  {{4}} @endif" class="form-control">
+        <input type="number" step="1" name="people" value="@if(isset($table)){{$table->people}}@else{{4}}@endif" class="form-control">
     </div>
 </div>
 

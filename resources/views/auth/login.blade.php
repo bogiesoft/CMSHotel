@@ -1,16 +1,4 @@
 @extends('layouts.app')
-@section('header')
-    <style>
-        .block{
-            min-height: 100vh;
-            height: auto;
-        }
-
-        .block>.container{
-            padding-top:25vh;
-        }
-    </style>
-@endsection
 @section('content')
 
     <div class="block">
@@ -49,9 +37,8 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-info">
-                            <i class="fa fa-btn fa-sign-in"></i>Login
+                            <i class="fa fa-btn fa-sign-in fa-fw"></i>Login
                         </button>
-                        <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                     </div>
                 </form>
             </div>

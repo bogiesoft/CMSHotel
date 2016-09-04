@@ -1,10 +1,22 @@
+
+form label{
+    font-size: 120%;
+}
 .block{
     min-height: 100vh;
     height: auto;
+
 }
 
+.block .row{
+    margin:0;
+}
 .block>.container{
-    padding: 20vh 0 20vh 0;
+    padding: 20vh 5vw 20vh 5vw;
+}
+
+.block>.container-fluid{
+    padding: 12vh 5vw 12vh 5vw;
 }
 
 .block.bg-image{
@@ -63,8 +75,9 @@
 .block4 > .container{
     padding-top: 25vh;
 }
-.block4 .form-div{
+.block4 .table-reservation-container{
     padding-top: 5vh;
+    font-size: 120%;
 }
 
 .block-home > .container{
@@ -74,6 +87,7 @@
 .white-text{
     color: white;
 }
+
 
 
 .img-meals{
@@ -87,7 +101,7 @@
 }
 
 .fog{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     background-color: rgba(255,255,255,0.6);
@@ -95,7 +109,7 @@
 }
 
 .loading{
-    position: absolute;
+    position: fixed;
     left:50vw;
     top:50vh;
     margin-left: -48px;
@@ -106,12 +120,13 @@
 .fa-star{
     color: goldenrod;
 }
-.block{
-    min-height: 100vh;
-    height: auto;
+.navbar-brand{
+    padding-top: 5px;
 }
-.block>.container{
-    padding-top: 15vh;
+.navbar-brand > span > .fa-star{
+    display: inline-block;
+    color:inherit;
+    font-size: 50%;
 }
 .tab-content {
     padding-top: 15vh;
@@ -125,4 +140,45 @@
 .popover {
     max-width: none;
     width: auto;
+}
+
+.panel-info-border{
+    border:1px solid #9c27b0;
+}
+
+.popular h6{
+    opacity: 0;
+}
+
+.popular:hover h6{
+    position: absolute;
+    top:45%;
+    left:0;
+    width: 100%;
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    opacity: 1;
+}
+
+.popular:hover .center-text-image{
+    position: absolute;
+    top:45%;
+    left:0%;
+    width: 100%;
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    text-align: center;
+    opacity:1;
+}
+
+.menu-border{
+    border-bottom: 1px dotted lightgrey;
+}
+
+.pagination > li.active > span{
+    background-color: #9c27b0;
+}
+
+.nav-account{
+    margin-right: 5%;
 }

@@ -34,7 +34,6 @@
             <button type="submit" class="btn btn-info">
                 <i class="fa fa-btn fa-sign-in"></i>Login
             </button>
-            <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
         </div>
     </form>
 </div>

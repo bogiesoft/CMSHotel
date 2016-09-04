@@ -1,11 +1,8 @@
 
-<div id="receipt-popover{{$reservation->id}}" hidden>
-    @include('user.price-listing')
-</div>
-<div class="panel panel-default">
+<div class="panel panel-default @if($reservation->active() && !isset($norating)) {{'panel-info-border'}} @endif  hide-opacity bounceInLeft">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1 equal-height">
                 <div class="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-0">
                     <img src="/images/rooms/{{$reservation->room->img}}" class="img-responsive img-circle center-block">
                 </div>

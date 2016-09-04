@@ -1,4 +1,12 @@
-<div class="col-md-10 col-md-offset-1 form-div">
+<div class="col-md-12 table-reservation-container">
+    <div class="col-md-12">
+            <div class="alert alert-danger alert-res" hidden>
+                <p class="text-center"></p>
+            </div>
+            <div class="alert alert-success success-res" hidden>
+                <p class="text-center"></p>
+            </div>
+    </div>
 <form method="POST" action="/table-reservation" id="form-reservation">
     {{csrf_field()}}
     <div class="col-md-6">
@@ -46,9 +54,9 @@
                 </button>
             @else
                 <label>&nbsp</label>
-                <button type="button" data-toggle="modal" data-target="#loginModal" class="form-control btn btn-link">
+                <a href="{{url('/login')}}" class="form-control btn btn-link">
                     Login to book a table
-                </button>
+                </a>
             @endif
         </div>
     </div>

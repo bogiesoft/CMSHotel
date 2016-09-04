@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Faker\Provider\DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,7 +23,8 @@ class Room extends Model
     {
         $income = 0;
         foreach ($this->reservations()->get() as $reservation){
-            $income += $reservation->people  * $reservation->room->price;
+
+            $income += $reservation->generatePriceForRoom();
         }
 
         return $income;
@@ -31,7 +34,7 @@ class Room extends Model
     {
         $income = 0;
         foreach ($this->reservations()->get() as $reservation){
-            $income += $reservation->price;
+            $income += $reservation->price();
         }
 
         return $income;
@@ -41,12 +44,30 @@ class Room extends Model
     {
         $rating = 0;
         $ratings = $this->reservations()->get();
+        $count = 0;
         foreach ($ratings as $r){
+            if(!$r->rating == 0)
+                $count++;
             $rating += $r->rating;
         }
         if($rating == 0)
             return 0;
-        return $rating / count($ratings);
+        return $rating / $count;
+    }
+
+    public function priceForToday()
+    {
+        if(Carbon::now('Europe/Zagreb')->addDays(2)->isWeekend())
+            return $this->price += $this->price * 0.1;
+        else
+            return $this->price;
+    }
+
+    public function priceForThisDay(Carbon $day)
+    {
+        if($day->isWeekend())
+            return $this->price + $this->price*0.1;
+        return $this->price;
     }
 
 }

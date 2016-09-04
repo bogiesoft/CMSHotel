@@ -2,17 +2,43 @@
 @section('content')
     @include('modals.tables.add-table-modal')
     <?php $active = 'tables';  ?>
-
+    <div class="col-sm-12 col-md-6 pull-right">
+        <a href="/dashboard/tables/reservations" class="btn btn-default pull-right" style="margin-bottom: 1em">
+            <i class="fa fa-btn fa-angle-right fa-fw"></i>&nbsp; Table reservations
+        </a>
+    </div>
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h5 class="panel-title">
                     Tables
-                    <a class="btn btn-xs btn-info pull-right"
-                       data-toggle="modal"
-                       data-target="#addTableModal">
-                        <i class="fa fa-plus"></i>&nbsp; add
-                    </a>
+                    <div class="dropdown pull-right">
+                        <a class="btn btn-xs btn-info"
+                           data-toggle="modal"
+                           data-target="#addTableModal">
+                            <i class="fa fa-plus"></i>&nbsp; add
+                        </a>
+
+                        <button class="btn btn-xs btn-info pull-right dropdown-toggle" id="dropdownSort" data-toggle="dropdown"aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-caret-down"></i>
+                            <i class="fa fa-caret-filter"></i>&nbsp; sort
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownSort">
+                            <li>
+                                <a href="{{url('/dashboard/tables/name/' . $order)}}"> &nbsp;
+                                    <i class="fa fa-sort-alpha-{{$order}} fa-fw"></i> &nbsp;
+                                    Table
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{url('/dashboard/tables/people/' . $order)}}"> &nbsp;
+                                    <i class="fa fa-sort-amount-{{$order}} fa-fw"></i> &nbsp;
+                                    People
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </h5>
             </div>
             <div class="panel-body">
@@ -46,52 +72,4 @@
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h5 class="panel-title">
-                    <i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;
-                    Table reservations
-                </h5>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                        <th>Table</th>
-                        <th>People</th>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Rating</th>
-                        </thead>
-                        @foreach($tables as $table)
-                            <tr>
-                                <td colspan="5" class="text-info">{{$table->name}}</td>
-                            </tr>
-                            @foreach($table->reservations()->get() as $reservation)
-                                <tr>
-                                    <td></td>
-                                    <td>{{$reservation->people}}</td>
-                                    <td>{{$reservation->getFormattedArrivalDate()}}</td>
-                                    <td>{{$reservation->name}}</td>
-                                    <td>
-                                        @if($reservation->rating != 0)
-                                            @for($i=1; $i <=$reservation->rating; $i++)
-                                                <i class="fa fa-star"></i>
-                                            @endfor
-                                        @else
-                                            {{'NR'}}
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-@section('footer')
-    <script src="{{ URL::asset('js/dashboard.js') }}"></script>
 @endsection

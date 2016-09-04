@@ -2,6 +2,10 @@ $('.date').datepicker({
     format: "yyyy-mm-dd",
     startDate: "Today",
 });
+$('.animateOnce .container').addClass('hide-opacity');
+$('.animateOnce').one('mouseover', function () {
+    $(this).find('.container').addClass('bounceInLeftHover');
+});
 
 $('.submit-res').click(function () {
     var url = '/table-reservation';

@@ -6,17 +6,29 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Drink;
 use App\DrinkType;
-
+use App\Reservation;
 class DrinkController extends Controller
 {
     //
 
-    public function index()
+    public function index($sort = 'name', $order = 'asc')
     {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
         return view('admin.drinks.index')->with([
-            'drinks' => Drink::withTrashed()->orderBy('deleted_at')->get(),
-            'types' => DrinkType::all()
+            'drinks' => Drink::withTrashed()->orderBy($sort, $order)->get(),
+            'types' => DrinkType::all(),
+            'most_popular_drink' =>  $this->mostPopular(),
+            'order' => $toggle
         ]);
+    }
+
+    public function mostPopular()
+    {
+        return Drink::orderBy('counter', 'desc')->first();
     }
 
     public function store(Request $request)
@@ -93,5 +105,18 @@ class DrinkController extends Controller
         }
 
         return redirect()->action('DrinkController@index');
+    }
+
+    public function reservations($sort = 'name', $order = 'desc')
+    {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
+        return view('admin.reservations.drink-orders')->with([
+            'drinks' => Drink::has('reservations')->orderBy($sort, $order)->get(),
+            'order' => $toggle
+        ]);
     }
 }

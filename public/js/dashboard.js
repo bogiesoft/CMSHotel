@@ -51,7 +51,7 @@ $(document).ready(function(){
                 button.addClass('delete-meal').removeClass('restore-meal').removeAttr('title');
                 $('#meal-income' + id).removeClass('text-muted').removeAttr('title');
 
-                row.parent().prepend(row);
+//                row.parent().prepend(row);
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -100,7 +100,7 @@ $(document).ready(function(){
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-room').removeClass('restore-room').removeAttr('title');
                 $('#room-income' + id).removeClass('text-muted').removeAttr('title');
-                row.parent().prepend(row);
+                //row.parent().prepend(row);
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -151,6 +151,8 @@ $(document).ready(function(){
                 row.addClass('text-muted').attr('title', 'This drink is not available for orders');
                 button.children('i').removeClass('fa-trash').addClass('fa-cart-plus');
                 button.addClass('restore-drink').removeClass('delete-drink').attr('title', 'Make drink available for orders');
+                $('#drink-income' + id).addClass('text-muted').attr('title', 'This drink is not available for orders');
+
                 row.parent().append(row);
             },
             error: function (data) {
@@ -175,7 +177,8 @@ $(document).ready(function(){
                 row.removeClass('text-muted').removeAttr('title');
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-drink').removeClass('restore-drink').removeAttr('title');
-                row.parent().prepend(row);
+                $('#drink-income' + id).removeClass('text-muted').removeAttr('title');
+                //row.parent().prepend(row);
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -206,8 +209,7 @@ $(document).ready(function(){
         });
         return false;
     });
-
-
+    
     $('.panel').on('click', '.delete-table', function () {
         var url = '/dashboard/tables';
         var id = $(this).val();
@@ -243,7 +245,7 @@ $(document).ready(function(){
                 button.children('i').removeClass('fa-cart-plus').addClass('fa-trash');
                 button.addClass('delete-activity').removeClass('restore-activity').removeAttr('title');
                 $('#activity-income' + id).removeClass('text-muted').removeAttr('title');
-                row.parent().prepend(row);
+                //row.parent().prepend(row);
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -294,6 +296,13 @@ $(document).ready(function(){
             }
         });
         return false;
+    });
+
+    $('.accordion-btn').on('click', function () {
+        var clicked = $(this);
+        $('.collapse').not(this).each(function () {
+            $(this).collapse('hide');
+        });
     });
 
 });

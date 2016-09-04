@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Reservation;
 use View;
 use App\Http\Requests;
 use App\Room;
 use Illuminate\Support\Facades\Auth;
-
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\URL;
+use App\User;
+use Carbon\Carbon;
 class PagesController extends Controller
 {
     //
@@ -52,4 +56,5 @@ class PagesController extends Controller
         $user = Auth::user();
         return view('profile', ['users' => $user, 'staff' => $user->reservations]);
     }
+
 }

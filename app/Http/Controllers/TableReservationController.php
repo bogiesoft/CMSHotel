@@ -28,15 +28,24 @@ class TableReservationController extends Controller
     {
 
         $tables = $this->getPossibleTables($request->people);
-
-        $date  = explode('-' , $request->date);
         $time = explode(':', $request->time);
 
-
-        $arrival = Carbon::create($date[0], $date[1], $date[2], $time[0], $time[1]);
+        $arrival = (new Carbon($request->date, 'Europe/Zagreb'))->addHours($time[0])->addMinutes($time[1]);
         $departure = $arrival->copy()->addHour(TableReservationType::find($request->type)->hours);
+        $now = Carbon::now('Europe/Zagreb');
 
+        if($now->addMinutes(30)->gte($arrival)){
+            $data = [
+                'success' => false,
+                'message' => 'Please select time at least 30 minutes from now'
+            ];
 
+            if($request->ajax()){
+                return response()->json($data);
+            }
+            return redirect()->back()->withInput();
+
+        }
 
         //  Check staff for each possible table
         foreach ($tables as $table){
@@ -58,9 +67,11 @@ class TableReservationController extends Controller
                         . $arrival->toDayDateTimeString()
                 ];
 
-                return response()->json($data);
+                if($request->ajax()){
+                    return response()->json($data);
+                }
+                return redirect()->back()->withInput();
 
-                //return redirect()->action('UserController@profile');
             }
         }
 
@@ -69,9 +80,11 @@ class TableReservationController extends Controller
             'success' => false,
             'message' => 'No tables available for selected date or time',
         ];
+        if($request->ajax()){
+            return response()->json($data);
+        }
+        return redirect()->back()->withInput();
 
-        return response()->json($data);
-        //return redirect()->back()->withInput();
     }
 
     //  Checks all staff for table
@@ -114,4 +127,16 @@ class TableReservationController extends Controller
         return redirect()->action('UserController@profile');
     }
 
+    public function reservations($sort = 'departure', $order = 'desc')
+    {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
+        return view('admin.reservations.table-reservations')->with([
+            'reservations' => TableReservation::orderBy($sort, $order)->paginate(15),
+            'order' => $toggle
+        ]);
+    }
 }

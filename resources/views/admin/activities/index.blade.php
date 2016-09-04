@@ -3,6 +3,11 @@
 
 @include('modals.activities.add-activity-modal')
 <?php $active = 'activities';  ?>
+<div class="col-md-12">
+    <a href="/dashboard/activities/reservations" class="btn btn-default pull-right" style="margin-bottom: 1em">
+        <i class="fa fa-btn fa-angle-right fa-fw"></i>&nbsp; Activity reservations
+    </a>
+</div>
 <div class="col-sm-12 col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -176,9 +181,4 @@
         </div>
     </div>
 </div>
-
-
-@endsection
-@section('footer')
-    <script src="{{ URL::asset('js/dashboard.js') }}"></script>
 @endsection

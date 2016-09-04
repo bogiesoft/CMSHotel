@@ -1,23 +1,15 @@
-$('.input-daterange').datepicker({
-    format: "dd-mm-yyyy",
-    startDate: "Today",
-    orientation: "bottom left",
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    datesDisabled: ['today'],
-    todayHighlight:"true"
-});
+var load = 0;
+
 
 rePopulatePeopleSelect();
-updatePrice();
 $('#rooms').on('change', function () {
     rePopulatePeopleSelect();
-    updatePrice();
 });
 
 $('#people').on('change', function () {
-    updatePrice();
-})
+    calculatePrice();
+});
+
 
 function rePopulatePeopleSelect(){
     numPeople = $('#rooms option:selected').data('people');
@@ -25,15 +17,52 @@ function rePopulatePeopleSelect(){
     for (i = 1; i <= numPeople; i++) {
         $('#people').append($('<option>', {value:i, text:i}));
     }
+    calculatePrice();
 
 }
 
-function updatePrice(){
+function calculatePrice(){
     numPeople = parseInt($('#people').val());
     price = parseInt($('#rooms option:selected').data('price'));
-    total = price * numPeople;
-    $('#price').text(total);
+
+    if($('#arrival').val().length === 0 || $('#departure').val().length === 0){
+        total = price * numPeople;
+        updatePrice(total);
+    }
+    else{
+        var data = $('#form-reservation').serializeArray();
+        data.push({name : 'price', value: price});
+        $.ajax({
+            url: '/reservation/generate-price',
+            type: 'GET',
+            data: data,
+            success: function (data) {
+                console.log(data);
+                updatePrice(data);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+
+        });
+        return false;
+    }
 }
+
+
+
+function updatePrice(total){
+
+    $('#price').text(total);
+    if(load > 0){
+        var element = $('#price').parents('.form-group');
+        var el2 = element.clone(true);
+        element.before( el2 ).remove();
+        el2.removeClass('bounceIn').addClass('bounceIn');
+    }
+    load += 1;
+}
+
 
 $('.submit-res').click(function () {
     var url = '/reservation';
@@ -73,3 +102,30 @@ $('.submit-res').click(function () {
     });
     return false;
 });
+
+///
+var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+var checkin = $('#arrival').datepicker({
+    onRender: function(date) {
+        return date.valueOf() < now.valueOf() ? 'disabled' : '';
+    }
+}).on('changeDate', function(ev) {
+    if (ev.date.valueOf() > checkout.date.valueOf()) {
+        var newDate = new Date(ev.date)
+        newDate.setDate(newDate.getDate() + 1);
+        checkout.setValue(newDate);
+    }
+    checkin.hide();
+    $('#departure')[0].focus();
+}).data('datepicker');
+
+var checkout = $('#departure').datepicker({
+    onRender: function(date) {
+        return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+    }
+}).on('changeDate', function(ev) {
+    checkout.hide();
+    calculatePrice();
+}).data('datepicker');

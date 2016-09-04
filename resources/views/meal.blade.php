@@ -5,10 +5,10 @@
         </a>
     </div>
     <div class="media-body">
-        <h4 class="media-heading">
-            {{$meal->name}}
-            <span class="badge pull-right">€{{$meal->price}}</span>
-        </h4>
+        <p class="media-heading menu-border">
+            <strong>{{$meal->name}}</strong>
+            <span class="badge pull-right" >€{{$meal->price}}</span>
+        </p>
         <p>{{$meal->text}}</p>
     </div>
 </div>

@@ -12,14 +12,19 @@ use Illuminate\Http\Response;
 use App\Reservation;
 class MealController extends Controller
 {
-    //
-    public function index()
+
+    public function index($sort = 'name', $order = 'asc')
     {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
         return view('admin.meals.index')->with([
-            'meals'=> Meal::withTrashed()->orderBy('deleted_at')->paginate(10),
+            'meals'=> Meal::withTrashed()->orderBy($sort, $order)->paginate(10),
             'types'  =>  MealType::all(),
             'most_popular_meal' => $this->mostPopular(),
-            'reservations' => Reservation::all()
+            'order' => $toggle
         ]);
 
     }

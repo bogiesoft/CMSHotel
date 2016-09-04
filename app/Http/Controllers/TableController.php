@@ -11,11 +11,16 @@ use App\Table;
 class TableController extends Controller
 {
     //
-    public function index()
+    public function index($sort = 'name', $order = 'asc')
     {
+        if($order == 'desc')
+            $toggle = 'asc';
+        else
+            $toggle = 'desc';
+
         return view('admin.tables.index')->with([
-            'tables' => Table::all(),
-            'reservations' => TableReservation::all()
+            'tables' => Table::orderBy($sort,$order)->get(),
+            'order' => $toggle
         ]);
     }
     
