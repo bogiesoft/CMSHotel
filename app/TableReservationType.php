@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\TableReservationType
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\TableReservation[] $reservation
+ * @mixin \Eloquent
+ */
 class TableReservationType extends Model
 {
     //

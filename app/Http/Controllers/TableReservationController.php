@@ -20,7 +20,8 @@ class TableReservationController extends Controller
         return view('diner')->with([
             'meals' => Meal::all(),
             'drinks' => Drink::all(),
-            'types' => TableReservationType::all()
+            'types' => TableReservationType::all(),
+            'tables' => Table::all()
         ]);
     }
 

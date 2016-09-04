@@ -6,6 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Activity
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @mixin \Eloquent
+ */
 class Activity extends Model
 {
     //

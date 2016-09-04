@@ -19,30 +19,36 @@
             content managing that Content has to offer
         </h5>
         <div class="row" style="padding-top: 5vh">
-            <a href="{{url('/rooms')}}">
-                <div class="col-xs-6 col-sm-4 col-md-4 text-center">
-                    <div class="popular">
-                        <img src="/images/rooms/{{$room->img}}" class="img-responsive img-circle center-block">
-                        <h6><strong>Check out our rooms</strong></h6>
+            @if($room)
+                <a href="{{url('/rooms')}}">
+                    <div class="col-xs-6 col-sm-4 col-md-4 text-center">
+                        <div class="popular">
+                            <img src="/images/rooms/{{$room->img}}" class="img-responsive img-circle center-block">
+                            <h6><strong>Check out our rooms</strong></h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <a href="{{url('/activities')}}">
-                <div class="col-xs-6 col-sm-4 col-md-4 text-center">
-                    <div class="popular">
-                        <img src="/images/activities/{{$activity->img}}" class="img-responsive img-circle center-block">
-                        <h6><strong>Check out our hotel activities</strong></h6>
+                </a>
+            @endif
+            @if($activity)
+                <a href="{{url('/activities')}}">
+                    <div class="col-xs-6 col-sm-4 col-md-4 text-center">
+                        <div class="popular">
+                            <img src="/images/activities/{{$activity->img}}" class="img-responsive img-circle center-block">
+                            <h6><strong>Check out our hotel activities</strong></h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <a href="{{url('/restaurant')}}">
-                <div class="col-xs-offset-3 col-xs-6 col-sm-offset-0 col-sm-4 col-md-4 text-center">
-                    <div class="popular">
-                        <img src="/images/meals/{{$meal->img}}" class="img-responsive img-circle center-block">
-                        <h6><strong>Check out our restaurant</strong></h6>
+                </a>
+            @endif
+            @if($meal)
+                <a href="{{url('/restaurant')}}">
+                    <div class="col-xs-offset-3 col-xs-6 col-sm-offset-0 col-sm-4 col-md-4 text-center">
+                        <div class="popular">
+                            <img src="/images/meals/{{$meal->img}}" class="img-responsive img-circle center-block">
+                            <h6><strong>Check out our restaurant</strong></h6>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            @endif
         </div>
     </div>
 </div>

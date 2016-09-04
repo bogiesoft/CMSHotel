@@ -7,6 +7,12 @@ use Faker\Provider\DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Room
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @mixin \Eloquent
+ */
 class Room extends Model
 {
     //

@@ -110,6 +110,7 @@
             </h5>
         </div>
         <div class="panel-body">
+            @if($most_popular_meal)
             <table class="table">
                 <tr class="row text-center">
                     <td class="col-sm-4 col-md-6 center-block" style="border:none">
@@ -122,6 +123,9 @@
                     </td>
                 </tr>
             </table>
+            @else
+                <h5 class="text-center">No meals yet</h5>
+            @endif
         </div>
     </div>
 </div>

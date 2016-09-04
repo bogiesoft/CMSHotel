@@ -5,6 +5,16 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Reservation
+ *
+ * @property-read \App\Room $room
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Activity[] $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Meal[] $meals
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Drink[] $drinks
+ * @mixin \Eloquent
+ */
 class Reservation extends Model
 {
     
@@ -101,15 +111,6 @@ class Reservation extends Model
         return $price;
     }
 
-    public function generatePriceForActivities()
-    {
-        $total = 0;
-        foreach ($this->activities()->get() as $activity){
-            $total += $activity->price;
-        }
-        return $total;
-    }
-
 
     public function generatePriceForFoodOrders()
     {
@@ -120,6 +121,15 @@ class Reservation extends Model
         return $total;
     }
 
+
+    public function generatePriceForActivities()
+    {
+        $total = 0;
+        foreach ($this->activities()->get() as $activity){
+            $total += $activity->price;
+        }
+        return $total;
+    }
     public function generatePriceForDrinkOrders()
     {
         $total = 0;

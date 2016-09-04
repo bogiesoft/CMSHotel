@@ -6,6 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\User
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\TableReservation[] $table_reservations
+ * @property-read \App\Role $role
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use SoftDeletes;

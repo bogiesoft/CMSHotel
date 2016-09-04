@@ -5,6 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Meal
+ *
+ * @property-read \App\MealType $meal_type
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @mixin \Eloquent
+ */
 class Meal extends Model
 {
     //

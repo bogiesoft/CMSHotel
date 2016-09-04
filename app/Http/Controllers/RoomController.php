@@ -20,7 +20,7 @@ class RoomController extends Controller
 
 
         return view('admin.rooms.index')->with([
-            'rooms' => Room::orderBy($sort, $order)->get(),
+            'rooms' => Room::withTrashed()->orderBy($sort, $order)->get(),
             'most_popular_room' => $this->mostPopular(),
             'order' => $toggle
         ]);

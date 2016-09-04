@@ -47,11 +47,15 @@
         </div>
         <div class="form-group">
             @if(\Auth::check())
-                <label>&nbsp</label>
-                <button type="submit" class="form-control btn btn-info submit-res">
-                    <span class="glyphicon glyphicon-chevron-right"> </span>
-                    <span class="glyphicon glyphicon-chevron-right"> </span>
-                </button>
+                @if($tables->isEmpty())
+                    <p class="text-center">No tables yet, please come back later</p>
+                @else
+                    <label>&nbsp</label>
+                    <button type="submit" class="form-control btn btn-info submit-res">
+                        <span class="glyphicon glyphicon-chevron-right"> </span>
+                        <span class="glyphicon glyphicon-chevron-right"> </span>
+                    </button>
+                @endif
             @else
                 <label>&nbsp</label>
                 <a href="{{url('/login')}}" class="form-control btn btn-link">

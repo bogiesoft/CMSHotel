@@ -73,17 +73,25 @@
                         <label>Price total: </label>
                         <p class="form-control-static">
                             <i class="fa fa-money"></i>
-                            €<span id="price">10</span>
+                            @if($rooms->isEmpty())
+                                <span>€0</span>
+                            @else
+                                €<span id="price">10</span>
+                            @endif
                         </p>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-5 col-md-offset-6">
                     <div class="form-group">
                         @if(Auth::check())
-                            <button type="submit" class="form-control btn btn-info submit-res" data-token="{{csrf_token()}}">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </button>
+                            @if($rooms->isEmpty())
+                                <p class="text-center">No rooms yet, please come back later</p>
+                            @else
+                                <button type="submit" class="form-control btn btn-info submit-res" data-token="{{csrf_token()}}">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            @endif
                         @else
                             <a href="{{url('/login')}}" class="btn btn-link btn-block">
                                 <span class="glyphicon glyphicon-log-in"></span>

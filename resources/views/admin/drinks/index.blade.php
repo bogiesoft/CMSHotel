@@ -106,6 +106,7 @@
             </h5>
         </div>
         <div class="panel-body">
+            @if($most_popular_drink)
             <table class="table">
                 <tr class="row text-center">
                     <td class="col-sm-8 col-md-6 h3" style="border:none">{{$most_popular_drink->name}}<br>
@@ -115,6 +116,9 @@
                     </td>
                 </tr>
             </table>
+            @else
+                <h5 class="text-center">No drinks yet</h5>
+            @endif
         </div>
     </div>
 </div>

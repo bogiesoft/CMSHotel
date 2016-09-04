@@ -106,19 +106,24 @@
             </h5>
         </div>
         <div class="panel-body">
-            <table class="table">
-                <tr class="row text-center">
-                   <td class="col-sm-4 col-md-6 center-block" style="border:none">
-                       <img src="/images/rooms/{{$most_popular_room->img}}" class="img-responsive img-circle">
-                   </td>
-                   <td class="col-sm-8 col-md-6 h3" style="border:none">{{$most_popular_room->name}}<br>
-                        <small>
-                            Booked {{$most_popular_room->counter}} times <br>
-                            Rating {{$most_popular_room->getRating()}}
-                        </small>
-                   </td>
-                </tr>
-            </table>
+            @if($most_popular_room)
+                <table class="table">
+                    <tr class="row text-center">
+                        <td class="col-sm-4 col-md-6 center-block" style="border:none">
+                            <img src="/images/rooms/{{$most_popular_room->img}}" class="img-responsive img-circle">
+                        </td>
+                        <td class="col-sm-8 col-md-6 h3" style="border:none">{{$most_popular_room->name}}<br>
+                            <small>
+                                Booked {{$most_popular_room->counter}} times <br>
+                                Rating {{$most_popular_room->getRating()}}
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            @else
+                <h5 class="text-center">No rooms yet</h5>
+            @endif
+
         </div>
     </div>
 </div>

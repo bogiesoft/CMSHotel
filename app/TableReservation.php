@@ -5,6 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+/**
+ * App\TableReservation
+ *
+ * @property-read \App\TableReservationType $reservation_type
+ * @property-read \App\Table $table
+ * @property-read \App\User $user
+ * @mixin \Eloquent
+ */
 class TableReservation extends Model
 {
     //

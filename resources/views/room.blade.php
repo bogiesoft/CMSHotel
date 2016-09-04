@@ -25,10 +25,10 @@
     </li>
     <li class="list-group-item">
         <i class="fa fa-arrows-alt" aria-hidden="true"></i>&nbsp;
-        Room size: {{$room->size}}
+        Room size: {{$room->size}} m<sup>2</sup>
     </li>
     <li class="list-group-item">
         <i class="fa fa-eur" aria-hidden="true"></i>&nbsp;
-        Price (in euros): {{$room->price}}
+        Price: €{{$room->price}}
     </li>
 </ul>

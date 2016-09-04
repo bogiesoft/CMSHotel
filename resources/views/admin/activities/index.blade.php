@@ -3,6 +3,7 @@
 
 @include('modals.activities.add-activity-modal')
 <?php $active = 'activities';  ?>
+
 <div class="col-md-12">
     <a href="/dashboard/activities/reservations" class="btn btn-default pull-right" style="margin-bottom: 1em">
         <i class="fa fa-btn fa-angle-right fa-fw"></i>&nbsp; Activity reservations
@@ -37,8 +38,8 @@
                         <tr id="activity{{$activity->id}}" @if($activity->trashed()) class="text-muted" title="This activity is not available for reservations"    @endif>
                             <td class="hidden-xs hidden-sm" style="width: 5%;"><img src="/images/activities/{{$activity->img}}" class="img-circle" style="width: 100%"> </td>
                             <td>{{$activity->name}}</td>
-                            <td>{{$activity->duration}}</td>
-                            <td>{{$activity->price}}</td>
+                            <td>{{$activity->getFormattedDuration()}}</td>
+                            <td>€{{$activity->price}}</td>
                             <td>{{substr($activity->text, 0, 50) . '...'}}</td>
                             <td>
                                 <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#showActivityModal{{$activity->id}}">
@@ -77,6 +78,7 @@
             </h5>
         </div>
         <div class="panel-body">
+            @if($most_popular_activity)
             <table class="table">
                 <tr class="row text-center">
                     <td class="col-sm-4 col-md-6 center-block" style="border:none">
@@ -89,6 +91,9 @@
                     </td>
                 </tr>
             </table>
+            @else
+                <h5 class="text-center">No activities yet</h5>
+            @endif
         </div>
     </div>
 </div>
@@ -121,64 +126,4 @@
     </div>
 </div>
 
-
-<!-- activity orders -->
-<div class="col-sm-12 col-md-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h5 class="panel-title">
-                <i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;
-                Activity orders
-            </h5>
-        </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead >
-                    <th>&nbsp;</th>
-                    <th>Activity</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Order total</th>
-                    </thead>
-
-                    @foreach($reservations as $reservation)
-                        <?php $orders = $reservation->activities()->orderBy('pivot_created_at', 'asc')->get() ?>
-                        @if(!$orders->isEmpty())
-                            <?php $total = 0  ?>
-                            <tr>
-                                <td colspan="5" class="text-center">
-                                    Order for
-                                    <strong class="text-info">
-                                        <?php $res = $orders->first()->reservations()->find($reservation->id)  ?>
-                                        {{$res->room->name}}
-                                    </strong>
-                                    on name
-                                    <strong>
-                                        {{$res->name}}
-                                    </strong>
-                                </td>
-                            </tr>
-                            @foreach($orders as $activity)
-                                <?php $total += $activity->price  ?>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>{{$activity->name}}</td>
-                                    <td>{{(new \Carbon\Carbon($activity->pivot->created_at, 'Europe/London'))->toDayDateTimeString()}}</td>
-                                    <td>€{{$activity->price}}</td>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            @endforeach
-
-                            <tr>
-                                <td colspan="4"></td>
-                                <td><strong>Total: €{{$total}}</strong></td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

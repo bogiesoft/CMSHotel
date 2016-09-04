@@ -142,7 +142,7 @@ class ReservationController extends Controller
             $toggle = 'desc';
 
         return view('admin.reservations.reservations')->with([
-            'reservations' => Reservation::orderBy($sort, $order)->get(15),
+            'reservations' => Reservation::orderBy($sort, $order)->paginate(15),
             'order' => $toggle
         ]);
     }
